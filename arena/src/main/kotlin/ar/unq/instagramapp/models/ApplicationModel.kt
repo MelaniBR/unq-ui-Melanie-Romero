@@ -1,6 +1,7 @@
 package ar.unq.instagramapp.models
 
 import org.unq.ui.model.InstagramSystem
+import org.unq.ui.model.Post
 import org.uqbar.commons.model.annotations.Observable
 
 
