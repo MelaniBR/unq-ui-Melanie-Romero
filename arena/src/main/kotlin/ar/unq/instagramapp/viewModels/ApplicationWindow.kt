@@ -8,6 +8,7 @@ import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.transformers.LoginOkIngresarTransformer
 import ar.unq.instagramapp.transformers.UserDataTransformer
 import org.uqbar.arena.kotlin.extensions.*
+import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
@@ -19,6 +20,7 @@ class ApplicationWindow: Window<ApplicationModel>,
         InstagramApp.add(this)
     }
     override fun createContents(mainPanel: Panel) {
+
         title = "Example"
         this.setMinWidth(500)
         this.setMinHeight(300)
@@ -61,6 +63,22 @@ class ApplicationWindow: Window<ApplicationModel>,
             text = "------------------------------"
             bindVisibleTo("loginOk")
         }
+        var searchPanel = Panel(mainPanel)
+        searchPanel.setLayout(HorizontalLayout())
+
+        Label(searchPanel) with {
+            text = "Search: "
+            bindVisibleTo("loginOk")
+        }
+        TextBox(searchPanel) with {
+            bindVisibleTo("loginOk")
+        }
+        Button(searchPanel) with {
+            caption = "Search"
+            bindVisibleTo("loginOk")
+        }
+
+
     }
     private fun showLoginWindow(){
         LoginWindow(this, LoginModel(modelObject.instagramSystem,"jon@snow.com", "ghost" ) ).open()
