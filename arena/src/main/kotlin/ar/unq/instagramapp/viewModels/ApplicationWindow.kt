@@ -58,9 +58,11 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showPostsWindow(){
-        SearchWindow(this, SearchModel(modelObject.instagramSystem)).open() //aca se frena la ejecucion esperando que se cierre el modal
-
-    }
+        //SearchWindow(this, SearchModel(modelObject.instagramSystem)).open() //aca se frena la ejecucion esperando que se cierre el modal
+        var w1 = SearchWindow(this, SearchModel(modelObject.instagramSystem))
+        w1.modelObject.userId = modelObject.user!!.id
+        w1.open()
+        }
 
 
     fun logInOk(user : User?) {

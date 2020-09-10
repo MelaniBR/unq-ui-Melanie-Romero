@@ -14,6 +14,9 @@ import org.uqbar.arena.windows.WindowOwner
 class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>(owner, model) {
 
     override fun createContents(mainPanel: Panel) {
+
+        modelObject.loadMyPosts()
+
         title = "Mis Posts"
         this.setMinWidth(500)
         this.setMinHeight(300)
@@ -39,7 +42,7 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
         //Tabla
         table<PostModel>(mainPanel) {
             bindItemsTo("searchResults")
-            //bindSelectionTo("selected")
+            bindSelectionTo("selected")
             visibleRows = 5
             column {
                 title = "#"
@@ -59,17 +62,14 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
             Button(buttonBar) with{
                 caption = "Add new post"
                 onClick { showEditPostWindow() }
-                bindVisibleTo("loginOk")
             }
             Button(buttonBar) with{
                 caption = "Edit Post"
                 onClick { showNewPostWindow() }
-                bindVisibleTo("loginOk")
             }
             Button(buttonBar) with{
                 caption = "Delete Post"
                 onClick { showDeletePostWindow() }
-                bindVisibleTo("loginOk")
             }
         }
     }

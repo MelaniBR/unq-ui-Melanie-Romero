@@ -11,9 +11,9 @@ import scala.collection.mutable.`MutableList$`
     var userId : String = "",
     var searchInput: String = "",
     var searchResults : MutableList<PostModel> = mutableListOf(),
-    //var searchResults : List<Post> = listOf(),
-    var selectedPost : PostModel = searchResults[0]
+    var selected : PostModel? = null
 ) {
+
 
     //Se encarga de transformar los posts en post observables
     fun postList(posts : List<Post>) : MutableList<PostModel> {
@@ -24,13 +24,10 @@ import scala.collection.mutable.`MutableList$`
        return result
    }
 
-    fun loadMyPosts() {
-        searchResults = postList(instagramSystem.searchByUserId(userId))
-    }
 
     //Implementacion si la de arriba no llega a funcar
-    /*
-    fun postLists(posts : List<Post> : MutableList<PostModel>) {
+/*
+    fun postList(posts : List<Post>) : MutableList<PostModel> {
         var result : MutableList<PostModel> = mutableListOf()
         for (post in posts) {
             var newPostM = PostModel()
@@ -41,8 +38,13 @@ import scala.collection.mutable.`MutableList$`
             newPostM.postUser = post.user.name
             result.add(newPostM)
         }
+        return result
     }
-    */
+*/
+    fun loadMyPosts() {
+        searchResults = postList(instagramSystem.searchByUserId(userId))
+    }
+
 }
 
 
@@ -54,8 +56,17 @@ class PostModel( private val post: Post) {
     var postLandscape : String = post.landscape
     var postPortrait : String = post.portrait
     var postDescription : String = post.description
-
 }
 
+/*
+@Observable
+class PostModel() {
+    var postId : String = ""
+    var postUser : String = ""
+    var postLandscape : String = ""
+    var postPortrait : String = ""
+    var postDescription : String = ""
+}
+*/
 
 
