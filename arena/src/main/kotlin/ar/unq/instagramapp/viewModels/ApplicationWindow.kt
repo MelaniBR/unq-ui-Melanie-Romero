@@ -48,9 +48,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     private fun showLoginWindow(){
         val loginModel =  LoginModel(modelObject.instagramSystem,"jania@gmail.com", "jania" )
         LoginWindow(this, loginModel).open() //aca se frena la ejecucion esperando que se cierre el modal
-        if(loginModel.loginOk){
-            logInOk(loginModel.user)
-        }
+        logInOk(loginModel.user)
     }
 
     private fun showProfileWindow(){
@@ -58,21 +56,17 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showPostsWindow(){
-        //SearchWindow(this, SearchModel(modelObject.instagramSystem)).open() //aca se frena la ejecucion esperando que se cierre el modal
-        var w1 = SearchWindow(this, SearchModel(modelObject.instagramSystem))
-        w1.modelObject.userId = modelObject.user!!.id
-        w1.open()
-        }
-
+        SearchWindow(this, SearchModel(modelObject.instagramSystem, modelObject.user!!.id)).open()
+    }
 
     fun logInOk(user : User?) {
-        modelObject.loginOk = true
         modelObject.user = user
+        modelObject.loginOk = true;
     }
 
     fun logOut(){
-        modelObject.loginOk = false
         modelObject.user = null
+        modelObject.loginOk = false;
     }
 
 }

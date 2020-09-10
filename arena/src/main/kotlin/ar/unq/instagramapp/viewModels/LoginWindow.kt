@@ -37,6 +37,7 @@ class LoginWindow(owner: WindowOwner, model: LoginModel) : Window<LoginModel>(ow
         }
 
         Button(mainPanel) with {
+            text = "Iniciar Sesión"
             onClick(Action {validateLogin()})
         }
     }
@@ -49,15 +50,10 @@ class LoginWindow(owner: WindowOwner, model: LoginModel) : Window<LoginModel>(ow
         try {
             //InstagramApp.logInOk(modelObject.instagramSystem.login(modelObject.email, modelObject.password));
             modelObject.user = modelObject.instagramSystem.login(modelObject.email, modelObject.password)
-            modelObject.loginOk = true
-            modelObject.error = false
-            modelObject.mensaje = ""
-
             this.close()
         } catch (e: NotFound) {
             modelObject.error = true
             modelObject.mensaje = "Login incorrecto."
-
         }
     }
 }
