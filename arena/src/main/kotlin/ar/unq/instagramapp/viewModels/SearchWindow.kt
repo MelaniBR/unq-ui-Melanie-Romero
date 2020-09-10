@@ -1,7 +1,5 @@
 package ar.unq.instagramapp.viewModels;
 
-import ar.unq.instagramapp.IObserverInstagramApp
-import ar.unq.instagramapp.InstagramApp
 import ar.unq.instagramapp.models.PostModel
 import ar.unq.instagramapp.models.SearchModel
 import org.uqbar.arena.kotlin.extensions.*

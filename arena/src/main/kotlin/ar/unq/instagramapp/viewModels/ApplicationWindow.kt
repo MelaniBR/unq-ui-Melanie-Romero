@@ -1,26 +1,15 @@
 package ar.unq.instagramapp.viewModels
 
-
-import ar.unq.instagramapp.IObserverInstagramApp
-import ar.unq.instagramapp.InstagramApp
 import ar.unq.instagramapp.models.ApplicationModel
 import ar.unq.instagramapp.models.LoginModel
-import ar.unq.instagramapp.models.PostModel
 import ar.unq.instagramapp.models.SearchModel
 import ar.unq.instagramapp.transformers.BooleanTransformer
-import ar.unq.instagramapp.transformers.UserDataTransformer
-import org.unq.ui.model.Post
 import org.unq.ui.model.User
 import org.uqbar.arena.kotlin.extensions.*
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.layout.Layout
 import org.uqbar.arena.widgets.*
-import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.commons.model.annotations.Observable
 import org.uqbar.lacar.ui.model.Action
-import java.lang.reflect.Constructor
 
 class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<ApplicationModel>(parent, model){
 
@@ -38,11 +27,6 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
             bindVisibleTo("loginOk").setTransformer(BooleanTransformer(true))
         }
         Button(mainPanel) with{
-            caption = "Cerrar sesion"
-            onClick(Action { logOut() })
-            bindVisibleTo("loginOk")
-        }
-        Button(mainPanel) with{
             caption = "Ver mi perfil"
             onClick(Action { showProfileWindow() })
             bindVisibleTo("loginOk")
@@ -50,6 +34,11 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
         Button(mainPanel) with{
             caption = "Mis posteos"
             onClick(Action { showPostsWindow() })
+            bindVisibleTo("loginOk")
+        }
+        Button(mainPanel) with{
+            caption = "Cerrar sesion"
+            onClick(Action { logOut() })
             bindVisibleTo("loginOk")
         }
 
