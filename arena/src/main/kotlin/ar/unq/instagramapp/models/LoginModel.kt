@@ -1,6 +1,7 @@
 package ar.unq.instagramapp.models
 
 import org.unq.ui.model.InstagramSystem
+import org.unq.ui.model.User
 import org.uqbar.commons.model.annotations.Observable
 
 @Observable
@@ -9,7 +10,9 @@ class LoginModel(
     var email: String = "",
     var password:String = "",
     var error : Boolean = false,
-    var mensaje : String = ""
+    var mensaje : String = "",
+    var loginOk : Boolean = false,
+    var user : User? = null
 ){
 
 }

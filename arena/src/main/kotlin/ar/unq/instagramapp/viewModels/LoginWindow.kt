@@ -47,7 +47,9 @@ class LoginWindow(owner: WindowOwner, model: LoginModel) : Window<LoginModel>(ow
         print(modelObject.password)
 
         try {
-            InstagramApp.logInOk(modelObject.instagramSystem.login(modelObject.email, modelObject.password));
+            //InstagramApp.logInOk(modelObject.instagramSystem.login(modelObject.email, modelObject.password));
+            modelObject.user = modelObject.instagramSystem.login(modelObject.email, modelObject.password)
+            modelObject.loginOk = true
             modelObject.error = false
             modelObject.mensaje = ""
 
