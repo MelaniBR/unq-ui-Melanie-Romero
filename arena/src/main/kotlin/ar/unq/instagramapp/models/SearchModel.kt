@@ -8,7 +8,7 @@ import scala.collection.mutable.`MutableList$`
 @Observable
  class SearchModel(
     val instagramSystem: InstagramSystem,
-    var userId : String = "",
+    var userId : String,
     var searchInput: String = "",
     var searchResults : MutableList<PostModel> = mutableListOf(),
     var selected : PostModel? = null

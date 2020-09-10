@@ -11,10 +11,12 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 
-class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>(owner, model) {
+class SearchWindow(owner: WindowOwner, model: SearchModel, userid : String) : Window<SearchModel>(owner, model) {
+
+    var idUser = userid
 
     override fun createContents(mainPanel: Panel) {
-
+        modelObject.userId = idUser
         modelObject.loadMyPosts()
 
         title = "Mis Posts"
