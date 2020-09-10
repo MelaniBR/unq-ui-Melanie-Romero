@@ -11,8 +11,6 @@ class LoginModel(
     var password:String = "",
     var error : Boolean = false,
     var mensaje : String = "",
-    var loginOk : Boolean = false,
     var user : User? = null
-){
 
-}
+)
