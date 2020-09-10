@@ -16,15 +16,11 @@ fun main(args: Array<String>) {
 object InstagramApp : Application(){
 
 
-    private val instagramSystem: InstagramSystem = initInstagramSystem()
+    private val instagramSystem: InstagramSystem = getInstagramSystem()
     var user : User? = null
     override fun createMainWindow(): Window<*> {
         return ApplicationWindow(this, ApplicationModel(instagramSystem))
     }
-    private fun initInstagramSystem() : InstagramSystem{
-        val instagramSystem: InstagramSystem = getInstagramSystem();
-        instagramSystem.register("Jon Snow", "jon@snow.com", "ghost", "https://bit.ly/3496Vje")
-        return instagramSystem;
-    }
+
 
 }
