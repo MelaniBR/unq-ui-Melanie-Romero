@@ -61,7 +61,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
 
     fun logInOk(user : User?) {
         modelObject.user = user
-        modelObject.loginOk = true;
+        modelObject.loginOk = user != null;
     }
 
     fun logOut(){

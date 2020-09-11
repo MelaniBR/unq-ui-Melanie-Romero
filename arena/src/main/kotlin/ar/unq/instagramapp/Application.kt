@@ -9,18 +9,12 @@ import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 
 fun main(args: Array<String>) {
-    InstagramApp.start()
+    InstagramApp().start()
 }
 
 
-object InstagramApp : Application(){
-
-
-    private val instagramSystem: InstagramSystem = getInstagramSystem()
-    var user : User? = null
+class InstagramApp() : Application(){
     override fun createMainWindow(): Window<*> {
-        return ApplicationWindow(this, ApplicationModel(instagramSystem))
+        return ApplicationWindow(this, ApplicationModel(getInstagramSystem()))
     }
-
-
 }
