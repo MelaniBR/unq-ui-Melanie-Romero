@@ -36,9 +36,12 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
         Button(searchInputPanel) with {
             caption = "Search"
             //Probablemente haya que cambiar esto
-            onClick { search(modelObject.searchInput)}
+            onClick { modelObject.search(modelObject.searchInput) }
         }
-        //Tabla
+        Button(searchInputPanel) with {
+            caption = "Clear"
+            onClick { modelObject.loadMyPosts(); modelObject.searchInput = "" }
+        }
         table<PostModel>(mainPanel) {
             bindItemsTo("searchResults")
             bindSelectionTo("selected")
@@ -70,17 +73,6 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
                 caption = "Delete Post"
                 onClick { showDeletePostWindow() }
             }
-        }
-    }
-
-    //Solucion asi nomas para recuperar todos los post del usuario luego de una busqueda
-    private fun search(input : String){
-        if (modelObject.searchInput == "")
-        {
-            modelObject.loadMyPosts()
-        }
-        else {
-            modelObject.search(modelObject.searchInput)
         }
     }
 

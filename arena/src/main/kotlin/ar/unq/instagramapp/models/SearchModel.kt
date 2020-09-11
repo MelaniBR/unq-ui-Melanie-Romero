@@ -24,23 +24,6 @@ import scala.collection.mutable.`MutableList$`
        return result
    }
 
-
-    //Implementacion si la de arriba no llega a funcar
-/*
-    fun postList(posts : List<Post>) : MutableList<PostModel> {
-        var result : MutableList<PostModel> = mutableListOf()
-        for (post in posts) {
-            var newPostM = PostModel()
-            newPostM.postId = post.id
-            newPostM.postDescription = post.description
-            newPostM.postLandscape = post.landscape
-            newPostM.postPortrait = post.portrait
-            newPostM.postUser = post.user.name
-            result.add(newPostM)
-        }
-        return result
-    }
-*/
     fun loadMyPosts() {
         searchResults = postList(instagramSystem.searchByUserId(userId))
     }
@@ -67,16 +50,5 @@ class PostModel( private val post: Post) {
     var postPortrait : String = post.portrait
     var postDescription : String = post.description
 }
-
-/*
-@Observable
-class PostModel() {
-    var postId : String = ""
-    var postUser : String = ""
-    var postLandscape : String = ""
-    var postPortrait : String = ""
-    var postDescription : String = ""
-}
-*/
 
 
