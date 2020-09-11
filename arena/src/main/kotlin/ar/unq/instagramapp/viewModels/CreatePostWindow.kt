@@ -51,7 +51,8 @@ class CreatePostWindow(owner: WindowOwner, model : CreatePostModel) : Window<Cre
     }
 
     private fun aceptar() {
-        //TODO cierra la vista y crea un nuevo Post en el sistema con los datos introducidos
+        modelObject.createPost()
+        close()
     }
 
     private fun cancelar() {

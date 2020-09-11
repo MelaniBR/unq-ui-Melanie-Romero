@@ -1,5 +1,6 @@
 package ar.unq.instagramapp.models;
 
+import org.unq.ui.model.DraftPost
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.Post
 import org.uqbar.commons.model.annotations.Observable
@@ -8,15 +9,16 @@ import org.uqbar.commons.model.annotations.Observable
 class CreatePostModel(
 
     val instagramSystem: InstagramSystem,
+    var userId : String,
     var postLandscape: String = "",
     var postPortrait: String = "",
-    var postDescription: String = ""
+    var postDescription: String = "",
+    var draft : DraftPost = DraftPost(postLandscape, postPortrait, postDescription)
 ) {
 
-    fun editPost(landscape : String, portrait : String, description : String) {
-        postLandscape = landscape
-        postPortrait = portrait
-        postDescription = description
+    fun createPost() {
+        draft = DraftPost(postLandscape, postPortrait, postDescription)
+        instagramSystem.addPost(userId, draft)
     }
 }
 

@@ -86,7 +86,7 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
     }
 
     private fun showCreatePostWindow(){
-        CreatePostWindow(this, CreatePostModel(modelObject.instagramSystem)).open()
+        CreatePostWindow(this, CreatePostModel(modelObject.instagramSystem, modelObject.userId)).open()
     }
 
 
