@@ -12,3 +12,4 @@ class ApplicationModel(
     var user: User? = null,
     var loginOk: Boolean = false
 )
+

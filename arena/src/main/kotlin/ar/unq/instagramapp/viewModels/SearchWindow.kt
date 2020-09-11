@@ -1,5 +1,7 @@
 package ar.unq.instagramapp.viewModels;
 
+import ar.unq.instagramapp.models.CreatePostModel
+import ar.unq.instagramapp.models.DeletePostModel
 import ar.unq.instagramapp.models.PostModel
 import ar.unq.instagramapp.models.SearchModel
 import org.uqbar.arena.kotlin.extensions.*
@@ -35,7 +37,6 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
         }
         Button(searchInputPanel) with {
             caption = "Search"
-            //Probablemente haya que cambiar esto
             onClick { modelObject.search(modelObject.searchInput) }
         }
         Button(searchInputPanel) with {
@@ -62,12 +63,12 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
             var buttonBar = Panel(mainPanel)
             buttonBar.layout = HorizontalLayout()
             Button(buttonBar) with{
-                caption = "Add new post"
-                onClick { showEditPostWindow() }
+                caption = "Add Post"
+                onClick { showCreatePostWindow() }
             }
             Button(buttonBar) with{
                 caption = "Edit Post"
-                onClick { showNewPostWindow() }
+                onClick { showEditPostWindow() }
             }
             Button(buttonBar) with{
                 caption = "Delete Post"
@@ -81,11 +82,11 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
     }
 
     private fun showDeletePostWindow(){
-        //TODO crear ventana de delete post y abrirla desde este metodo
+        DeletePostWindow(this, DeletePostModel(modelObject.instagramSystem,modelObject.selected!!.postId)).open()
     }
 
-    private fun showNewPostWindow(){
-        //TODO crear ventana de new post y abrirla desde este metodo
+    private fun showCreatePostWindow(){
+        CreatePostWindow(this, CreatePostModel(modelObject.instagramSystem)).open()
     }
 
 
