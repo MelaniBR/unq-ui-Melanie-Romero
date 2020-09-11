@@ -36,7 +36,7 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
         Button(searchInputPanel) with {
             caption = "Search"
             //Probablemente haya que cambiar esto
-            onClick { modelObject.instagramSystem.searchByTag(modelObject.searchInput) }
+            onClick { search(modelObject.searchInput)}
         }
         //Tabla
         table<PostModel>(mainPanel) {
@@ -70,6 +70,17 @@ class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>
                 caption = "Delete Post"
                 onClick { showDeletePostWindow() }
             }
+        }
+    }
+
+    //Solucion asi nomas para recuperar todos los post del usuario luego de una busqueda
+    private fun search(input : String){
+        if (modelObject.searchInput == "")
+        {
+            modelObject.loadMyPosts()
+        }
+        else {
+            modelObject.search(modelObject.searchInput)
         }
     }
 

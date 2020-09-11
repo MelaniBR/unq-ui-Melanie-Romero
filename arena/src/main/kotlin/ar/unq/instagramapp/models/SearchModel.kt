@@ -45,6 +45,16 @@ import scala.collection.mutable.`MutableList$`
         searchResults = postList(instagramSystem.searchByUserId(userId))
     }
 
+    fun search(input : String) {
+        var result : MutableList<PostModel> = mutableListOf()
+        for (post in searchResults) {
+            if (post.postDescription.contains(input)) {
+                result.add(post)
+            }
+        }
+        searchResults = result
+    }
+
 }
 
 
