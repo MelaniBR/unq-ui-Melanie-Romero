@@ -1,18 +1,20 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.models.RegisterModel
-import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
+import ar.unq.instagramapp.models.UserModel
 import org.uqbar.arena.kotlin.extensions.*
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.PasswordField
-import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.*
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.lacar.ui.model.Action
 
-class RegisterWindow(owner: WindowOwner, model: RegisterModel) : Window<RegisterModel>(owner, model) {
-    override fun createContents(mainPanel: Panel?) {
-        TODO("Not yet implemented")
+class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(owner, model) {
+
+    private fun registerUser(){
+        val user = modelObject.instagramSystem.register(modelObject.name, modelObject.email, modelObject.password, modelObject.imagen)
+    }
+
+    override fun createFormPanel(mainPanel: Panel?) {
 
         Label (mainPanel) with {
             text = "Registro"
@@ -47,10 +49,13 @@ class RegisterWindow(owner: WindowOwner, model: RegisterModel) : Window<Register
         TextBox (mainPanel) with{
             bindTo("imagen")
         }
-
-    }
-
-    private fun registerUser(){
-        val user = modelObject.instagramSystem.register(modelObject.name, modelObject.email, modelObject.password, modelObject.imagen)
+        Button (mainPanel) with {
+            text = "Cancelar"
+            onClick(Action {this@RegisterWindow.close()})
+        }
+        Button (mainPanel) with {
+            text = "Enviar"
+            onClick(Action{registerUser()})
+        }
     }
 }
