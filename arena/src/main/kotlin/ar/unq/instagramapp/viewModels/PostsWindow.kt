@@ -1,9 +1,6 @@
 package ar.unq.instagramapp.viewModels;
 
-import ar.unq.instagramapp.models.CreatePostModel
-import ar.unq.instagramapp.models.DeletePostModel
-import ar.unq.instagramapp.models.PostModel
-import ar.unq.instagramapp.models.PostsListModel
+import ar.unq.instagramapp.models.*
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -76,8 +73,8 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         }
     }
 
-    private fun showEditPostWindow(){
-        //TODO crear ventana de edit post y abrirla desde este metodo
+    private fun showEditPostWindow() {
+        CreatePostWindow(this, DraftPostModel(modelObject.userId)).open()
     }
 
     private fun showDeletePostWindow(){
@@ -85,7 +82,7 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
     }
 
     private fun showCreatePostWindow(){
-        CreatePostWindow(this, CreatePostModel(modelObject.instagramSystem, modelObject.userId)).open()
+        CreatePostWindow(this, DraftPostModel(modelObject.userId)).open()
     }
 
 

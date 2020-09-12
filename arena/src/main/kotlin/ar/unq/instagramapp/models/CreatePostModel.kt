@@ -2,23 +2,33 @@ package ar.unq.instagramapp.models;
 
 import org.unq.ui.model.DraftPost
 import org.unq.ui.model.InstagramSystem
-import org.unq.ui.model.Post
 import org.uqbar.commons.model.annotations.Observable
 
 @Observable
 class CreatePostModel(
 
     val instagramSystem: InstagramSystem,
-    var userId : String,
-    var postLandscape: String = "",
-    var postPortrait: String = "",
-    var postDescription: String = "",
-    var draft : DraftPost = DraftPost(postLandscape, postPortrait, postDescription)
+    val postUser : String,
+    var draftModel : DraftPostModel
 ) {
 
     fun createPost() {
-        draft = DraftPost(postLandscape, postPortrait, postDescription)
-        instagramSystem.addPost(userId, draft)
+        if (draftModel.postId == "") {
+            crear()
+        }
+        else {
+            editar()
+        }
+    }
+
+    private fun crear() {
+        var draft = DraftPost(draftModel.postPortrait, draftModel.postLandscape, draftModel.postDescription)
+        instagramSystem.addPost(postUser, draft)
+    }
+
+    private fun editar() {
+        var draft = DraftPost(draftModel.postPortrait, draftModel.postLandscape, draftModel.postDescription)
+        instagramSystem.editPost(draftModel.postId, draft)
     }
 }
 

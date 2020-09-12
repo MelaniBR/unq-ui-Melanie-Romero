@@ -48,13 +48,23 @@ class PostModel (
 )
 
 @Observable
-class postDraftModel (
-    var postId : String,
+class DraftPostModel (
     var postUser : String,
-    var postLandscape : String,
-    var postPortrait : String,
-    var postDescription : String
-)
+    var postId : String = "",
+    var postLandscape : String = "",
+    var postPortrait : String = "",
+    var postDescription : String = ""
+) {
+    fun fromPost(postM : PostModel) {
+        postUser = postM.postUser
+        postId = postM.postId
+        postLandscape = postM.postLandscape
+        postPortrait = postM.postPortrait
+        postDescription = postM.postPortrait
+    }
+}
+
+
 
 
 
