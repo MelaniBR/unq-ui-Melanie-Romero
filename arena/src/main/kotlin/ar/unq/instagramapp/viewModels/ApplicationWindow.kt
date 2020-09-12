@@ -3,7 +3,9 @@ package ar.unq.instagramapp.viewModels
 import ar.unq.instagramapp.models.ApplicationModel
 import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.models.PostsListModel
+import ar.unq.instagramapp.models.UserModel
 import ar.unq.instagramapp.transformers.BooleanTransformer
+import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.User
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
@@ -15,17 +17,27 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
 
     override fun createContents(mainPanel: Panel) {
 
-        title = "Example"
+        title = "Instagram"
 
         Label(mainPanel) with {
-            text = "Instagram"
-
+            alignLeft()
+            text = "Inicio"
         }
+
+        setMinWidth(300)
+
         Button(mainPanel) with{
+            setWidth(300)
             caption = "Ingresar"
             onClick(Action { showLoginWindow() })
             bindVisibleTo("loginOk").setTransformer(BooleanTransformer(true))
         }
+        Button(mainPanel) with{
+            caption = "Crear una cuenta"
+            onClick(Action {showRegisterWindow()})
+            bindVisibleTo("loginOk").setTransformer(BooleanTransformer(true))
+        }
+
         Button(mainPanel) with{
             caption = "Ver mi perfil"
             onClick(Action { showProfileWindow() })
@@ -36,6 +48,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
             onClick(Action { showPostsWindow() })
             bindVisibleTo("loginOk")
         }
+
         Button(mainPanel) with{
             caption = "Cerrar sesion"
             onClick(Action { logOut() })
@@ -49,6 +62,10 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
         val loginModel =  LoginModel(modelObject.instagramSystem,"jania@gmail.com", "jania" )
         LoginWindow(this, loginModel).open() //aca se frena la ejecucion esperando que se cierre el modal
         logInOk(loginModel.user)
+    }
+
+    private fun showRegisterWindow(){
+        RegisterWindow(this, UserModel(modelObject.instagramSystem)).open()
     }
 
     private fun showProfileWindow(){
