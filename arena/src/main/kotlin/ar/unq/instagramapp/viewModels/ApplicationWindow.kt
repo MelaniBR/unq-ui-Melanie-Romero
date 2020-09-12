@@ -5,7 +5,6 @@ import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.models.PostsListModel
 import ar.unq.instagramapp.models.UserModel
 import ar.unq.instagramapp.transformers.BooleanTransformer
-import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.User
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*

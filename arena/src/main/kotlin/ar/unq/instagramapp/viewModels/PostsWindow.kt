@@ -39,7 +39,7 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         }
         Button(searchInputPanel) with {
             caption = "Clear"
-            onClick { modelObject.loadMyPosts(); modelObject.searchInput = "" }
+            onClick { modelObject.loadMyPosts(); modelObject.searchInput = ""; modelObject.selectedCheck = false }
         }
         table<PostModel>(mainPanel) {
             bindItemsTo("searchResults")
@@ -70,10 +70,12 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
             }
             Button(buttonBar) with{
                 caption = "Edit Post"
+                bindEnabledTo("selectedCheck")
                 onClick { showEditPostWindow() }
             }
             Button(buttonBar) with{
                 caption = "Delete Post"
+                bindEnabledTo("selectedCheck")
                 onClick { showDeletePostWindow() }
             }
         }

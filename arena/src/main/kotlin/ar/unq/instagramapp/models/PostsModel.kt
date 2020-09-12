@@ -10,9 +10,16 @@ import scala.collection.mutable.`MutableList$`
     val instagramSystem: InstagramSystem,
     var userId : String,
     var searchInput: String = "",
-    var searchResults : List<PostModel> = listOf(),
-    var selected : PostModel? = null
+    var searchResults : List<PostModel> = listOf()
 ) {
+
+    var selected : PostModel? = null
+        set(value) {
+            selectedCheck = true
+            field = value
+        }
+
+    var selectedCheck = false
 
     init {
         loadMyPosts()

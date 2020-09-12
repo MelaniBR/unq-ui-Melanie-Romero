@@ -22,13 +22,17 @@ class DeletePostWindow(owner: WindowOwner, model: PostModel) : Dialog<PostModel>
 
         var confirmationPanel : Panel = Panel(mainPanel)
         confirmationPanel.layout = HorizontalLayout()
+        confirmationPanel
+
         Button(confirmationPanel) with {
             caption = "Aceptar"
             onClick { accept() }
+            align = "Center"
         }
         Button(confirmationPanel) with {
             caption = "Cancelar"
             onClick { cancel() }
+            align = "Center"
         }
     }
 
