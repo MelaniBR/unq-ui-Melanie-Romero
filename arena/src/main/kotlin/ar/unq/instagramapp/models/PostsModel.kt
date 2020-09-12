@@ -47,16 +47,14 @@ class PostModel (
     var postDescription : String
 )
 
-/*
 @Observable
-class PostModel( private val post: Post) {
+class postDraftModel (
+    var postId : String,
+    var postUser : String,
+    var postLandscape : String,
+    var postPortrait : String,
+    var postDescription : String
+)
 
-    var postId : String = post.id
-    var postUser : String = post.user.name
-    var postLandscape : String = post.landscape
-    var postPortrait : String = post.portrait
-    var postDescription : String = post.description
-}
- */
 
 
