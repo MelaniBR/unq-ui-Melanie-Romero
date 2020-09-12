@@ -2,7 +2,7 @@ package ar.unq.instagramapp.viewModels
 
 import ar.unq.instagramapp.models.ApplicationModel
 import ar.unq.instagramapp.models.LoginModel
-import ar.unq.instagramapp.models.SearchModel
+import ar.unq.instagramapp.models.PostsListModel
 import ar.unq.instagramapp.transformers.BooleanTransformer
 import org.unq.ui.model.User
 import org.uqbar.arena.kotlin.extensions.*
@@ -56,7 +56,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showPostsWindow(){
-        SearchWindow(this, SearchModel(modelObject.instagramSystem, modelObject.user!!.id)).open()
+        PostsWindow(this, PostsListModel(modelObject.instagramSystem, modelObject.user!!.id)).open()
     }
 
     fun logInOk(user : User?) {

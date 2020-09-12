@@ -3,7 +3,7 @@ package ar.unq.instagramapp.viewModels;
 import ar.unq.instagramapp.models.CreatePostModel
 import ar.unq.instagramapp.models.DeletePostModel
 import ar.unq.instagramapp.models.PostModel
-import ar.unq.instagramapp.models.SearchModel
+import ar.unq.instagramapp.models.PostsListModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -13,10 +13,9 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 
-class SearchWindow(owner: WindowOwner, model: SearchModel) : Window<SearchModel>(owner, model) {
+class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListModel>(owner, model) {
 
     override fun createContents(mainPanel: Panel) {
-        modelObject.loadMyPosts()
 
         title = "Mis Posts"
         this.setMinWidth(500)

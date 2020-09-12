@@ -6,26 +6,24 @@ import org.uqbar.commons.model.annotations.Observable
 import scala.collection.mutable.`MutableList$`
 
 @Observable
- class SearchModel(
+ class PostsListModel(
     val instagramSystem: InstagramSystem,
     var userId : String,
     var searchInput: String = "",
-    var searchResults : MutableList<PostModel> = mutableListOf(),
+    var searchResults : List<PostModel> = listOf(),
     var selected : PostModel? = null
 ) {
 
+    init {
+        loadMyPosts()
+    }
 
-    //Se encarga de transformar los posts en post observables
-    fun postList(posts : List<Post>) : MutableList<PostModel> {
-       var result : MutableList<PostModel> = mutableListOf()
-       for (post in posts) {
-           result.add(PostModel(post))
-       }
-       return result
-   }
+    private fun updatePosts(posts : List<Post>) : List<PostModel> {
+        return posts.map { PostModel(it.id, it.user.name, it.landscape, it.portrait, it.description) }
+    }
 
     fun loadMyPosts() {
-        searchResults = postList(instagramSystem.searchByUserId(userId))
+        searchResults = updatePosts(instagramSystem.searchByUserId(userId))
     }
 
     fun search(input : String) {
@@ -40,7 +38,16 @@ import scala.collection.mutable.`MutableList$`
 
 }
 
+@Observable
+class PostModel (
+    var postId : String,
+    var postUser : String,
+    var postLandscape : String,
+    var postPortrait : String,
+    var postDescription : String
+)
 
+/*
 @Observable
 class PostModel( private val post: Post) {
 
@@ -50,5 +57,6 @@ class PostModel( private val post: Post) {
     var postPortrait : String = post.portrait
     var postDescription : String = post.description
 }
+ */
 
 
