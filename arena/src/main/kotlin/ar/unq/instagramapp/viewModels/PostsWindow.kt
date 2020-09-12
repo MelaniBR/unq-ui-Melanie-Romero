@@ -1,6 +1,7 @@
 package ar.unq.instagramapp.viewModels;
 
 import ar.unq.instagramapp.models.*
+import org.unq.ui.model.DraftPost
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
@@ -9,6 +10,7 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.model.exceptions.UserException
 
 class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListModel>(owner, model) {
 
@@ -55,6 +57,10 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
                 title = "Portrait"
                 bindContentsTo("postPortrait")
             }
+            column {
+                title = "Description"
+                bindContentsTo("postDescription")
+            }
 
             var buttonBar = Panel(mainPanel)
             buttonBar.layout = HorizontalLayout()
@@ -73,16 +79,56 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         }
     }
 
-    private fun showEditPostWindow() {
-        CreatePostWindow(this, DraftPostModel(modelObject.userId)).open()
+    private fun createDraftPost(draft : DraftPostModel) : DraftPost {
+        return DraftPost(draft.postPortrait, draft.postLandscape, draft.postDescription)
     }
+
+    private fun showEditPostWindow() {
+        val draftPost = DraftPostModel(modelObject.userId)
+        draftPost.fromPost(modelObject.selected!!)
+        val view = CreatePostWindow(this@PostsWindow, draftPost)
+        view.onAccept {
+            try {
+                val post = createDraftPost(draftPost)
+                modelObject.instagramSystem.editPost(modelObject.selected!!.postId, post)
+            }
+            catch (e : Exception) {
+                throw UserException(e.message)
+            }
+            modelObject.loadMyPosts()
+        }
+        view.open()
+    }
+
+
 
     private fun showDeletePostWindow(){
-        DeletePostWindow(this, DeletePostModel(modelObject.instagramSystem,modelObject.selected!!.postId)).open()
+        var view = DeletePostWindow(this, modelObject.selected!!)
+        view.onAccept {
+            try {
+                modelObject.instagramSystem.deletePost(modelObject.selected!!.postId)
+            }
+            catch (e : Exception) {
+                throw UserException(e.message)
+            }
+            modelObject.loadMyPosts()
+        }
+        view.open()
     }
 
-    private fun showCreatePostWindow(){
-        CreatePostWindow(this, DraftPostModel(modelObject.userId)).open()
+    private fun showCreatePostWindow() {
+        val draftPost = DraftPostModel(modelObject.userId)
+        val view = CreatePostWindow(this@PostsWindow, draftPost)
+        view.onAccept {
+            try {
+                val post = createDraftPost(draftPost)
+                modelObject.instagramSystem.addPost(modelObject.userId, post)
+            } catch (e: Exception) {
+                throw UserException(e.message)
+            }
+            modelObject.loadMyPosts()
+        }
+        view.open()
     }
 
 

@@ -60,7 +60,7 @@ class DraftPostModel (
         postId = postM.postId
         postLandscape = postM.postLandscape
         postPortrait = postM.postPortrait
-        postDescription = postM.postPortrait
+        postDescription = postM.postDescription
     }
 }
 
