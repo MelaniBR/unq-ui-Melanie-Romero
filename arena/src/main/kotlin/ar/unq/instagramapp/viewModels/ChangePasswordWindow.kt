@@ -22,7 +22,6 @@ class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<Us
             bindTo("rePassword")
         }
         Label(mainPanel).text = "New Password"
-
         PasswordField(mainPanel) with {
             bindTo("newPassword")
         }
@@ -35,7 +34,7 @@ class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<Us
         Button(mainPanel) with {
             caption = "Accept"
             onClick(Action {
-                validatePassword()
+                validateForm()
                 if (!modelObject.error ){
                     accept()
                 }
@@ -48,13 +47,11 @@ class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<Us
             })
         }
     }
-    private fun validatePassword() {
-        try {
-            modelObject.validatePassword()
-            this.close()
-        } catch (e: Exception) {
-            modelObject.error = true
-            modelObject.errorMessage = "Incorrect password"
-        }
+    private fun validateForm() {
+        modelObject.resetValidation()
+        if (modelObject.error) return
+        modelObject.validatePassword()
+        if (modelObject.error) return
+        modelObject.validateNewPassword()
     }
 }

@@ -17,9 +17,7 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         Label(mainPanel) with {
             text = "Id :"
             alignLeft()
-
         }
-
         Label(mainPanel) with {
             bindTo("userId")
         }
@@ -33,29 +31,39 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         Label(mainPanel) with {
             text = "Email :"
             alignLeft()
-
         }
-
         Label(mainPanel) with {
             bindTo("email")
             alignRight()
-
         }
         Button(mainPanel) with{
-            caption = "Editar"
-            onClick(Action { showEditarWindow()
-
+            caption = "User edit"
+            onClick(Action {
+                showEditUserWindow()
+            })
+        }
+        Button(mainPanel) with{
+            caption = "Change password"
+            onClick(Action {
+                showChangePasswordWindow()
             })
         }
     }
-    private fun showEditarWindow(){
-
-        val view = EditUserWindow(this, modelObject)
+    private fun showEditUserWindow(){
+        val model = modelObject.copy()
+        val view = EditUserWindow(this, model)
         view.onAccept {
-                  modelObject.editUser(modelObject)
-
+            modelObject.editUser(model)
         }
-
         view.open()
-        }
     }
+
+    private fun showChangePasswordWindow(){
+        val model = modelObject.copy()
+        val view = ChangePasswordWindow(this, model)
+        view.onAccept {
+            modelObject.editPasswordUser(model)
+        }
+        view.open()
+    }
+}

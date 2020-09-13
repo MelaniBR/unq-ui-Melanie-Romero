@@ -9,6 +9,7 @@ import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.model.exceptions.UserException
 import org.uqbar.lacar.ui.model.Action
 
 class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<ApplicationModel>(parent, model){
@@ -64,16 +65,22 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showRegisterWindow(){
-        RegisterWindow(this, UserModel(modelObject.instagramSystem)).open()
+        val userModel = UserModel(modelObject.instagramSystem)
+        RegisterWindow(this, userModel).open()
+        try {
+            modelObject.instagramSystem.register(
+                userModel.name,
+                userModel.email,
+                userModel.password,
+                userModel.image
+            )
+        }catch (e : UserException){
+
+        }
     }
 
     private fun showProfileWindow(){
-        val usuario = modelObject.user!!
-        val model = UserModel(modelObject.instagramSystem)
-        model.uploadUserInformation(usuario)
-        ProfileWindow(this,model ).open()
-
-
+        ProfileWindow(this, UserModel(modelObject.instagramSystem, modelObject.user!!.id, modelObject.user!!.name,modelObject.user!!.email,modelObject.user!!.password, modelObject.user!!.image) ).open()
     }
 
     private fun showPostsWindow(){

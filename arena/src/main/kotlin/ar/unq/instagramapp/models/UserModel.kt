@@ -1,7 +1,6 @@
 package ar.unq.instagramapp.models
 
 import org.unq.ui.model.InstagramSystem
-import org.unq.ui.model.User
 import org.uqbar.commons.model.annotations.Observable
 
 @Observable
@@ -11,37 +10,55 @@ class UserModel (
     var name: String = "",
     var email: String = "",
     var password:String = "",
+    var image: String = "",
+    var error : Boolean = false,
+    var errorMessage: String = "",
     var rePassword: String = "",
-    var imagen: String = "" ,
-    var newPassword : String = "",
-    var error: Boolean = false,
-    var errorMessage : String = ""
-    
+    var newPassword: String = ""
 ){
 
-    fun uploadUserInformation(usuario: User){
-
-        this.userId = usuario.id
-        this.name = usuario.name
-        this.email = usuario.email
-        this.password = usuario.password
-        this.imagen = usuario.image
+    fun editUser(userEditUser : UserModel){
+        this.name = userEditUser.name
+        this.password = userEditUser.password
+        this.image = userEditUser.image
+        instagramSystem.editProfile(userEditUser.userId,userEditUser.name,userEditUser.password,userEditUser.image)
     }
-    fun editUser(userModel : UserModel){
 
-        this.name = userModel.name
-        this.password = userModel.password
-        this.imagen = userModel.imagen
-        instagramSystem.editProfile(userModel.userId,userModel.name,userModel.password,userModel.imagen)
-
+    fun editPasswordUser(userEditUser : UserModel){
+        this.name = userEditUser.name
+        this.password = userEditUser.newPassword
+        this.image = userEditUser.image
+        instagramSystem.editProfile(userEditUser.userId,userEditUser.name,userEditUser.password,userEditUser.image)
     }
-    fun validatePassword() {
-        if (!(password == rePassword)) {
-            throw Exception()}
-        else {
-            password = newPassword
+
+    fun copy () : UserModel{
+        return UserModel(instagramSystem, userId, name, email, password, image)
+    }
+
+    fun resetValidation(){
+        error = false
+        errorMessage = ""
+    }
+
+    fun validatePassword(){
+        if(password != rePassword){
+            error = true
+            errorMessage = "Password validation error! Change re password and try again"
         }
+    }
 
+
+    fun validateNewPassword(){
+        if(newPassword == ""){
+            error = true
+            errorMessage = "New password is required"
+        }
+    }
+    fun validateUserName(){
+        if(name == ""){
+            error = true
+            errorMessage = "Name is required!"
+        }
     }
 }
 

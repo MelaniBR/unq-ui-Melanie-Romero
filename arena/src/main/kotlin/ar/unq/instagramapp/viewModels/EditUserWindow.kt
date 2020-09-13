@@ -27,25 +27,15 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
             text = "Image: "
         }
         TextBox(mainPanel) with {
-
-            bindTo("imagen")
+            bindTo("image")
         }
-
-        Button(mainPanel) with {
-        caption = "Change Password "
-        onClick(Action {
-            showChangePasswordWindow()
-        })
-    }
 
         Button(mainPanel) with {
             caption = "Save Changes"
             onClick(Action {
                 accept()
-                close()
             })
         }
-
 
         Button(mainPanel) with {
             caption = "Cancel"
@@ -57,9 +47,5 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
     }
 
 
-    private fun showChangePasswordWindow(){
-        ChangePasswordWindow(this,modelObject ).open()
-
-    }
 
 }

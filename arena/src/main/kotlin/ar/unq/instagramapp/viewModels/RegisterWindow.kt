@@ -10,17 +10,13 @@ import org.uqbar.lacar.ui.model.Action
 
 class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(owner, model) {
 
-    private fun registerUser(){
-        val user = modelObject.instagramSystem.register(modelObject.name, modelObject.email, modelObject.password, modelObject.imagen)
-    }
-
     override fun createFormPanel(mainPanel: Panel?) {
 
         Label (mainPanel) with {
-            text = "Registro"
+            text = "Register"
         }
         Label (mainPanel) with{
-            text = "Nombre:"
+            text = "Name:"
         }
         TextBox (mainPanel) with{
             bindTo("name")
@@ -38,24 +34,36 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
             bindTo("password")
         }
         Label (mainPanel) with{
-            text = "Reingresa el password:"
+            text = "Re write password:"
         }
         PasswordField(mainPanel) with {
             bindTo("rePassword")
         }
         Label (mainPanel) with{
-            text = "Imagen:"
+            text = "Image:"
         }
         TextBox (mainPanel) with{
-            bindTo("imagen")
+            bindTo("image")
         }
         Button (mainPanel) with {
-            text = "Cancelar"
-            onClick(Action {this@RegisterWindow.close()})
+            text = "Cancel"
+            onClick(Action {cancel()})
         }
         Button (mainPanel) with {
-            text = "Enviar"
-            onClick(Action{registerUser()})
+            text = "Accept"
+            onClick(Action{
+                validateForm()
+                if (!modelObject.error){
+                    accept()
+                }
+            })
         }
+
+
+    }
+
+    private fun validateForm(){
+        modelObject.validatePassword()
+        modelObject.validateUserName()
     }
 }
