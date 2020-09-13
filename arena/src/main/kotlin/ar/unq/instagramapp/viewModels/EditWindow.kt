@@ -1,7 +1,6 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.models.EditModel
-import ar.unq.instagramapp.models.UserModel
+import ar.unq.instagramapp.model.EditModel
 import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
@@ -39,7 +38,7 @@ class EditWindow(owner: WindowOwner, model: EditModel) : Dialog<EditModel>(owner
         Label(mainPanel).text = "New Password"
 
         PasswordField(mainPanel) with {
-            bindTo("nuevoPassword")
+            bindTo("newPassword")
         }
         Label(mainPanel) with {
             bindBackgroundTo("error").setTransformer(ErrorBackgroundLoginTransformer())

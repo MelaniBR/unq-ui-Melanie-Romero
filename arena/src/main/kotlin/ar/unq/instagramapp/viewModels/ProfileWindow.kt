@@ -1,6 +1,6 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.models.*
+import ar.unq.instagramapp.model.EditModel
 import ar.unq.instagramapp.models.UserModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.VerticalLayout
@@ -40,7 +40,7 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         }
     }
     private fun showEditarWindow(){
-        val userEditModel =EditModel(modelObject.userId, modelObject.password)
+        val userEditModel = EditModel(modelObject.userId, modelObject.password)
         val view = EditWindow(this, userEditModel)
         view.onAccept {
                   modelObject.editarUsuario(userEditModel)

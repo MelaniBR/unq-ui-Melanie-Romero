@@ -1,9 +1,8 @@
 package ar.unq.instagramapp.models
 
+import ar.unq.instagramapp.model.EditModel
 import org.unq.ui.model.InstagramSystem
-import org.unq.ui.model.User
 import org.uqbar.commons.model.annotations.Observable
-import java.util.*
 
 @Observable
 class UserModel (
