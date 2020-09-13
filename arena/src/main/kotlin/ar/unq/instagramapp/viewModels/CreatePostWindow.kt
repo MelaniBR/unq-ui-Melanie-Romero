@@ -18,19 +18,19 @@ class CreatePostWindow(owner: WindowOwner, model : DraftPostModel) : Dialog<Draf
         title = ""
 
         Label(mainPanel) with {
-            text = "Landscape"
+            text = "Paisaje"
         }
         TextBox(mainPanel) with {
             bindTo("postLandscape")
         }
         Label(mainPanel) with {
-            text = "Portrait"
+            text = "Retrato"
         }
         TextBox(mainPanel) with {
             bindTo("postPortrait")
         }
         Label(mainPanel) with {
-            text = "Description"
+            text = "Descripcion"
         }
         TextBox(mainPanel) with {
             bindTo("postDescription")

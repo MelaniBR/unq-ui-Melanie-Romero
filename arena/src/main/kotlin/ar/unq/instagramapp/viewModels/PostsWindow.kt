@@ -28,17 +28,17 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         searchInputPanel.layout = HorizontalLayout()
 
         Label(searchInputPanel) with {
-            text = "Search: "
+            text = "Buscar: "
         }
         TextBox(searchInputPanel) with {
             bindTo("searchInput")
         }
         Button(searchInputPanel) with {
-            caption = "Search"
+            caption = "Buscar"
             onClick { modelObject.search(modelObject.searchInput) }
         }
         Button(searchInputPanel) with {
-            caption = "Clear"
+            caption = "Limpiar"
             onClick { modelObject.loadMyPosts(); modelObject.searchInput = ""; modelObject.selectedCheck = false }
         }
         table<PostModel>(mainPanel) {
@@ -50,31 +50,31 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
                 bindContentsTo("postId")
             }
             column {
-                title = "Landscape"
+                title = "Paisaje"
                 bindContentsTo("postLandscape")
             }
             column {
-                title = "Portrait"
+                title = "Retrato"
                 bindContentsTo("postPortrait")
             }
             column {
-                title = "Description"
+                title = "Descripcion"
                 bindContentsTo("postDescription")
             }
 
             var buttonBar = Panel(mainPanel)
             buttonBar.layout = HorizontalLayout()
             Button(buttonBar) with{
-                caption = "Add Post"
+                caption = "Nuevo Post"
                 onClick { showCreatePostWindow() }
             }
             Button(buttonBar) with{
-                caption = "Edit Post"
+                caption = "Editar Post"
                 bindEnabledTo("selectedCheck")
                 onClick { showEditPostWindow() }
             }
             Button(buttonBar) with{
-                caption = "Delete Post"
+                caption = "Eliminar Post"
                 bindEnabledTo("selectedCheck")
                 onClick { showDeletePostWindow() }
             }
