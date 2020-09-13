@@ -46,6 +46,11 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
 
     }
 
+    private fun validateForm() {
+        modelObject.resetValidation()
+        modelObject.validateUserName()
+    }
+
 
 
 }

@@ -49,7 +49,6 @@ class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<Us
     }
     private fun validateForm() {
         modelObject.resetValidation()
-        if (modelObject.error) return
         modelObject.validatePassword()
         if (modelObject.error) return
         modelObject.validateNewPassword()
