@@ -68,9 +68,9 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showProfileWindow(){
-        val usuarioID = modelObject.user!!.id
+        val usuario = modelObject.user!!
         val model = UserModel(modelObject.instagramSystem)
-        model.uploadUserInformation(usuarioID)
+        model.uploadUserInformation(usuario)
         ProfileWindow(this,model ).open()
 
 

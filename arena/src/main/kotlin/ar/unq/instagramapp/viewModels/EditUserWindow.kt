@@ -1,19 +1,17 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.model.EditUserModel
-import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
+import ar.unq.instagramapp.models.UserModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
-import java.lang.Exception
 
-// consultar el nombre
-class EditUserWindow(owner: WindowOwner, userEditModel: EditUserModel) : Dialog<EditUserModel>(owner, userEditModel) {
 
-// Agregar otros tipos de errores
-// que se pueda editar otras propiedas sin convertir
+
+class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserModel>(owner, userModel) {
+
+// Arreglar lo de cancelar
     override fun createFormPanel(mainPanel: Panel?) {
     title = "Edit Profile"
 
