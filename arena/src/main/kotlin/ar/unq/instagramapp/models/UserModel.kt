@@ -1,6 +1,6 @@
 package ar.unq.instagramapp.models
 
-import ar.unq.instagramapp.model.EditModel
+import ar.unq.instagramapp.model.EditUserModel
 import org.unq.ui.model.InstagramSystem
 import org.uqbar.commons.model.annotations.Observable
 
@@ -14,8 +14,8 @@ class UserModel (
     var rePassword: String = "",
     var imagen: String = ""
 ){
-    val userModel : UserModel = this
-    fun cargarInformacionDeUsuario(userId: String){
+
+    fun uploadUserInformation(userId: String){
       val usuario = this.instagramSystem.getUser(userId)
         this.userId = userId
         this.name = usuario.name
@@ -23,20 +23,15 @@ class UserModel (
         this.password = usuario.password
         this.imagen = usuario.image
     }
-    fun editarUsuario(userEdit : EditModel){
+    fun editUser(userEditUser : EditUserModel){
 
-        this.name = userEdit.name
-        this.password = userEdit.password
-        this.imagen = userEdit.imagen
-        instagramSystem.editProfile(userEdit.idUser,userEdit.name,userEdit.password,userEdit.imagen)
+        this.name = userEditUser.name
+        this.password = userEditUser.password
+        this.imagen = userEditUser.imagen
+        instagramSystem.editProfile(userEditUser.userId,userEditUser.name,userEditUser.password,userEditUser.imagen)
 
     }
 
 }
-@Observable
-class UserEdit(
-    var name : String,
-    var password: String ,
-    var imagen: String
-)
+
 

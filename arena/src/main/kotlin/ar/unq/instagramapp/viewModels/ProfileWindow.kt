@@ -1,6 +1,6 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.model.EditModel
+import ar.unq.instagramapp.model.EditUserModel
 import ar.unq.instagramapp.models.UserModel
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.VerticalLayout
@@ -14,9 +14,19 @@ import org.uqbar.lacar.ui.model.Action
 class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(owner, model) {
     override fun createContents(mainPanel: Panel) {
         mainPanel.layout = VerticalLayout()
-        val usuario = modelObject
+
+        Label(mainPanel) with {
+            text = "Id :"
+            alignLeft()
+
+        }
+
         Label(mainPanel) with {
             bindTo("userId")
+        }
+        Label(mainPanel) with {
+            text = "Name :"
+            alignLeft()
         }
         Label(mainPanel) with {
            bindTo("name")
@@ -40,10 +50,10 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         }
     }
     private fun showEditarWindow(){
-        val userEditModel = EditModel(modelObject.userId, modelObject.password)
-        val view = EditWindow(this, userEditModel)
+        val userEditModel = EditUserModel(modelObject.userId, modelObject.password)
+        val view = EditUserWindow(this, userEditModel)
         view.onAccept {
-                  modelObject.editarUsuario(userEditModel)
+                  modelObject.editUser(userEditModel)
 
         }
 

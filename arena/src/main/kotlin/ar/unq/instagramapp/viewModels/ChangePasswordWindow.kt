@@ -1,35 +1,21 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.model.EditModel
+import ar.unq.instagramapp.model.EditUserModel
 import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
 import org.uqbar.arena.kotlin.extensions.*
-import org.uqbar.arena.widgets.*
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.PasswordField
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
 import java.lang.Exception
 
-// consultar el nombre
-class EditWindow(owner: WindowOwner, model: EditModel) : Dialog<EditModel>(owner, model) {
+class ChangePasswordWindow(owner: WindowOwner, userEditModel: EditUserModel) : Dialog<EditUserModel>(owner, userEditModel) {
 
-// Agregar otros tipos de errores
-    override fun createFormPanel(mainPanel: Panel?) {
-
-        Label(mainPanel) with {
-            text = "Name: "
-        }
-        TextBox(mainPanel) with {
-            width = 200
-            height = 75
-            bindTo("name")
-        }
-        Label(mainPanel) with {
-            text = "Image: "
-        }
-        TextBox(mainPanel) with {
-
-            bindTo("imagen")
-        }
+    override fun createFormPanel(mainPanel: Panel) {
+        title ="Change Password"
 
         Label(mainPanel).text = "Actual Password"
         PasswordField(mainPanel) with {
@@ -42,42 +28,33 @@ class EditWindow(owner: WindowOwner, model: EditModel) : Dialog<EditModel>(owner
         }
         Label(mainPanel) with {
             bindBackgroundTo("error").setTransformer(ErrorBackgroundLoginTransformer())
-            bindTo("mensaje")
+            bindTo("errorMessage")
             bindVisibleTo("error")
         }
-
-
 
         Button(mainPanel) with {
             caption = "Accept"
             onClick(Action {
                 validatePassword()
                 if (!modelObject.error ){
-                accept()
-                close()}
+                    accept()
+                }
             })
         }
-
-
         Button(mainPanel) with {
             caption = "Cancel"
             onClick(Action {
                 cancel()
             })
         }
-
     }
-
     private fun validatePassword() {
         try {
-            //InstagramApp.logInOk(modelObject.instagramSystem.login(modelObject.email, modelObject.password));
-            modelObject.cambiarContraseña()
+            modelObject.validatePassword()
             this.close()
         } catch (e: Exception) {
             modelObject.error = true
-            modelObject.mensaje = "Contrseña Incorrecta."
+            modelObject.errorMessage = "Incorrect password"
         }
-
-
     }
 }

@@ -1,6 +1,5 @@
 package ar.unq.instagramapp.viewModels
 
-import ar.unq.instagramapp.InstagramApp
 import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
 import org.unq.ui.model.NotFound
