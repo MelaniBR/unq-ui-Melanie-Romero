@@ -1,5 +1,4 @@
 package ar.unq.instagramapp.viewModels
-
 import ar.unq.instagramapp.models.ApplicationModel
 import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.models.PostsListModel
@@ -55,6 +54,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
         }
 
 
+
     }
 
     private fun showLoginWindow(){
@@ -68,11 +68,17 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showProfileWindow(){
-        //TODO crear ventana de edit profile y abrirla desde este metodo
+        val usuarioID = modelObject.user!!.id
+        val model = UserModel(modelObject.instagramSystem)
+        model.cargarInformacionDeUsuario(usuarioID)
+        ProfileWindow(this,model ).open()
+
+
     }
 
     private fun showPostsWindow(){
-        PostsWindow(this, PostsListModel(modelObject.instagramSystem, modelObject.user!!.id)).open()
+
+        PostsWindow(this, PostsListModel(modelObject.instagramSystem, modelObject.user!!.id )).open()
     }
 
     fun logInOk(user : User?) {
