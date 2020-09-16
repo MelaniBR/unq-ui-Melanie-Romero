@@ -1,5 +1,6 @@
 package ar.unq.instagramapp.models;
 
+import ar.unq.instagramapp.custom.ModelWithSearch
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.Post
 import org.uqbar.commons.model.annotations.Observable
@@ -11,7 +12,7 @@ import scala.collection.mutable.`MutableList$`
     var userId : String,
     var searchInput: String = "",
     var searchResults : List<PostModel> = listOf()
-) {
+)  : ModelWithSearch{
 
     var selected : PostModel? = null
         set(value) {
@@ -33,11 +34,11 @@ import scala.collection.mutable.`MutableList$`
         searchResults = updatePosts(instagramSystem.searchByUserId(userId))
     }
 
-    fun search() {
+    override fun search(text: String) {
         loadMyPosts();
         var result : MutableList<PostModel> = mutableListOf()
         for (post in searchResults) {
-            if (post.postDescription.toUpperCase().contains(searchInput.toUpperCase().trim())) {
+            if (post.postDescription.toUpperCase().contains(text.toUpperCase().trim())) {
                 result.add(post)
             }
         }

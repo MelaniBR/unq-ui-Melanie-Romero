@@ -1,5 +1,6 @@
 package ar.unq.instagramapp.viewModels.posts;
 
+import ar.unq.instagramapp.custom.FilterBox
 import ar.unq.instagramapp.models.*
 import ar.unq.instagramapp.viewModels.posts.CreatePostWindow
 import ar.unq.instagramapp.viewModels.posts.DeletePostWindow
@@ -32,13 +33,16 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         Label(searchInputPanel) with {
             text = "Buscar: "
         }
-        TextBox(searchInputPanel) with {
-            bindTo("searchInput")
-        }
-        Button(searchInputPanel) with {
-            caption = "Buscar"
-            onClick { modelObject.search() }
-        }
+
+        FilterBox(searchInputPanel, modelObject) bindTo("searchInput")
+
+        //TextBox(searchInputPanel) with {
+        //    bindTo("searchInput")
+        //}
+        //Button(searchInputPanel) with {
+        //    caption = "Buscar"
+        //    onClick { modelObject.search() }
+        //}
         Button(searchInputPanel) with {
             caption = "Limpiar"
             onClick { modelObject.loadMyPosts(); modelObject.searchInput = ""; modelObject.selectedCheck = false }
