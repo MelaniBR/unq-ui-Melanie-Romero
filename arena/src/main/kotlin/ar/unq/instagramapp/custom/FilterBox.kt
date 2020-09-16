@@ -1,26 +1,25 @@
 package ar.unq.instagramapp.custom
 
-import org.apache.commons.collections15.Transformer
+import org.uqbar.arena.filters.TextFilter
 import org.uqbar.arena.widgets.Control
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.widgets.TextInputEvent
 import org.uqbar.lacar.ui.model.ControlBuilder
 import org.uqbar.lacar.ui.model.bindings.Binding
 
 class FilterBox(container: Panel, val model: ModelWithSearch) : TextBox(container) {
     override fun <M, C: ControlBuilder>
     bindValueToProperty(propertyName: String): Binding<M, Control, C> {
-        val binding = super.bindValueToProperty<M, C>(propertyName)
-        binding.setViewToModel(FilterTransformer(model))
-        return binding
+        withFilter(FilterBoxFilter(model))
+        return super.bindValueToProperty<M, C>(propertyName)
     }
 }
 
-class FilterTransformer<B>(val model:ModelWithSearch) : Transformer<B, B>
-{
-    override fun transform(p0: B): B {
-        model.search(p0!!.toString())
-        return p0!!
+class FilterBoxFilter(val model:ModelWithSearch) : TextFilter {
+    override fun accept(event: TextInputEvent): Boolean {
+        model.search(event.potentialTextResult)
+        return true;
     }
 }
 
