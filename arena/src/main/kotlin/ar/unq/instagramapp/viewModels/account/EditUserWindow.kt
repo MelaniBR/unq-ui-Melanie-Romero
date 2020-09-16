@@ -1,4 +1,4 @@
-package ar.unq.instagramapp.viewModels
+package ar.unq.instagramapp.viewModels.account
 
 import ar.unq.instagramapp.models.UserModel
 import org.uqbar.arena.kotlin.extensions.*
@@ -13,32 +13,34 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
 
 // Arreglar lo de cancelar
     override fun createFormPanel(mainPanel: Panel?) {
-    title = "Edit Profile"
+        title = "Instagram - Editar Perfil"
 
+        setMinWidth(300)
         Label(mainPanel) with {
-            text = "Name: "
+            text = "Nombre: "
+            alignLeft()
+            setWidth(300)
         }
         TextBox(mainPanel) with {
-            width = 200
-            height = 75
             bindTo("name")
         }
         Label(mainPanel) with {
-            text = "Image: "
+            text = "Imagen: "
+            alignLeft()
         }
         TextBox(mainPanel) with {
             bindTo("image")
         }
 
         Button(mainPanel) with {
-            caption = "Save Changes"
+            caption = "Guardar Cambios"
             onClick(Action {
                 accept()
             })
         }
 
         Button(mainPanel) with {
-            caption = "Cancel"
+            caption = "Cancelar"
             onClick(Action {
                 cancel()
             })

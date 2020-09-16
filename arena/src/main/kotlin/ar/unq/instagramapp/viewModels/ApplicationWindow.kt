@@ -4,6 +4,10 @@ import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.models.PostsListModel
 import ar.unq.instagramapp.models.UserModel
 import ar.unq.instagramapp.transformers.BooleanTransformer
+import ar.unq.instagramapp.viewModels.account.LoginWindow
+import ar.unq.instagramapp.viewModels.account.ProfileWindow
+import ar.unq.instagramapp.viewModels.account.RegisterWindow
+import ar.unq.instagramapp.viewModels.posts.PostsWindow
 import org.unq.ui.model.User
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
@@ -65,7 +69,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showRegisterWindow(){
-        val userModel = UserModel(modelObject.instagramSystem)
+        val userModel = UserModel(modelObject.instagramSystem, null)
         RegisterWindow(this, userModel).open()
         try {
             modelObject.instagramSystem.register(
@@ -80,12 +84,25 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showProfileWindow(){
-        ProfileWindow(this, UserModel(modelObject.instagramSystem, modelObject.user!!.id, modelObject.user!!.name,modelObject.user!!.email,modelObject.user!!.password, modelObject.user!!.image) ).open()
+        ProfileWindow(
+            this,
+            UserModel(
+                modelObject.instagramSystem,
+                modelObject.user!!,
+                modelObject.user!!.name,
+                modelObject.user!!.email,
+                modelObject.user!!.password,
+                modelObject.user!!.image
+            )
+        ).open()
     }
 
     private fun showPostsWindow(){
 
-        PostsWindow(this, PostsListModel(modelObject.instagramSystem, modelObject.user!!.id )).open()
+        PostsWindow(
+            this,
+            PostsListModel(modelObject.instagramSystem, modelObject.user!!.id)
+        ).open()
     }
 
     fun logInOk(user : User?) {

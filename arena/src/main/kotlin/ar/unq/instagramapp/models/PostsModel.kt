@@ -33,10 +33,11 @@ import scala.collection.mutable.`MutableList$`
         searchResults = updatePosts(instagramSystem.searchByUserId(userId))
     }
 
-    fun search(input : String) {
+    fun search() {
+        loadMyPosts();
         var result : MutableList<PostModel> = mutableListOf()
         for (post in searchResults) {
-            if (post.postDescription.contains(input)) {
+            if (post.postDescription.toUpperCase().contains(searchInput.toUpperCase().trim())) {
                 result.add(post)
             }
         }

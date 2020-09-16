@@ -1,6 +1,8 @@
-package ar.unq.instagramapp.viewModels;
+package ar.unq.instagramapp.viewModels.posts;
 
 import ar.unq.instagramapp.models.*
+import ar.unq.instagramapp.viewModels.posts.CreatePostWindow
+import ar.unq.instagramapp.viewModels.posts.DeletePostWindow
 import org.unq.ui.model.DraftPost
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.HorizontalLayout
@@ -16,12 +18,12 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
 
     override fun createContents(mainPanel: Panel) {
 
-        title = "Mis Posts"
-        this.setMinWidth(500)
+        title = "Instagram - Mis Posts"
+        this.setMinWidth(300)
         this.setMinHeight(300)
 
         Label(mainPanel) with{
-            text = "Posts"
+            text = "Mis Posts"
         }
 
         var searchInputPanel = Panel(mainPanel)
@@ -35,7 +37,7 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         }
         Button(searchInputPanel) with {
             caption = "Buscar"
-            onClick { modelObject.search(modelObject.searchInput) }
+            onClick { modelObject.search() }
         }
         Button(searchInputPanel) with {
             caption = "Limpiar"
@@ -44,29 +46,25 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         table<PostModel>(mainPanel) {
             bindItemsTo("searchResults")
             bindSelectionTo("selected")
-            visibleRows = 5
+            visibleRows = 10
             column {
                 title = "#"
                 bindContentsTo("postId")
             }
             column {
-                title = "Paisaje"
-                bindContentsTo("postLandscape")
-            }
-            column {
-                title = "Retrato"
-                bindContentsTo("postPortrait")
-            }
-            column {
                 title = "Descripcion"
                 bindContentsTo("postDescription")
             }
-
             var buttonBar = Panel(mainPanel)
             buttonBar.layout = HorizontalLayout()
             Button(buttonBar) with{
                 caption = "Nuevo Post"
                 onClick { showCreatePostWindow() }
+            }
+            Button(buttonBar) with{
+                caption = "Abrir Post"
+                bindEnabledTo("selectedCheck")
+                onClick { showOpenPostWindow() }
             }
             Button(buttonBar) with{
                 caption = "Editar Post"
@@ -78,6 +76,7 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
                 bindEnabledTo("selectedCheck")
                 onClick { showDeletePostWindow() }
             }
+
         }
     }
 
@@ -88,7 +87,7 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
     private fun showEditPostWindow() {
         val draftPost = DraftPostModel(modelObject.userId)
         draftPost.fromPost(modelObject.selected!!)
-        val view = CreatePostWindow(this@PostsWindow, draftPost)
+        val view = CreatePostWindow(this@PostsWindow, draftPost, "Editar Post")
         view.onAccept {
             try {
                 val post = createDraftPost(draftPost)
@@ -102,10 +101,13 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         view.open()
     }
 
-
+    private fun showOpenPostWindow() {
+        OpenPostWindow(this@PostsWindow, modelObject.selected!!).open()
+    }
 
     private fun showDeletePostWindow(){
-        var view = DeletePostWindow(this, modelObject.selected!!)
+        var view =
+            DeletePostWindow(this, modelObject.selected!!)
         view.onAccept {
             try {
                 modelObject.instagramSystem.deletePost(modelObject.selected!!.postId)
@@ -120,7 +122,7 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
 
     private fun showCreatePostWindow() {
         val draftPost = DraftPostModel(modelObject.userId)
-        val view = CreatePostWindow(this@PostsWindow, draftPost)
+        val view = CreatePostWindow(this@PostsWindow, draftPost, "Crear Post")
         view.onAccept {
             try {
                 val post = createDraftPost(draftPost)

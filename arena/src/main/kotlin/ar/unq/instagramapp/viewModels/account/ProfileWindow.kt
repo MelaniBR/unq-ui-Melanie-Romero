@@ -1,6 +1,8 @@
-package ar.unq.instagramapp.viewModels
+package ar.unq.instagramapp.viewModels.account
 
 import ar.unq.instagramapp.models.UserModel
+import ar.unq.instagramapp.viewModels.account.ChangePasswordWindow
+import ar.unq.instagramapp.viewModels.account.EditUserWindow
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -13,13 +15,17 @@ import org.uqbar.lacar.ui.model.Action
 class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(owner, model) {
     override fun createContents(mainPanel: Panel) {
         mainPanel.layout = VerticalLayout()
-
+        title = "Instagram - Perfil de Usuario"
+        setMinWidth(300)
         Label(mainPanel) with {
             text = "Id :"
             alignLeft()
+            setWidth(300)
         }
         Label(mainPanel) with {
             bindTo("userId")
+            alignLeft()
+            fontSize = 13
         }
         Label(mainPanel) with {
             text = "Name :"
@@ -27,6 +33,8 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         }
         Label(mainPanel) with {
            bindTo("name")
+            alignLeft()
+            fontSize = 13
         }
         Label(mainPanel) with {
             text = "Email :"
@@ -34,18 +42,25 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         }
         Label(mainPanel) with {
             bindTo("email")
-            alignRight()
+            alignLeft()
+            fontSize = 13
         }
         Button(mainPanel) with{
-            caption = "User edit"
+            caption = "Editar Perfil"
             onClick(Action {
                 showEditUserWindow()
             })
         }
         Button(mainPanel) with{
-            caption = "Change password"
+            caption = "Modificar Contraseña"
             onClick(Action {
                 showChangePasswordWindow()
+            })
+        }
+        Button(mainPanel) with{
+            caption = "Cerrar"
+            onClick(Action {
+                close()
             })
         }
     }

@@ -1,4 +1,4 @@
-package ar.unq.instagramapp.viewModels;
+package ar.unq.instagramapp.viewModels.posts;
 
 import ar.unq.instagramapp.models.DraftPostModel
 import org.uqbar.arena.kotlin.extensions.with
@@ -11,29 +11,33 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 
-class CreatePostWindow(owner: WindowOwner, model : DraftPostModel) : Dialog<DraftPostModel>(owner, model) {
+class CreatePostWindow(owner: WindowOwner, model : DraftPostModel, val subTitle: String = "") : Dialog<DraftPostModel>(owner, model) {
 
     override fun createFormPanel(mainPanel: Panel) {
 
-        title = ""
-
+        title = "Instagram - ${subTitle}"
+        setMinWidth(300)
+        Label(mainPanel) with {
+            text = "Descripcion"
+            setWidth(300)
+            alignLeft()
+        }
+        TextBox(mainPanel) with {
+            bindTo("postDescription")
+        }
         Label(mainPanel) with {
             text = "Paisaje"
+            alignLeft()
         }
         TextBox(mainPanel) with {
             bindTo("postLandscape")
         }
         Label(mainPanel) with {
             text = "Retrato"
+            alignLeft()
         }
         TextBox(mainPanel) with {
             bindTo("postPortrait")
-        }
-        Label(mainPanel) with {
-            text = "Descripcion"
-        }
-        TextBox(mainPanel) with {
-            bindTo("postDescription")
         }
 
         var buttonPanel : Panel = Panel(mainPanel)

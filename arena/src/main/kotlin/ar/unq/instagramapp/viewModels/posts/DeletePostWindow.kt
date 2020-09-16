@@ -1,4 +1,4 @@
-package ar.unq.instagramapp.viewModels;
+package ar.unq.instagramapp.viewModels.posts;
 
 import ar.unq.instagramapp.models.PostModel
 import org.uqbar.arena.kotlin.extensions.*
@@ -14,7 +14,7 @@ class DeletePostWindow(owner: WindowOwner, model: PostModel) : Dialog<PostModel>
 
     override fun createFormPanel(mainPanel: Panel) {
 
-        title = "Eliminar Post"
+        title = "Instagram - Eliminar Post"
 
         Label(mainPanel) with {
             text = "¿Esta seguro de que desea eliminar " + modelObject.postId + " ?"

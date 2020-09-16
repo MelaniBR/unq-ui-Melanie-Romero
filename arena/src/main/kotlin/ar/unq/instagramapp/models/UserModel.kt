@@ -1,12 +1,14 @@
 package ar.unq.instagramapp.models
 
+import org.omg.CORBA.UserException
 import org.unq.ui.model.InstagramSystem
+import org.unq.ui.model.User
 import org.uqbar.commons.model.annotations.Observable
 
 @Observable
 class UserModel (
-    val instagramSystem: InstagramSystem,
-    var userId: String = "",
+    private val instagramSystem: InstagramSystem,
+    private val user: User? = null,
     var name: String = "",
     var email: String = "",
     var password:String = "",
@@ -16,23 +18,33 @@ class UserModel (
     var rePassword: String = "",
     var newPassword: String = ""
 ){
+    fun userId(): String{
+        return user!!.id
+    }
+
+    fun updateUser(){
+        user!!.name = name
+        user!!.password = password
+        user!!.image = image
+        instagramSystem.editProfile(user!!.id, user!!.name, user!!.password, user!!.image)
+    }
 
     fun editUser(userEditUser : UserModel){
         this.name = userEditUser.name
         this.password = userEditUser.password
         this.image = userEditUser.image
-        instagramSystem.editProfile(userEditUser.userId,userEditUser.name,userEditUser.password,userEditUser.image)
+        updateUser()
     }
 
     fun editPasswordUser(userEditUser : UserModel){
         this.name = userEditUser.name
         this.password = userEditUser.newPassword
         this.image = userEditUser.image
-        instagramSystem.editProfile(userEditUser.userId,userEditUser.name,userEditUser.password,userEditUser.image)
+        updateUser()
     }
 
     fun copy () : UserModel{
-        return UserModel(instagramSystem, userId, name, email, password, image)
+        return UserModel(instagramSystem, user, name, email, password, image)
     }
 
     fun resetValidation(){
@@ -43,21 +55,20 @@ class UserModel (
     fun validatePassword(){
         if(password != rePassword){
             error = true
-            errorMessage = "Password validation error! Change re password and try again"
+            errorMessage = "Contraseña incorrecta."
         }
     }
-
 
     fun validateNewPassword(){
         if(newPassword == ""){
             error = true
-            errorMessage = "New password is required"
+            errorMessage = "Debes que ingresar la nueva contraseña"
         }
     }
     fun validateUserName(){
         if(name == ""){
             error = true
-            errorMessage = "Name is required!"
+            errorMessage = "Debes ingresar tu nombre"
         }
     }
 }
