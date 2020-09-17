@@ -51,13 +51,12 @@ class UserModel (
         errorMessage = ""
     }
 
-
     fun invalidPassword() : Boolean {
         return password == ""
     }
 
     fun invalidRePassword() : Boolean{
-        return invalidPassword() || password != rePassword;
+        return password != rePassword;
     }
 
     fun invalidNewPassword():Boolean{
@@ -74,14 +73,14 @@ class UserModel (
     }
 
     fun validateRePassword(){
-        if(!invalidRePassword()){
+        if(invalidRePassword()){
             error = true
             errorMessage = "La contraseña no se verifico correctamente"
         }
     }
 
     fun validatePassword(){
-        if(password == ""){
+        if(invalidPassword()){
             error = true
             errorMessage = "Debes ingresar una contraseña"
         }
