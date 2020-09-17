@@ -7,6 +7,7 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
+import java.awt.Color
 
 class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(owner, model) {
 
@@ -53,6 +54,13 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
         TextBox (mainPanel) with{
             bindTo("image")
         }
+
+        Label (mainPanel) with{
+            bindTo("errorMessage")
+            bindVisibleTo("error")
+            background = Color.RED
+            alignLeft()
+        }
         Button (mainPanel) with {
             text = "Cancelar"
             onClick(Action {cancel()})
@@ -72,8 +80,12 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
 
     private fun validateForm(){
         modelObject.resetValidation()
+        modelObject.validateUserName()
+        if(modelObject.error) return
+        modelObject.validateEmail()
+        if(modelObject.error) return
         modelObject.validatePassword()
         if(modelObject.error) return
-        modelObject.validateUserName()
+        modelObject.validateRePassword()
     }
 }

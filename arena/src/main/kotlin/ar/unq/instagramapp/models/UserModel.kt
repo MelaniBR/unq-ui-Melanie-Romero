@@ -51,23 +51,60 @@ class UserModel (
         errorMessage = ""
     }
 
-    fun validatePassword(){
-        if(password != rePassword){
+
+    fun invalidPassword() : Boolean {
+        return password == ""
+    }
+
+    fun invalidRePassword() : Boolean{
+        return invalidPassword() || password != rePassword;
+    }
+
+    fun invalidNewPassword():Boolean{
+        return newPassword == ""
+    }
+
+    fun invalidUserName() : Boolean{
+        return name == ""
+    }
+
+    fun invalidEmail():Boolean{
+        val regex = """^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}${'$'}""".toRegex()
+        return email.isEmpty() || !regex.matches(email)
+    }
+
+    fun validateRePassword(){
+        if(!invalidRePassword()){
             error = true
-            errorMessage = "Contraseña incorrecta."
+            errorMessage = "La contraseña no se verifico correctamente"
+        }
+    }
+
+    fun validatePassword(){
+        if(password == ""){
+            error = true
+            errorMessage = "Debes ingresar una contraseña"
         }
     }
 
     fun validateNewPassword(){
-        if(newPassword == ""){
+        if(invalidNewPassword()){
             error = true
             errorMessage = "Debes que ingresar la nueva contraseña"
         }
     }
+
     fun validateUserName(){
-        if(name == ""){
+        if(invalidUserName()){
             error = true
             errorMessage = "Debes ingresar tu nombre"
+        }
+    }
+
+    fun validateEmail(){
+        if(invalidEmail()) {
+            error = true
+            errorMessage = "Debes ingresar una direcciona de Email valida"
         }
     }
 }
