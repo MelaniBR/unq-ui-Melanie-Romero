@@ -1,6 +1,5 @@
 package ar.unq.instagramapp.models
 
-import org.omg.CORBA.UserException
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.User
 import org.uqbar.commons.model.annotations.Observable
