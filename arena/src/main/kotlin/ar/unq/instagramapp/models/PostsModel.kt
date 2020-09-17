@@ -62,7 +62,9 @@ class DraftPostModel (
     var postId : String = "",
     var postLandscape : String = "",
     var postPortrait : String = "",
-    var postDescription : String = ""
+    var postDescription : String = "",
+    var errorMessage : String = "",
+    var error : Boolean = false
 ) {
     fun fromPost(postM : PostModel) {
         postUser = postM.postUser
@@ -70,6 +72,18 @@ class DraftPostModel (
         postLandscape = postM.postLandscape
         postPortrait = postM.postPortrait
         postDescription = postM.postDescription
+    }
+
+    fun validateDraft() {
+        if(postLandscape == "")
+            throw Exception("El campo Paisaje no puede estar vacio")
+        if(postPortrait == "")
+            throw Exception("El campo Retrato no puede estar vacio")
+    }
+
+    fun error(s : String) {
+        errorMessage = s
+        error = true
     }
 }
 

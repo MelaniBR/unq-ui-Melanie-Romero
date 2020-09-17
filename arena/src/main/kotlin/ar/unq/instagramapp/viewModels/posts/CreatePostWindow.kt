@@ -45,13 +45,30 @@ class CreatePostWindow(owner: WindowOwner, model : DraftPostModel, val subTitle:
 
         Button(buttonPanel) with {
             caption = "Aceptar"
-            onClick { accept() }
+            onClick {
+                try {
+                    modelObject.validateDraft()
+                    accept()
+                } catch(e : Exception) {
+                    displayError(e.message!!)
+
+                }
+            }
         }
         Button(buttonPanel) with {
             caption = "Cancelar"
             onClick { cancel() }
         }
 
+        Label(mainPanel) with {
+            bindVisibleTo("error")
+            bindTo("errorMessage")
+        }
+
+    }
+
+    fun displayError(message : String) {
+        modelObject.error(message)
     }
 
 }
