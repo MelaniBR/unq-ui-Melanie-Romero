@@ -63,7 +63,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showLoginWindow(){
-        val loginModel =  LoginModel(modelObject.instagramSystem,"jania@gmail.com", "jania" )
+        val loginModel =  LoginModel(modelObject.instagramSystem,"", "" )
         LoginWindow(this, loginModel).open() //aca se frena la ejecucion esperando que se cierre el modal
         logInOk(loginModel.user)
     }
