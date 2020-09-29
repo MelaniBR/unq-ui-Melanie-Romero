@@ -66,16 +66,16 @@ class UserModel (
 
 
 
-    val validationUserName: RequiredValidation = RequiredValidation("Debes ingresar tu nombre")
+    val validationUserName: RequiredValidation = RequiredValidation("El nombre es un dato obligatorio")
 
-    val validationPassword:  RequiredValidation = RequiredValidation("Debes ingresar una contraseña")
+    val validationPassword:  RequiredValidation = RequiredValidation("La contraseña es un dato obligatorio")
 
-    val validationNewPassword:  RequiredValidation = RequiredValidation("Debes ingresar una contraseña")
+    val validationNewPassword:  RequiredValidation = RequiredValidation("La nueva contraseña es un dato obligatorio")
 
     val validationRePassword:  ArrayValidation<String> = object : ArrayValidation<String> (
         listOf(
-            RequiredValidation("Debes verificar la contraseña"),
-            object : BasicValidation<String>("La contraseña no se verifico correctamente" ) {
+            RequiredValidation("Falta verificar la contraseña"),
+            object : BasicValidation<String>("La contraseña no se verificó correctamente" ) {
                 override fun validate(value: String) {
                     hasError =  password != rePassword;
                 }
@@ -85,8 +85,8 @@ class UserModel (
 
     val validationReNewPassword:  ArrayValidation<String> = object : ArrayValidation<String> (
         listOf(
-            RequiredValidation("Debes verificar la contraseña"),
-            object : BasicValidation<String>("La contraseña no se verifico correctamente" ) {
+            RequiredValidation("Falta verificar la nueva contraseña"),
+            object : BasicValidation<String>("La nueva contraseña no se verificó correctamente" ) {
                 override fun validate(value: String) {
                     hasError =  newPassword != rePassword;
                 }
@@ -107,8 +107,8 @@ class UserModel (
 
     val validationEmail: ArrayValidation<String> = object : ArrayValidation<String> (
         listOf(
-            RequiredValidation("Debes ingresar una direccion de email"),
-            EmailValidation("Debes ingresar una direccion de email valida")
+            RequiredValidation("La direccion de email es un dato obligatorio"),
+            EmailValidation("Debes ingresar una direccion de email válida")
         )
     ){}
 

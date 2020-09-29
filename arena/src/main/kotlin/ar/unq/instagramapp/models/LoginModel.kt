@@ -26,12 +26,12 @@ class LoginModel(
 
     val validationEmail: ArrayValidation<String> = object : ArrayValidation<String> (
         listOf(
-            RequiredValidation("Debes ingresar una direccion de Email"),
-            EmailValidation("Debes ingresar una direccion de Email valida")
+            RequiredValidation("La direccion de email es un dato obligatorio"),
+            EmailValidation("Debes ingresar una direccion de email valida")
         )
     ){}
 
-    val validationPassword:  RequiredValidation = RequiredValidation("Debes ingresar una contraseña")
+    val validationPassword:  RequiredValidation = RequiredValidation("La contraseña es  un dato obligatorio")
 
     val validationLogin: BasicValidation<String> = object : BasicValidation<String>("Login incorrecto" ) {
         override fun validate(value: String) {

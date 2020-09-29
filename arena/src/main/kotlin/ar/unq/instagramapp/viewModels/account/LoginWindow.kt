@@ -1,7 +1,6 @@
 package ar.unq.instagramapp.viewModels.account
 
 import ar.unq.instagramapp.models.LoginModel
-import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Dialog

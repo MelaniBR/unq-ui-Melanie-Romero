@@ -89,13 +89,6 @@ class DraftPostModel (
         postDescription = postM.postDescription
     }
 
-    fun validateDraft() {
-        if(postLandscape == "")
-            throw Exception("El campo Paisaje no puede estar vacio")
-        if(postPortrait == "")
-            throw Exception("El campo Retrato no puede estar vacio")
-    }
-
     fun error(s : String) {
         errorMessage = s
         error = true

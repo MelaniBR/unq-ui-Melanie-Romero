@@ -1,7 +1,6 @@
 package ar.unq.instagramapp.viewModels.account
 
 import ar.unq.instagramapp.models.UserModel
-import ar.unq.instagramapp.transformers.ErrorBackgroundLoginTransformer
 import org.uqbar.arena.kotlin.extensions.*
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
@@ -11,7 +10,6 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
 import java.awt.Color
-import java.lang.Exception
 
 class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserModel>(owner, userModel) {
 

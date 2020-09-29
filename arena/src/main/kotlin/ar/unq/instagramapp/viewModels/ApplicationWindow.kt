@@ -69,17 +69,16 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
 
     private fun showRegisterWindow(){
         val userModel = UserModel(modelObject.instagramSystem, null)
-        RegisterWindow(this, userModel).open()
-        try {
+        val view = RegisterWindow(this, userModel)
+        view.onAccept(Action {
             modelObject.instagramSystem.register(
                 userModel.name,
                 userModel.email,
                 userModel.password,
                 userModel.image
             )
-        }catch (e : UserException){
-
-        }
+        })
+        view.open()
     }
 
     private fun showProfileWindow(){
