@@ -8,6 +8,7 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
+import java.awt.Color
 
 
 class LoginWindow(owner: WindowOwner, model: LoginModel) : Dialog<LoginModel>(owner, model) {
@@ -25,6 +26,13 @@ class LoginWindow(owner: WindowOwner, model: LoginModel) : Dialog<LoginModel>(ow
         TextBox(mainPanel) with{
             bindTo("email")
         }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationEmail,"errorMessage")
+            bindVisibleToModel(modelObject.validationEmail,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
         Label(mainPanel) with{
             text = "Contraseña"
             alignLeft()
@@ -35,10 +43,18 @@ class LoginWindow(owner: WindowOwner, model: LoginModel) : Dialog<LoginModel>(ow
             bindTo("password")
         }
 
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationPassword,"errorMessage")
+            bindVisibleToModel(modelObject.validationPassword,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
+
         Label(mainPanel) with {
-            bindBackgroundTo("error").setTransformer(ErrorBackgroundLoginTransformer())
-            bindTo("mensaje")
-            bindVisibleTo("error")
+            bindToModel(modelObject.validationLogin, "errorMessage")
+            bindVisibleToModel(modelObject.validationLogin, "hasError")
+            background = Color.RED
             alignLeft()
             setWidth(300)
         }
@@ -46,12 +62,13 @@ class LoginWindow(owner: WindowOwner, model: LoginModel) : Dialog<LoginModel>(ow
         Button(mainPanel) with {
             text = "Iniciar Sesión"
             onClick(Action {
-                this@LoginWindow.modelObject.validateLogin()
-                if(!this@LoginWindow.modelObject.error){
+                modelObject.validateLoginForm()
+                if(modelObject.isValidLoginForm){
                     accept()
                 }
             })
         }
+
         Button(mainPanel) with {
             text = "Cancelar"
             onClick(Action {

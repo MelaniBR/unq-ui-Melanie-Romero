@@ -6,7 +6,7 @@ import org.uqbar.arena.widgets.*
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
-
+import java.awt.Color
 
 
 class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserModel>(owner, userModel) {
@@ -24,6 +24,13 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
         TextBox(mainPanel) with {
             bindTo("name")
         }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationUserName,"errorMessage")
+            bindVisibleToModel(modelObject.validationUserName,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
         Label(mainPanel) with {
             text = "Imagen: "
             alignLeft()
@@ -35,7 +42,10 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
         Button(mainPanel) with {
             caption = "Guardar Cambios"
             onClick(Action {
-                accept()
+                modelObject.validateEditUserForm()
+                if(modelObject.isValidEditUserForm){
+                    accept()
+                }
             })
         }
 
@@ -48,10 +58,6 @@ class EditUserWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserMode
 
     }
 
-    private fun validateForm() {
-        modelObject.resetValidation()
-        modelObject.validateUserName()
-    }
 
 
 

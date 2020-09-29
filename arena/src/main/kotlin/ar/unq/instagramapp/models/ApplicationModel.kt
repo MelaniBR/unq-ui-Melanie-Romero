@@ -9,7 +9,18 @@ import org.uqbar.commons.model.annotations.Observable
 @Observable
 class ApplicationModel(
     val instagramSystem: InstagramSystem,
-    var user: User? = null,
-    var loginOk: Boolean = false
-)
+    var user: User? = null
+){
+
+    var notLogin: Boolean = true
+    var loginOk : Boolean = false
+        set(value) {
+            notLogin = !value
+            field = value
+        }
+
+
+
+
+}
 

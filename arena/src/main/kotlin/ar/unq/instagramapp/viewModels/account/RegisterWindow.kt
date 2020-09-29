@@ -23,8 +23,16 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
             text = "Nombre"
             alignLeft()
         }
+
         TextBox (mainPanel) with{
             bindTo("name")
+        }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationUserName,"errorMessage")
+            bindVisibleToModel(modelObject.validationUserName,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
         }
         Label (mainPanel) with{
             text = "Email"
@@ -33,6 +41,13 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
         TextBox (mainPanel) with{
             bindTo("email")
         }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationEmail,"errorMessage")
+            bindVisibleToModel(modelObject.validationEmail,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
         Label (mainPanel) with{
             text = "Contraseña:"
             alignLeft()
@@ -40,12 +55,26 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
         PasswordField(mainPanel) with {
             bindTo("password")
         }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationPassword,"errorMessage")
+            bindVisibleToModel(modelObject.validationPassword,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
         Label (mainPanel) with{
             text = "Reingrese la contraseña"
             alignLeft()
         }
-        PasswordField(mainPanel) with {
+       PasswordField(mainPanel) with {
             bindTo("rePassword")
+        }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationRePassword,"errorMessage")
+            bindVisibleToModel(modelObject.validationRePassword,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
         }
         Label (mainPanel) with{
             text = "Imagen"
@@ -55,12 +84,6 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
             bindTo("image")
         }
 
-        Label (mainPanel) with{
-            bindTo("errorMessage")
-            bindVisibleTo("error")
-            background = Color.RED
-            alignLeft()
-        }
         Button (mainPanel) with {
             text = "Cancelar"
             onClick(Action {cancel()})
@@ -68,8 +91,8 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
         Button (mainPanel) with {
             text = "Aceptar"
             onClick(Action{
-                validateForm()
-                if (!modelObject.error){
+                modelObject.validateRegisterForm()
+                if (modelObject.isValidRegisterForm){
                     accept()
                 }
             })
@@ -78,14 +101,4 @@ class RegisterWindow(owner: WindowOwner, model: UserModel) : Dialog<UserModel>(o
 
     }
 
-    private fun validateForm(){
-        modelObject.resetValidation()
-        modelObject.validateUserName()
-        if(modelObject.error) return
-        modelObject.validateEmail()
-        if(modelObject.error) return
-        modelObject.validatePassword()
-        if(modelObject.error) return
-        modelObject.validateRePassword()
-    }
 }

@@ -3,7 +3,6 @@ import ar.unq.instagramapp.models.ApplicationModel
 import ar.unq.instagramapp.models.LoginModel
 import ar.unq.instagramapp.models.PostsListModel
 import ar.unq.instagramapp.models.UserModel
-import ar.unq.instagramapp.transformers.BooleanTransformer
 import ar.unq.instagramapp.viewModels.account.LoginWindow
 import ar.unq.instagramapp.viewModels.account.ProfileWindow
 import ar.unq.instagramapp.viewModels.account.RegisterWindow
@@ -33,12 +32,13 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
             setWidth(300)
             caption = "Ingresar"
             onClick(Action { showLoginWindow() })
-            bindVisibleTo("loginOk").setTransformer(BooleanTransformer(true))
+            bindVisibleTo("notLogin")
         }
+
         Button(mainPanel) with{
             caption = "Crear una cuenta"
             onClick(Action {showRegisterWindow()})
-            bindVisibleTo("loginOk").setTransformer(BooleanTransformer(true))
+            bindVisibleTo("notLogin")
         }
 
         Button(mainPanel) with{
@@ -46,6 +46,7 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
             onClick(Action { showProfileWindow() })
             bindVisibleTo("loginOk")
         }
+
         Button(mainPanel) with{
             caption = "Mis posteos"
             onClick(Action { showPostsWindow() })
@@ -58,12 +59,10 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
             bindVisibleTo("loginOk")
         }
 
-
-
     }
 
     private fun showLoginWindow(){
-        val loginModel =  LoginModel(modelObject.instagramSystem,"", "" )
+        val loginModel =  LoginModel(modelObject.instagramSystem)
         LoginWindow(this, loginModel).open() //aca se frena la ejecucion esperando que se cierre el modal
         logInOk(loginModel.user)
     }
@@ -98,7 +97,6 @@ class ApplicationWindow(parent: WindowOwner, model: ApplicationModel): Window<Ap
     }
 
     private fun showPostsWindow(){
-
         PostsWindow(
             this,
             PostsListModel(modelObject.instagramSystem, modelObject.user!!.id)

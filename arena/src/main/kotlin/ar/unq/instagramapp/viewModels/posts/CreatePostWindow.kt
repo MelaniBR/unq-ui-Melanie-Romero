@@ -10,6 +10,7 @@ import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
+import java.awt.Color
 
 class CreatePostWindow(owner: WindowOwner, model : DraftPostModel, val subTitle: String = "") : Dialog<DraftPostModel>(owner, model) {
 
@@ -32,6 +33,13 @@ class CreatePostWindow(owner: WindowOwner, model : DraftPostModel, val subTitle:
         TextBox(mainPanel) with {
             bindTo("postLandscape")
         }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationPostLandscape,"errorMessage")
+            bindVisibleToModel(modelObject.validationPostLandscape,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
         Label(mainPanel) with {
             text = "Retrato"
             alignLeft()
@@ -39,19 +47,22 @@ class CreatePostWindow(owner: WindowOwner, model : DraftPostModel, val subTitle:
         TextBox(mainPanel) with {
             bindTo("postPortrait")
         }
-
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationPostPortrait,"errorMessage")
+            bindVisibleToModel(modelObject.validationPostPortrait,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
         var buttonPanel : Panel = Panel(mainPanel)
         buttonPanel.layout= HorizontalLayout()
 
         Button(buttonPanel) with {
             caption = "Aceptar"
             onClick {
-                try {
-                    modelObject.validateDraft()
+                modelObject.validateCreatePostForm()
+                if(modelObject.isValidCreatePostForm){
                     accept()
-                } catch(e : Exception) {
-                    displayError(e.message!!)
-
                 }
             }
         }

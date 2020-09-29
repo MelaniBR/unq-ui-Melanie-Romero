@@ -10,6 +10,7 @@ import org.uqbar.arena.widgets.PasswordField
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.lacar.ui.model.Action
+import java.awt.Color
 import java.lang.Exception
 
 class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<UserModel>(owner, userModel) {
@@ -25,31 +26,52 @@ class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<Us
             alignLeft()
             setWidth(300)
         }
-
         PasswordField(mainPanel) with {
-            bindTo("rePassword")
+            bindTo("currentPassword")
+        }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationCurrentPassword,"errorMessage")
+            bindVisibleToModel(modelObject.validationCurrentPassword,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
         }
 
         Label(mainPanel) with {
             text = "Nueva contraseña"
             alignLeft()
         }
-
         PasswordField(mainPanel) with {
             bindTo("newPassword")
         }
-
-        Label(mainPanel) with {
-            bindBackgroundTo("error").setTransformer(ErrorBackgroundLoginTransformer())
-            bindTo("errorMessage")
-            bindVisibleTo("error")
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationNewPassword,"errorMessage")
+            bindVisibleToModel(modelObject.validationNewPassword,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
         }
 
-        Button(mainPanel) with {
+        Label (mainPanel) with{
+            text = "Reingrese la contraseña"
+            alignLeft()
+        }
+        PasswordField(mainPanel) with {
+            bindTo("rePassword")
+        }
+        Label (mainPanel) with {
+            bindToModel(modelObject.validationReNewPassword,"errorMessage")
+            bindVisibleToModel(modelObject.validationReNewPassword,"hasError")
+            setWidth(300)
+            background = Color.RED
+            alignLeft()
+        }
+
+         Button(mainPanel) with {
             caption = "Aceptar"
             onClick(Action {
-                validateForm()
-                if (!modelObject.error){
+                modelObject.validateChangePasswordForm()
+                if (modelObject.isValidChangePasswordForm){
                     accept()
                 }
             })
@@ -61,10 +83,5 @@ class ChangePasswordWindow(owner: WindowOwner, userModel: UserModel) : Dialog<Us
             })
         }
     }
-    private fun validateForm() {
-        modelObject.resetValidation()
-        modelObject.validatePassword()
-        if (modelObject.error) return
-        modelObject.validateNewPassword()
-    }
+
 }

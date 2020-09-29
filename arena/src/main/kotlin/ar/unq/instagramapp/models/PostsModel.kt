@@ -16,11 +16,12 @@ import scala.collection.mutable.`MutableList$`
 
     var selected : PostModel? = null
         set(value) {
-            selectedCheck = true
+            selectedCheck = value != null
             field = value
         }
 
     var selectedCheck = false
+
 
     init {
         loadMyPosts()
@@ -66,6 +67,20 @@ class DraftPostModel (
     var errorMessage : String = "",
     var error : Boolean = false
 ) {
+
+    val validationPostLandscape:  RequiredValidation = RequiredValidation("El campo Paisaje no puede estar vacio")
+
+    val validationPostPortrait:  RequiredValidation = RequiredValidation("El campo Retrato no puede estar vacio")
+
+    fun validateCreatePostForm(){
+        validationPostLandscape.validate(postLandscape)
+        validationPostPortrait.validate(postPortrait)
+    }
+
+    val isValidCreatePostForm: Boolean
+        get() = !validationPostLandscape.hasError && !validationPostPortrait.hasError
+
+
     fun fromPost(postM : PostModel) {
         postUser = postM.postUser
         postId = postM.postId

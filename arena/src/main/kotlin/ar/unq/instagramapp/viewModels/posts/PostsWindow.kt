@@ -45,7 +45,10 @@ class PostsWindow(owner: WindowOwner, model: PostsListModel) : Window<PostsListM
         //}
         Button(searchInputPanel) with {
             caption = "Limpiar"
-            onClick { modelObject.loadMyPosts(); modelObject.searchInput = ""; modelObject.selectedCheck = false }
+            onClick {
+                modelObject.loadMyPosts();
+                modelObject.searchInput = ""
+            }
         }
         table<PostModel>(mainPanel) {
             bindItemsTo("searchResults")

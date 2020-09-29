@@ -77,7 +77,7 @@ class ProfileWindow(owner: WindowOwner, model: UserModel) : Window<UserModel>(ow
         val model = modelObject.copy()
         val view = ChangePasswordWindow(this, model)
         view.onAccept {
-            modelObject.editPasswordUser(model)
+            modelObject.changePassword(model)
         }
         view.open()
     }
