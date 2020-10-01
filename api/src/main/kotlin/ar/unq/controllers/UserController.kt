@@ -1,7 +1,10 @@
 package ar.unq.controllers
 
+import ar.unq.utils.responses.ErrorResponse
+import ar.unq.utils.responses.OkResponse
 import io.javalin.http.Context
 import org.unq.ui.model.InstagramSystem
+import org.unq.ui.model.NotFound
 
 
 class UserController(val instagramSystem : InstagramSystem) {
@@ -9,6 +12,12 @@ class UserController(val instagramSystem : InstagramSystem) {
 
     }
     fun getById(ctx: Context){
+        val id = ctx.pathParam("userId")
+        try {
+            ctx.status(200).json(instagramSystem.getUser(id))
+        }catch(e : NotFound) {
+            ctx.status(404).json(ErrorResponse("No se encontro usuario con "+ id))
+        }
 
     }
     fun toggleFollower(ctx: Context){
