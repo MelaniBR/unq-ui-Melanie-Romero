@@ -1,30 +1,39 @@
 package ar.unq.controllers
 
+import ar.unq.Token.Token
 import ar.unq.utils.responses.ErrorResponse
-import ar.unq.utils.responses.OkResponse
 import ar.unq.utils.responses.UserResponses.GetUserByIdResponse
 import ar.unq.utils.responses.UserResponses.GetUserResponse
 import io.javalin.http.Context
+import io.javalin.http.UnauthorizedResponse
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.NotFound
-import org.unq.ui.model.Post
-import org.unq.ui.model.User
 
 
 class UserController(val instagramSystem : InstagramSystem) {
+
+    val tokenController = Token()
+
     fun get(ctx: Context){
-        val id = "u_31"
-        try {
-            val us = instagramSystem.getUser(id)
-            val ti = instagramSystem.timeline(id)
 
-            val response = GetUserResponse(us.name, us.image)
-            response.setFollowers(us.followers)
-            response.setTimeline(ti)
+        val token = ctx.header("Authorization")
 
-            ctx.status(200).json(response)
-        }catch (e : Exception) {
-            ctx.status(500).json(ErrorResponse("Todavia no se implemento correctamente"))
+        if(token === null) {
+            throw UnauthorizedResponse()
+        }else {
+            val id = tokenController.validateToken(token)
+            try {
+                val us = instagramSystem.getUser(id)
+                val ti = instagramSystem.timeline(id)
+                val userDTO = GetUserResponse(us.name, us.image)
+                userDTO.setFollowers(us.followers)
+                userDTO.setTimeline(ti)
+
+
+                ctx.status(200).json(userDTO)
+            } catch (e: Exception) {
+                ctx.status(500).json(ErrorResponse("Todavia no se implemento correctamente"))
+            }
         }
 
     }
