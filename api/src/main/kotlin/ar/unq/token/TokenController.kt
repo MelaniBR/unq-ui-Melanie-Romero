@@ -1,4 +1,4 @@
-package ar.unq.Token;
+package ar.unq.token;
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTCreator
@@ -10,7 +10,7 @@ import org.unq.ui.model.User
 
 class NotValidToken : Exception("Not valid token")
 
-public class Token {
+public class TokenController {
     val algorithm : Algorithm = Algorithm.HMAC256("very_secret")
 
     val generator : JWTGenerator<User> = JWTGenerator<User> { user: User, alg: Algorithm? ->

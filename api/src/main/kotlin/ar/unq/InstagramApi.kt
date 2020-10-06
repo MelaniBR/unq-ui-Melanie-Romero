@@ -1,27 +1,36 @@
 package ar.unq
 import ar.unq.controllers.*
+import ar.unq.utils.InstagramAccessManager
 import org.unq.ui.bootstrap.getInstagramSystem
 import io.javalin.Javalin
 import io.javalin.apibuilder.ApiBuilder.*
+import io.javalin.core.security.Role
 import io.javalin.core.util.RouteOverviewPlugin
+
+    enum class InstagramRoles : Role {
+        ANYONE, USER
+    }
+
+val instagramSystem = getInstagramSystem()
 
 fun main(args: Array<String>) {
     val app = Javalin.create{
         it.defaultContentType = "application/json"
         it.registerPlugin(RouteOverviewPlugin("/routes"))
+        it.accessManager(InstagramAccessManager(instagramSystem))
     }.start(7000)
 
     val instagramSystem = getInstagramSystem()
 
     app.routes{
         path("register"){
-            post(RegisterController(instagramSystem)::post)
+            post(RegisterController(instagramSystem)::post, setOf(InstagramRoles.ANYONE))
         }
         path("login"){
-            post(LoginController(instagramSystem)::post)
+            post(LoginController(instagramSystem)::post, setOf(InstagramRoles.ANYONE))
         }
         path("user"){
-            get(UserController(instagramSystem)::get)
+            get(UserController(instagramSystem)::get, setOf(InstagramRoles.USER))
             path(":userId"){
                 get(UserController(instagramSystem)::getById)
                 path("follow"){
