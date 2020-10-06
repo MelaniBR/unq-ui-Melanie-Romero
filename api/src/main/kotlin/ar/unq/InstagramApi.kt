@@ -16,7 +16,7 @@ val instagramSystem = getInstagramSystem()
 fun main(args: Array<String>) {
     val app = Javalin.create{
         it.defaultContentType = "application/json"
-        it.registerPlugin(RouteOverviewPlugin("/routes"))
+        it.registerPlugin(RouteOverviewPlugin("/routes", setOf(InstagramRoles.ANYONE)))
         it.accessManager(InstagramAccessManager(instagramSystem))
     }.start(7000)
 

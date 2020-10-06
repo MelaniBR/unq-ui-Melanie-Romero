@@ -3,26 +3,14 @@ package ar.unq.utils.responses.UserResponses;
 import org.unq.ui.model.Post
 import org.unq.ui.model.User
 
-class GetUserResponse(
-    name : String,
-    image : String
-) {
-    val name : String = name
-    val image : String = image
-    val followers : MutableList<Follower> = mutableListOf()
-    val timeline : MutableList<Post> = mutableListOf()
 
-    fun setFollowers(userFollowers : MutableList<User>) {
-        for (follower in userFollowers) {
-            followers.add(Follower(follower.name, follower.image))
-        }
-    }
-
-    fun setTimeline(posts : List<Post>) {
-        for (post in posts) {
-            timeline.add(post)
-        }
-    }
+data class GetUserResponse(
+    private val user : User ,
+    private val userTimeline: List<Post>
+){
+    val name : String = user.name
+    val image : String = user.image
+    val followers : List<Follower> = user.followers.map { Follower( it.name, it.image) }
+    val timeline : List<TimeLineResponse> = userTimeline.map { TimeLineResponse( it ) }
 
 }
-

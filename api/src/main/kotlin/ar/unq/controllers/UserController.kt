@@ -9,27 +9,30 @@ import io.javalin.http.UnauthorizedResponse
 import javalinjwt.JavalinJWT
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.NotFound
+import org.unq.ui.model.User
 
 
 class UserController(val instagramSystem : InstagramSystem) {
 
-    val tokenController = TokenController()
+    //val tokenController = TokenController()
 
     fun get(ctx: Context){
 
-            try {
-                val decodedToken = JavalinJWT.getDecodedFromContext(ctx)
-                val user = instagramSystem.getUser(decodedToken.getClaim("id").asString())
-                val userTimeline = instagramSystem.timeline(decodedToken.getClaim("id").asString())
-                val userDTO = GetUserResponse(user.name, user.image)
-                userDTO.setFollowers(user.followers)
-                userDTO.setTimeline(userTimeline)
+        val userId : String = ctx.attribute<String>("userId").toString()
+        var user: User? = null;
 
-                ctx.attribute("id", decodedToken.getClaim("id").asString())
-                ctx.status(200).json(userDTO)
-            } catch (e: Exception) {
-                ctx.status(500).json(ErrorResponse("Todavia no se implemento correctamente"))
-            }
+        try {
+            user = instagramSystem.getUser(userId)
+
+        } catch (e: Exception) {
+            //TODO: aca devolver un notfound cuando el usuario no existe
+            ctx.status( 404 ).json(ErrorResponse("El usuario no existe"))
+        }
+
+        val userTimeline = instagramSystem.timeline(userId)
+        val userDTO = GetUserResponse(user!!, userTimeline)
+        ctx.status(200).json(userDTO!!)
+
     }
 
     fun getById(ctx: Context){

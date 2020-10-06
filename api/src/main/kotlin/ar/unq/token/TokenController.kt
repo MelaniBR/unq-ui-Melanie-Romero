@@ -27,7 +27,7 @@ public class TokenController {
         return provider.generateToken(user)
     }
 
-    fun validateToken(token: String): String {
+    fun validateToken(token: String?): String {
         val decodedJWT =  provider.validateToken(token)
         if (decodedJWT.isPresent() && decodedJWT.get().claims.contains("id")) {
             return decodedJWT.get().getClaim("id").asString()
