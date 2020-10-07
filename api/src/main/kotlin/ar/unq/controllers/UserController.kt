@@ -2,6 +2,7 @@ package ar.unq.controllers
 
 import ar.unq.token.TokenController
 import ar.unq.utils.responses.ErrorResponse
+import ar.unq.utils.responses.OkResponse
 import ar.unq.utils.responses.UserResponses.GetUserByIdResponse
 import ar.unq.utils.responses.UserResponses.GetUserResponse
 import io.javalin.http.Context
@@ -24,9 +25,11 @@ class UserController(val instagramSystem : InstagramSystem) {
         try {
             user = instagramSystem.getUser(userId)
 
-        } catch (e: Exception) {
+        } catch (e: NotFound) {
             //TODO: aca devolver un notfound cuando el usuario no existe
             ctx.status( 404 ).json(ErrorResponse("El usuario no existe"))
+        } catch (e : Exception) {
+            ctx.status(500).json(ErrorResponse("Error interno"))
         }
 
         val userTimeline = instagramSystem.timeline(userId)
@@ -51,6 +54,14 @@ class UserController(val instagramSystem : InstagramSystem) {
 
     }
     fun toggleFollower(ctx: Context){
+        val followedUserId = ctx.pathParam("userId")
+        val loggedUserId : String = ctx.attribute<String>("userId").toString()
+        try {
+            instagramSystem.updateFollower(loggedUserId, followedUserId)
+            ctx.status(200).json(OkResponse())
+        }catch (e: NotFound) {
+            ctx.status(404).json(ErrorResponse("No existe el usuario con id " + followedUserId))
+        }
 
     }
 }
