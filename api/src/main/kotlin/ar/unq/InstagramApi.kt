@@ -32,9 +32,9 @@ fun main(args: Array<String>) {
         path("user"){
             get(UserController(instagramSystem)::get, setOf(InstagramRoles.USER))
             path(":userId"){
-                get(UserController(instagramSystem)::getById)
+                get(UserController(instagramSystem)::getById, setOf(InstagramRoles.USER))
                 path("follow"){
-                    put(UserController(instagramSystem)::toggleFollower)
+                    put(UserController(instagramSystem)::toggleFollower, setOf(InstagramRoles.USER))
                 }
             }
         }

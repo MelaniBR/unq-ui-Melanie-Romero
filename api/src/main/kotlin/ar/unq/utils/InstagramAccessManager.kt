@@ -29,7 +29,7 @@ class InstagramAccessManager(val instagramSystem : InstagramSystem) : AccessMana
                 }catch(e: NotValidToken) {
                     throw UnauthorizedResponse("Token no es valida")
                 }catch (e: NotFound) {
-                    throw UnauthorizedResponse("No se encontro Token")
+                    throw UnauthorizedResponse("No se encontro al usuario en el sistema")
                 }
             }
         }
