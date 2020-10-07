@@ -2,7 +2,7 @@ package ar.unq.utils.responses.UserResponses
 
 import org.unq.ui.model.Post
 
-open class TimeLineResponse(
+open class PostResponse(
     private val post: Post
 ){
     val id : String = post.id

@@ -2,7 +2,7 @@ package ar.unq.controllers
 
 import ar.unq.utils.responses.ErrorResponse
 import ar.unq.utils.responses.OkResponse
-import ar.unq.utils.responses.UserResponses.TimeLineResponseWithComments
+import ar.unq.utils.responses.UserResponses.PostResponseWithComments
 import io.javalin.http.BadRequestResponse
 import io.javalin.http.Context
 import org.unq.ui.model.DraftComment
@@ -23,7 +23,7 @@ class PostController(val instagramSystem : InstagramSystem) {
             ctx.status(404).json(ErrorResponse("No se encontro post con "+ id))
 
         }
-        val postResponse : TimeLineResponseWithComments = TimeLineResponseWithComments(post!!)
+        val postResponse : PostResponseWithComments = PostResponseWithComments(post!!)
         ctx.status(200).json(postResponse)
     }
 
