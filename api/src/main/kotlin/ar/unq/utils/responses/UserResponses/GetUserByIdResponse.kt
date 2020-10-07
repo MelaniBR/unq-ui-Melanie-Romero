@@ -9,8 +9,8 @@ class GetUserByIdResponse (
 ) {
     val name : String = user.name
     val image : String = user.image
-    val posts : List<PostResponse> = userPosts.map { PostResponse( it ) }
-    
+    val posts : List<PostResponse> = userPosts.map { PostResponse ( it ) }
+
     /*
     fun setPosts(ps : List<Post>) : MutableList<Post> {
         var postsList : MutableList<Post> = mutableListOf()

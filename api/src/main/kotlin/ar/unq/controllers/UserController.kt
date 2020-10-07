@@ -46,11 +46,13 @@ class UserController(val instagramSystem : InstagramSystem) {
 
         try {
             user = instagramSystem.getUser(id)
-            userPosts = instagramSystem.searchByUserId(id)
         }catch(e : NotFound) {
             ctx.status(404).json(ErrorResponse("No se encontro usuario con "+ id))
-        }catch(e : Exception) {
-            ctx.status(500).json(ErrorResponse("Error en getById"))
+        }
+        try {
+            userPosts = instagramSystem.searchByUserId(id)
+        }catch (e : Exception) {
+            ctx.status(500).json(ErrorResponse("Error interno"))
         }
 
         val userDTO = GetUserByIdResponse(user!!, userPosts)
