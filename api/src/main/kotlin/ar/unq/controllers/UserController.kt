@@ -10,6 +10,7 @@ import io.javalin.http.UnauthorizedResponse
 import javalinjwt.JavalinJWT
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.NotFound
+import org.unq.ui.model.Post
 import org.unq.ui.model.User
 
 
@@ -40,19 +41,22 @@ class UserController(val instagramSystem : InstagramSystem) {
 
     fun getById(ctx: Context){
         val id = ctx.pathParam("userId")
+        var user : User? = null
+        var userPosts : List<Post> = listOf()
+
         try {
-            val user = instagramSystem.getUser(id)
-            val userPosts = instagramSystem.searchByUserId(id)
-
-            val userDTO = GetUserByIdResponse(user.name, user.image, user.followers, userPosts)
-
-            ctx.status(200).json(userDTO)
-
+            user = instagramSystem.getUser(id)
+            userPosts = instagramSystem.searchByUserId(id)
         }catch(e : NotFound) {
             ctx.status(404).json(ErrorResponse("No se encontro usuario con "+ id))
+        }catch(e : Exception) {
+            ctx.status(500).json(ErrorResponse("Error en getById"))
         }
 
+        val userDTO = GetUserByIdResponse(user!!, userPosts)
+        ctx.status(200).json(userDTO)
     }
+
     fun toggleFollower(ctx: Context){
         val followedUserId = ctx.pathParam("userId")
         val loggedUserId : String = ctx.attribute<String>("userId").toString()
