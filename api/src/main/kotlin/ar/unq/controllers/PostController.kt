@@ -1,25 +1,27 @@
 package ar.unq.controllers
 
 import ar.unq.utils.responses.ErrorResponse
-import ar.unq.utils.responses.UserResponses.GetUserByIdResponse
-import ar.unq.utils.responses.UserResponses.LikeResponse
-import ar.unq.utils.responses.UserResponses.PostInfoResponse
-import ar.unq.utils.responses.UserResponses.PostResponse
+import ar.unq.utils.responses.UserResponses.TimeLineResponseWithComments
 import io.javalin.http.Context
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.NotFound
-import org.unq.ui.model.User
+import org.unq.ui.model.Post
+
 class PostController(val instagramSystem : InstagramSystem) {
     fun getById(ctx: Context){
+        var post : Post? = null
         val id = ctx.pathParam("postId")
         try {
-            val post = instagramSystem.getPost(id)
-            val postResponse = PostResponse(post)
-            ctx.status(200).json(postResponse)
+
+             post = instagramSystem.getPost(id)
 
         }catch(e : NotFound) {
+
             ctx.status(404).json(ErrorResponse("No se encontro post con "+ id))
+
         }
+        val postResponse : TimeLineResponseWithComments = TimeLineResponseWithComments(post!!)
+        ctx.status(200).json(postResponse)
     }
     fun toggleLike(ctx: Context){
 
