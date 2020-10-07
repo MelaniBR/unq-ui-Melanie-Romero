@@ -3,7 +3,7 @@ package ar.unq.utils.responses.UserResponses;
 import org.unq.ui.model.Post
 import org.unq.ui.model.User
 
-data class PostOnlyID (val postId : String)
+data class PostOnlyID (val postId : String){
 }
 
 class GetUserByIdResponse (
