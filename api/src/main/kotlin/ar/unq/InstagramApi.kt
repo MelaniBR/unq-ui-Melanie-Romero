@@ -40,12 +40,12 @@ fun main(args: Array<String>) {
         }
         path("post"){
             path(":postId") {
-                get(PostController(instagramSystem)::getById)
+                get(PostController(instagramSystem)::getById,setOf(InstagramRoles.USER))
                 path("like") {
-                    put(PostController(instagramSystem)::toggleLike)
+                    put(PostController(instagramSystem)::toggleLike,setOf(InstagramRoles.USER))
                 }
                 path("comment") {
-                    put(PostController(instagramSystem)::addComment)
+                    put(PostController(instagramSystem)::addComment,setOf(InstagramRoles.USER))
                 }
             }
         }

@@ -4,6 +4,7 @@ import ar.unq.utils.responses.ErrorResponse
 import ar.unq.utils.responses.UserResponses.GetUserByIdResponse
 import ar.unq.utils.responses.UserResponses.LikeResponse
 import ar.unq.utils.responses.UserResponses.PostInfoResponse
+import ar.unq.utils.responses.UserResponses.PostResponse
 import io.javalin.http.Context
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.NotFound
@@ -13,10 +14,7 @@ class PostController(val instagramSystem : InstagramSystem) {
         val id = ctx.pathParam("postId")
         try {
             val post = instagramSystem.getPost(id)
-            val likes = listLikeResponse(post.likes)
-
-            val postResponse = PostInfoResponse(id,likes)
-
+            val postResponse = PostResponse(post)
             ctx.status(200).json(postResponse)
 
         }catch(e : NotFound) {
@@ -29,13 +27,7 @@ class PostController(val instagramSystem : InstagramSystem) {
     fun addComment(ctx: Context){
 
     }
-    fun listLikeResponse (likes : MutableList<User>): MutableList<LikeResponse> {
-        var listLikeResponse : MutableList <LikeResponse> = mutableListOf()
-        for (l in likes ){
-            listLikeResponse.add(LikeResponse(l.name,l.image))
-        }
-        return listLikeResponse
-    }
+
 }
 
 
