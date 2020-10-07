@@ -12,15 +12,7 @@ class GetUserByIdResponse (
 ) {
     val name : String = user.name
     val image : String = user.image
-    val posts : List<PostOnlyID> = userPosts.map { PostOnlyID ( it.id) }
+    val posts : List<TimeLineResponse> = userPosts.map { TimeLineResponse ( it ) }
 
-    /*
-    fun setPosts(ps : List<Post>) : MutableList<Post> {
-        var postsList : MutableList<Post> = mutableListOf()
-        for (post in ps) {
-            postsList.add(post)
-        }
-        return postsList
-    }*/
 
 }
