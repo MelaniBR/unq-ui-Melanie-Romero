@@ -20,7 +20,7 @@ class UserController(val instagramSystem : InstagramSystem) {
         try {
             user = instagramSystem.getUser(userId)
         } catch (e: NotFound) {
-            ctx.status( 404 ).json(ErrorResponse("El usuario no existe"))
+            ctx.status( 404 ).json(ErrorResponse("User not found"))
         }
 
         val userTimeline = instagramSystem.timeline(userId)
@@ -39,7 +39,7 @@ class UserController(val instagramSystem : InstagramSystem) {
             user = instagramSystem.getUser(id)
             userPosts = instagramSystem.searchByUserId(id)
         }catch(e : NotFound) {
-            ctx.status(404).json(ErrorResponse("No se encontro usuario con "+ id))
+            ctx.status(404).json(ErrorResponse("Not found user with id  "+ id))
         }
 
         val userDTO = GetUserByIdResponse(user!!, userPosts)
@@ -54,7 +54,7 @@ class UserController(val instagramSystem : InstagramSystem) {
         try {
             instagramSystem.updateFollower(loggedUserId, followedUserId)
         }catch (e: NotFound) {
-            ctx.status(404).json(ErrorResponse("No existe el usuario con id " + followedUserId))
+            ctx.status(404).json(ErrorResponse("Not found user with id " + followedUserId))
         }
         ctx.status(200).json(OkResponse())
 

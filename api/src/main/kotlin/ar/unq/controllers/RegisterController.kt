@@ -4,7 +4,6 @@ import ar.unq.token.TokenController
 import ar.unq.utils.requests.RegisterRequest
 import ar.unq.utils.responses.ErrorResponse
 import ar.unq.utils.responses.OkResponse
-import io.javalin.http.ConflictResponse
 import io.javalin.http.Context
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.UsedEmail
@@ -24,7 +23,7 @@ class RegisterController(val instagramSystem : InstagramSystem) {
 
         }catch(e : UsedEmail){
             //409 Conflict Response
-            ctx.status(409).json(ErrorResponse("El email ya esta en uso"))
+            ctx.status(409).json(ErrorResponse("The email is already in use"))
         }
 
     }

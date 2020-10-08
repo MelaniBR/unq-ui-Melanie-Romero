@@ -20,7 +20,7 @@ class PostController(val instagramSystem : InstagramSystem) {
 
         }catch(e : NotFound) {
 
-            ctx.status(404).json(ErrorResponse("No se encontro post con "+ id))
+            ctx.status(404).json(ErrorResponse("Not found post with id" + id))
 
         }
         val postResponse : PostResponseWithComments = PostResponseWithComments(post!!)
@@ -33,7 +33,7 @@ class PostController(val instagramSystem : InstagramSystem) {
         try {
             instagramSystem.updateLike(idPost,userId)
         }catch(e : NotFound) {
-            ctx.status(404).json(ErrorResponse("No se encontro post con "+ idPost))
+            ctx.status(404).json(ErrorResponse("Not found post with id" + idPost))
         }
         ctx.status(200).json(OkResponse())
     }
@@ -45,7 +45,7 @@ class PostController(val instagramSystem : InstagramSystem) {
         try {
             instagramSystem.addComment(idPost,userId,comment)
         }catch(e : NotFound) {
-            ctx.status(404).json(ErrorResponse("No se encontro post con "+ idPost))
+            ctx.status(404).json(ErrorResponse("Not found post with id" + idPost))
         }
         ctx.status(200).json(OkResponse())
 

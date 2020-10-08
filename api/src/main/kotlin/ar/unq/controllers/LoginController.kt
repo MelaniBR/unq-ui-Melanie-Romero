@@ -18,7 +18,7 @@ class LoginController(val instagramSystem : InstagramSystem) {
             ctx.header("Authorization", TokenController().generateToken(user))
             ctx.status(200).json(OkResponse())
         }catch(e : NotFound){
-            ctx.status(404).json(ErrorResponse("El usuario no existe."))
+            ctx.status(404).json(ErrorResponse("User not found"))
         }
 
     }
