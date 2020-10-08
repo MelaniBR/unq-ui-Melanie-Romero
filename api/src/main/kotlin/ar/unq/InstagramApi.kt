@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
             }
         }
         path("post"){
-            path(":postId") {
+            path(":postId"){
                 get(PostController(instagramSystem)::getById,setOf(InstagramRoles.USER))
                 path("like") {
                     put(PostController(instagramSystem)::toggleLike,setOf(InstagramRoles.USER))
@@ -48,6 +48,7 @@ fun main(args: Array<String>) {
                     put(PostController(instagramSystem)::addComment,setOf(InstagramRoles.USER))
                 }
             }
+
         }
         path("search"){
             get(SearchController(instagramSystem)::get,setOf(InstagramRoles.ANYONE))

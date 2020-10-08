@@ -14,14 +14,12 @@ class PostController(val instagramSystem : InstagramSystem) {
     fun getById(ctx: Context){
         var post : Post? = null
         val id = ctx.pathParam("postId")
+
         try {
-
-             post = instagramSystem.getPost(id)
-
+            post = instagramSystem.getPost(id)
         }catch(e : NotFound) {
-
             ctx.status(404).json(ErrorResponse("Not found post with id" + id))
-
+            return
         }
         val postResponse : PostResponseWithComments = PostResponseWithComments(post!!)
         ctx.status(200).json(postResponse)
@@ -32,10 +30,10 @@ class PostController(val instagramSystem : InstagramSystem) {
         val idPost = ctx.pathParam("postId")
         try {
             instagramSystem.updateLike(idPost,userId)
+            ctx.status(200).json(OkResponse())
         }catch(e : NotFound) {
             ctx.status(404).json(ErrorResponse("Not found post with id" + idPost))
         }
-        ctx.status(200).json(OkResponse())
     }
 
     fun addComment(ctx: Context){
@@ -44,10 +42,11 @@ class PostController(val instagramSystem : InstagramSystem) {
         val comment =  ctx.body<DraftComment>()
         try {
             instagramSystem.addComment(idPost,userId,comment)
+            ctx.status(200).json(OkResponse())
         }catch(e : NotFound) {
             ctx.status(404).json(ErrorResponse("Not found post with id" + idPost))
         }
-        ctx.status(200).json(OkResponse())
+
 
     }
     private fun getUserId(ctx: Context): String {

@@ -21,7 +21,7 @@ class SearchController(val instagramSystem : InstagramSystem) {
         if (URLDecoder.decode(text, "utf-8").get(0).equals('#')) {
          return SearchResponse(searchByTag(text))
         } else{
-         return   SearchResponse(searchByName(text))
+         return SearchResponse(searchByName(text))
         }
     }
     fun searchByTag(text:String): List<PostResponse> {
