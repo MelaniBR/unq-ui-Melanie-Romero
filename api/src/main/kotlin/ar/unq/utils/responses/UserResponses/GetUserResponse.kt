@@ -8,6 +8,5 @@ data class GetUserResponse(
     private val user : User ,
     private val userTimeline: List<Post>
 ) : UserResponse(user, userTimeline){
-    val followers : List<Follower> = user.followers.map { Follower( it.name, it.image) }
     val timeline : List<PostResponse> = userTimeline.map { PostResponse( it ) }
 }
