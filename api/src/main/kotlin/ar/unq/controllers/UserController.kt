@@ -19,9 +19,7 @@ class UserController(val instagramSystem : InstagramSystem) {
 
         try {
             user = instagramSystem.getUser(userId)
-
         } catch (e: NotFound) {
-            //TODO: aca devolver un notfound cuando el usuario no existe
             ctx.status( 404 ).json(ErrorResponse("El usuario no existe"))
         }
 
