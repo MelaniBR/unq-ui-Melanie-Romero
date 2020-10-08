@@ -10,7 +10,7 @@ import java.net.URLDecoder
 
 class SearchController(val instagramSystem : InstagramSystem) {
     fun get(ctx: Context){
-        val text : String? = ctx.queryParam("search")
+        val text : String? = ctx.queryParam("q")
         if (text == null || text == "") throw BadRequestResponse()
 
         ctx.status(200).json(possibleResult(text))
@@ -18,7 +18,7 @@ class SearchController(val instagramSystem : InstagramSystem) {
     }
     fun possibleResult(text:String): SearchResponse {
 
-        if (URLDecoder.decode(text, "utf-8").get(0).equals('#')) {
+        if (text.get(0).equals('#')) {
          return SearchResponse(searchByTag(text))
         } else{
          return SearchResponse(searchByName(text))
