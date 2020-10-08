@@ -6,6 +6,6 @@ import org.unq.ui.model.User
 data class GetUserByIdResponse(
     private val user : User,
     private val userPosts : List<Post>
-) : UserResponse(user, userPosts) {
+) : UserResponse(user) {
     val posts : List<PostResponse> = userPosts.map { PostResponse ( it ) }
 }
