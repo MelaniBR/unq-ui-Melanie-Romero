@@ -10,7 +10,6 @@ import org.unq.ui.model.NotFound
 import org.unq.ui.model.Post
 import org.unq.ui.model.User
 
-
 class UserController(val instagramSystem : InstagramSystem) {
 
     fun get(ctx: Context){
@@ -33,6 +32,7 @@ class UserController(val instagramSystem : InstagramSystem) {
     }
 
     fun getById(ctx: Context){
+
         val id = ctx.pathParam("userId")
         var user : User? = null
         var userPosts : List<Post> = listOf()
@@ -44,12 +44,13 @@ class UserController(val instagramSystem : InstagramSystem) {
             ctx.status(404).json(ErrorResponse("No se encontro usuario con "+ id))
         }
 
-
         val userDTO = GetUserByIdResponse(user!!, userPosts)
         ctx.status(200).json(userDTO)
+
     }
 
     fun toggleFollower(ctx: Context){
+
         val followedUserId = ctx.pathParam("userId")
         val loggedUserId : String = ctx.attribute<String>("userId").toString()
         try {
@@ -60,4 +61,5 @@ class UserController(val instagramSystem : InstagramSystem) {
         ctx.status(200).json(OkResponse())
 
     }
+
 }
