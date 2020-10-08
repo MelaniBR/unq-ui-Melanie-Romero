@@ -50,7 +50,7 @@ fun main(args: Array<String>) {
             }
         }
         path("search"){
-            get(SearchController(instagramSystem)::get)
+            get(SearchController(instagramSystem)::get,setOf(InstagramRoles.ANYONE))
         }
     }
 }
