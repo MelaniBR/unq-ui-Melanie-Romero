@@ -11,47 +11,53 @@ import io.javalin.core.util.RouteOverviewPlugin
         ANYONE, USER
     }
 
-val instagramSystem = getInstagramSystem()
-
 fun main(args: Array<String>) {
+
+    val instagramSystem = getInstagramSystem()
+
+    val registerController = RegisterController(instagramSystem)
+    val loginController = LoginController(instagramSystem)
+    val userController = UserController(instagramSystem)
+    val postController = PostController(instagramSystem)
+    val searchController = SearchController(instagramSystem)
+
     val app = Javalin.create{
         it.defaultContentType = "application/json"
         it.registerPlugin(RouteOverviewPlugin("/routes", setOf(InstagramRoles.ANYONE)))
         it.accessManager(InstagramAccessManager(instagramSystem))
     }.start(7000)
 
-    val instagramSystem = getInstagramSystem()
 
     app.routes{
         path("register"){
-            post(RegisterController(instagramSystem)::post, setOf(InstagramRoles.ANYONE))
+            post(registerController::post, setOf(InstagramRoles.ANYONE))
         }
         path("login"){
-            post(LoginController(instagramSystem)::post, setOf(InstagramRoles.ANYONE))
+            post(loginController::post, setOf(InstagramRoles.ANYONE))
         }
         path("user"){
-            get(UserController(instagramSystem)::get, setOf(InstagramRoles.USER))
+            get(userController::get, setOf(InstagramRoles.USER))
             path(":userId"){
-                get(UserController(instagramSystem)::getById, setOf(InstagramRoles.USER))
+                get(userController::getById, setOf(InstagramRoles.USER))
                 path("follow"){
-                    put(UserController(instagramSystem)::toggleFollower, setOf(InstagramRoles.USER))
+                    put(userController::toggleFollower, setOf(InstagramRoles.USER))
                 }
             }
         }
         path("post"){
             path(":postId"){
-                get(PostController(instagramSystem)::getById,setOf(InstagramRoles.USER))
+                get(postController::getById,setOf(InstagramRoles.USER))
                 path("like") {
-                    put(PostController(instagramSystem)::toggleLike,setOf(InstagramRoles.USER))
+                    put(postController::toggleLike,setOf(InstagramRoles.USER))
                 }
                 path("comment") {
-                    put(PostController(instagramSystem)::addComment,setOf(InstagramRoles.USER))
+                    post(postController::addComment,setOf(InstagramRoles.USER))
                 }
             }
 
         }
         path("search"){
-            get(SearchController(instagramSystem)::get,setOf(InstagramRoles.ANYONE))
+            get(searchController::get,setOf(InstagramRoles.ANYONE))
         }
     }
 }
