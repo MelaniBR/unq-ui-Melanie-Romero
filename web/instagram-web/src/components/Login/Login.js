@@ -15,7 +15,7 @@ export class Login extends React.Component {
     ev && ev.preventDefault();
     const { username, password } = this.state;
     if(username === 'pablo' && password === 'pablo') {
-      this.props.history.push('/home', { user: { name: 'Juan' } })
+      this.props.history.push('/home', { user: { name: 'Pablo' } })
     } else {
       this.setState({ error: 'Bad username or password (See README.md)' })
     }
