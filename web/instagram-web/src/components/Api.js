@@ -8,8 +8,12 @@ export const login = (data) => {
   return axios.post(`${API_URL}/login`, data);
 }
 
+export const post = (id, token) => {
+  return axios.get(`${API_URL}/post/${id}`,  {headers : {Authorization : token}});
+}
+
 export const like = (id, token) => {
-  return axios.put(`${API_URL}/post/${id}/like`, {headers : {Authorization : token}})
+  return axios.put(`${API_URL}/post/${id}/like`, {headers : {Authorization : token}});
 }
 
 export default login;
