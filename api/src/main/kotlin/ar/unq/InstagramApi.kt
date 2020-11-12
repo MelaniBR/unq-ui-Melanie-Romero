@@ -25,6 +25,7 @@ fun main(args: Array<String>) {
         it.defaultContentType = "application/json"
         it.registerPlugin(RouteOverviewPlugin("/routes", setOf(InstagramRoles.ANYONE)))
         it.accessManager(InstagramAccessManager(instagramSystem))
+        it.enableCorsForAllOrigins()
     }.start(7000)
 
 
