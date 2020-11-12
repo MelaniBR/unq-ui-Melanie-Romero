@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import login from '../../api/Api.js'
 
 export const Login = (props) => {
 
@@ -16,22 +17,29 @@ export const Login = (props) => {
     })
   };
 
-  const login = (event) => {
-    event && event.preventDefault();
-    if(data.email === 'pablo' && data.password === 'pablo') {
-      this.props.history.push('/home', { user: { name: 'Pablo' } })
-    } else {
-      setData({
-        ...data,
-        error: 'Bad email or password (See README.md)'
+  const handleLoginClick = (event) => {
+    event.preventDefault();
+
+    login({email: data.email, password: data.password})
+      .then(response => 
+        //console.log(response)
+        props.history.push('/home', { user: { name: 'Pablo' } })
+      )
+      .catch(error => {
+        //Promise.reject(error.response.data);
+        setData({
+          ...data,
+          error: 'Bad email or password (See README.md)'
+        });
       });
-    }
+
+    
   };
 
 
   return (
     <div className="container">
-      <form onSubmit={(ev) => login(ev)}>
+      <form onSubmit={handleLoginClick}>
         <div className="form-group">
           <label htmlFor="email">Email address</label>
           <input name="email" className={`form-control ${data.error && 'is-invalid'}`} value={data.email} onChange={handleInputChange} />
@@ -41,7 +49,7 @@ export const Login = (props) => {
           <label htmlFor="password">Password</label>
           <input name="password" className={`form-control ${data.error && 'is-invalid'}`} value={data.password} onChange={handleInputChange} />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={(ev) => login(ev)}>Login</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
   );
