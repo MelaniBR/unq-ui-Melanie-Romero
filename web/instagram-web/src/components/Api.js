@@ -8,4 +8,8 @@ export const login = (data) => {
   return axios.post(`${API_URL}/login`, data);
 }
 
+export const like = (data) => {
+  return axios.like(`${API_URL}/post/${data.idPost}/like`)
+}
+
 export default login;
