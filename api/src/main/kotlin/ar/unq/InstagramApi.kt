@@ -28,6 +28,9 @@ fun main(args: Array<String>) {
         it.enableCorsForAllOrigins()
     }.start(7000)
 
+    app.before {
+        it.header("Access-Control-Expose-Headers", "*")
+    }
 
     app.routes{
         path("register"){

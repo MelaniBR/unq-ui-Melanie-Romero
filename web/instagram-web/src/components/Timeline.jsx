@@ -1,15 +1,11 @@
 import React from 'react';
 
-export class Timeline extends React.Component {
+class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: [],
       error: '',
-    }
-    this.user = this.props.location.state && this.props.location.state.user;
-    if(!this.user) {
-      this.props.history.push('/');
     }
   }
 
@@ -39,3 +35,5 @@ export class Timeline extends React.Component {
     );
   }
 }
+
+export default Timeline;
