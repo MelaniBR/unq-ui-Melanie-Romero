@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useParams } from "react-router-dom";
+import {post, like} from './Api.js';
 
 const Post = (props) => {
 
@@ -21,7 +23,16 @@ const Post = (props) => {
     }
 
     const handlePostClick = (event) =>{
-       post({  })
+      
+      let { id } = useParams();
+
+      post(id, props.auth.token)
+      .then(response => {
+        
+      })
+      .catch(error => {
+        error: 'No se pudo acceder al post';
+      })
     }
 
     const handleLikeClick = (event) =>{
