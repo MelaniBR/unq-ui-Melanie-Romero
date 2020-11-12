@@ -1,39 +1,14 @@
+
 import React from 'react';
 
-class Timeline extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      error: '',
-    }
-  }
-
-  componentDidMount() {
-    //getPost()
-    //  .then(posts => this.setState({ posts }))
-    //  .catch(error => this.setState({ error }))
-  }
-
-  renderPost() {
-    const { posts } = this.state;
-    if(posts.length === 0) {
-      return <div>Loading!!</div>
-    }
-    return (
-      <div>
-      </div>
-    );
-  }
-
-  render() {
-    const { name } = this.user || {};
-    return (
-      <div className="container">
-        <h1>Hello {name}!!</h1>
-      </div>
-    );
-  }
+const Timeline = (props) => {
+  console.log(props)
+  return (
+    <>
+    <h1>Timeline</h1>
+    <span>{props.auth.token}</span>
+    </>
+  )
 }
 
 export default Timeline;

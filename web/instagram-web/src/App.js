@@ -87,12 +87,12 @@ const App = () => {
         <Switch>
           <LoginRoute path="/login" auth={auth} onLoginOk={handleLoginOk}/>
           <PublicRoute path="/register" component={Register} auth={auth}/>
-          <PrivateRoute path="/home" component={Home} auth={auth}/>
+          <PrivateRoute path="/home" component={Timeline} auth={auth}/>
           <PrivateRoute path="/search" component={Search} auth={auth}/>
           <PrivateRoute path="/profile" component={Profile} auth={auth}/>
           <PrivateRoute path="/post/:id" component={Post} auth={auth}/>
           <PrivateRoute path="/user/:id" component={User} auth={auth}/>
-          <PrivateRoute path="*" component={Home} auth={auth}/>
+          <PrivateRoute path="*" component={Timeline} auth={auth}/>
         </Switch>
       </div>
     </Router>
