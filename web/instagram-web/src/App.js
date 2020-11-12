@@ -6,7 +6,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import {Login} from './components/Login/Login';
+import {Login} from './components/Login/Login'
 import {Timeline} from './components/Timeline/Timeline';
 import './App.css';
 

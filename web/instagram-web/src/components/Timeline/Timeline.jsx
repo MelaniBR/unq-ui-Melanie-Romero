@@ -14,9 +14,9 @@ export class Timeline extends React.Component {
   }
 
   componentDidMount() {
-    getPost()
-      .then(posts => this.setState({ posts }))
-      .catch(error => this.setState({ error }))
+    //getPost()
+    //  .then(posts => this.setState({ posts }))
+    //  .catch(error => this.setState({ error }))
   }
 
   renderPost() {
