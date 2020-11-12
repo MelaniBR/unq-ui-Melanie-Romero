@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 
-export const Post = () => {
+const Post = (props) => {
 
     const[portrait, setPortrait] = useState("");
-    const[likes, setLikes] = useState([]);
+    const[likes, setLikes] = useState(0);
+    const[liked, setLiked] = useState(false);
     const[comments, setComments] = useState([]);
 
     const getPostData = () => {
-        post({ Data: {id} })
+        post({ id })
             .then(response => {
                 setPortrait(response.data.portrait);
-                setLikes(response.data.likes);
+                setLikes(response.data.likes.length);
+                setLiked(response.data.like);
                 setComments(response.data.comments)
             })
             .catch(error => {
@@ -24,23 +26,19 @@ export const Post = () => {
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
+        
 
-        like( { Id: {id : 1} })
+        like( id, props.auth.token )
             .then(response => {
-                const newLike = { User: {name : 'Juan'}}
-                const index = likes.indexOf(newLike)
-                if( index == -1 ) {
+                if( !liked ) {
                     console.log("Se agrego un like al post")
-                    setLikes(likes => [...likes, newLike])
+                    
                 } else {
                     console.log("Se quito un like al post")
-                    var array = [...likes];
-                    array.splice(index,1);
-                    setLikes({likes : array});
                 }
             })
             .catch(error => {
-                error: 'Aca iria un error al apretar like'
+                error: 'Aca iria un error al apretar like';
             })
     }
 
@@ -58,3 +56,5 @@ export const Post = () => {
     )
 
 }
+
+export default Post;
