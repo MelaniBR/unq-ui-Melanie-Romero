@@ -8,6 +8,7 @@ const Post = (props) => {
     const[likes, setLikes] = useState(0);
     const[liked, setLiked] = useState(false);
     const[comments, setComments] = useState([]);
+    let { id } = useParams();
 
     const getPostData = () => {
         post({ id })
@@ -18,20 +19,20 @@ const Post = (props) => {
                 setComments(response.data.comments)
             })
             .catch(error => {
-                error: 'No se pudo acceder a los datos del post'
+                console.log('No se pudo acceder a los datos del post');
             })
     }
 
     const handlePostClick = (event) =>{
       
-      let { id } = useParams();
+      
 
       post(id, props.auth.token)
       .then(response => {
         
       })
       .catch(error => {
-        error: 'No se pudo acceder al post';
+        console.log('No se pudo acceder al post');
       })
     }
 
@@ -49,7 +50,7 @@ const Post = (props) => {
                 }
             })
             .catch(error => {
-                error: 'Aca iria un error al apretar like';
+              console.log('Aca iria un error al apretar like');
             })
     }
 
