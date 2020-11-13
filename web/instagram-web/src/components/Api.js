@@ -12,6 +12,10 @@ export const like = (id, token) => {
   return axios.put(`${API_URL}/post/${id}/like`, {headers : {Authorization : token}});
 }
 
+export const comment = (newComment, id, token) => {
+  return axios.put(`${API_URL}/post/${id}/comment`, {body : newComment});
+}
+
 export const user = (token) => {
   return axios.get(`get/User`, {headers : {Authorization : token}});
 }

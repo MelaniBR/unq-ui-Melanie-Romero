@@ -8,6 +8,9 @@ const Post = (props) => {
     const[likes, setLikes] = useState(0);
     const[liked, setLiked] = useState(false);
     const[comments, setComments] = useState([]);
+    const[data, setData] = useState({
+        newComment: '',
+    });
 
     const getPostData = () => {
 
@@ -31,7 +34,7 @@ const Post = (props) => {
 
         like( id, props.auth.token )
             .then(response => {
-                if( !liked ) {
+                if( liked ) {
                   console.log("Se agrego un like al post")
                     
                 } else {
@@ -40,21 +43,44 @@ const Post = (props) => {
                 setLikes(response.data.likes.length);
             })
             .catch(error => {
-                error: 'Aca iria un error al apretar like';
+                error: 'Error al agrega like.';
             })
     }
 
     const handleAddComment = (event) => {
-        
+        event.preventDefault();
+
+        let { id } = useParams();
+
+        comment(newComment, id, props.auth.token)
+            .then( response => {
+               console.log("Se agrego el comentario correctamente") 
+            })
+            .catch(error => {
+                error: 'No se pudo agregar el comentario'
+            })
+
+    }
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setData({...data, [name]: value });
     }
     
     return (
-        <div class="card">
-            <div class="card-header"> </div>
-            <img alt="imagen del post" src = { portrait } > </img>
-            <div class= "card-likes"> </div>
-            <div class= "card-comments"> </div>
-        </div>
+        <>
+            <div class="card">
+                <div class="card-header"> </div>
+                <img alt="imagen del post" src = { portrait } > </img>
+                <div class= "card-likes"> </div>
+                <div class= "card-comments"> </div>
+            </div>
+            <div>
+                <form>
+
+                </form> 
+            </div>
+        </>
     )
 
 }
