@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
-import { useParams } from "react-router-dom";
 import {post, like} from './Api.js';
 
-const Post = (props) => {
+const Post = (props, post) => {
 
-    const[portrait, setPortrait] = useState("");
-    const[likes, setLikes] = useState(0);
-    const[liked, setLiked] = useState(false);
-    const[comments, setComments] = useState([]);
+    const[portrait, setPortrait] = useState(post.portrait);
+    const[likes, setLikes] = useState(post.likes.lenght);
+    const[liked, setLiked] = useState(post.liked);
+    const[comments, setComments] = useState(post.comments);
+    const id = post.id;
 
     const getPostData = () => {
-
-        let { id } = useParams();
 
         post({ id })
             .then(response => {
@@ -51,7 +49,9 @@ const Post = (props) => {
     return (
         <div class="card">
             <div class="card-header"> </div>
-            <img alt="imagen del post" src = { portrait } > </img>
+            <NavLink to={`/post/${id}`}>
+                <img alt="imagen del post" src = { portrait } > </img>
+            </NavLink>
             <div class= "card-likes"> </div>
             <div class= "card-comments"> </div>
         </div>
