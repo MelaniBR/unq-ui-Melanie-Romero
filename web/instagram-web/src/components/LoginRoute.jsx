@@ -37,7 +37,7 @@ export const LoginRoute = ({ path, component, auth, onLoginOk }) => {
     if (auth.isAuthenticated) return <Redirect to={"/home"} />;
     return (
     <Route path="/login">
-      <div className="container">
+      
         <form onSubmit={handleLoginClick}>
           <div className="form-group">
             <label htmlFor="email">Email address</label>
@@ -50,7 +50,6 @@ export const LoginRoute = ({ path, component, auth, onLoginOk }) => {
           </div>
           <button type="submit" className="btn btn-primary">Login</button>
         </form>
-      </div>      
     </Route>
 
   );

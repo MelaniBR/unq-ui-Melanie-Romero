@@ -50,40 +50,41 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            {!auth.isAuthenticated ?
-              <>
-                <li>
-                  <NavLink to="/" >SingIn</NavLink>
-                </li> 
-                <li>
-                  <NavLink to="/register">Register</NavLink>
-                </li>
-              </>
-            : null }
 
-            {auth.isAuthenticated ?
-              <>
-                <li>
-                  <NavLink to="/home">Home</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/search">Search</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/profile">Profile</NavLink>
-                </li>
-                <li>
-                  <a href="#" onClick={unlogin}>SingOut</a>
-                </li>             
-              </>
-            : null }
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <ul className="navbar-nav mr-auto">
+          {!auth.isAuthenticated ?
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/" >SingIn</NavLink>
+              </li> 
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/register">Register</NavLink>
+              </li>
+            </>
+          : null }
 
-          </ul>
-        </nav>
-        {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
+          {auth.isAuthenticated ?
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/home">Home</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/search">Search</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/profile">Profile</NavLink>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" onClick={unlogin}>SingOut</a>
+              </li>
+            </>
+          : null }
+
+        </ul>
+      </nav>
+      {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
+      <div className="container pt-5">
         <Switch>
           <LoginRoute path="/login" auth={auth} onLoginOk={handleLoginOk}/>
           <PublicRoute path="/register" component={Register} auth={auth}/>
@@ -94,7 +95,9 @@ const App = () => {
           <PrivateRoute path="/user/:id" component={User} auth={auth}/>
           <PrivateRoute path="*" component={Timeline} auth={auth}/>
         </Switch>
-      </div>
+      </div>      
+
+
     </Router>
   );
 }
