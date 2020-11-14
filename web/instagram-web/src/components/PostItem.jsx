@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, } from 'react';
 import {post, like} from './Api.js';
 
-const Post = (props, post) => {
+const PostItem = (props, postData) => {
 
-    const[portrait, setPortrait] = useState(post.portrait);
-    const[likes, setLikes] = useState(post.likes.lenght);
-    const[liked, setLiked] = useState(post.liked);
-    const[comments, setComments] = useState(post.comments);
-    const id = post.id;
+    const[portrait, setPortrait] = useState(postData.portrait);
+    const[likes, setLikes] = useState(postData.likes.lenght);
+    const[liked, setLiked] = useState(postData.liked);
+    const id = postData.id;
 
     const getPostData = () => {
 
@@ -16,10 +15,9 @@ const Post = (props, post) => {
                 setPortrait(response.data.portrait);
                 setLikes(response.data.likes.length);
                 setLiked(response.data.like);
-                setComments(response.data.comments)
             })
             .catch(error => {
-                error: 'No se pudo acceder a los datos del post'
+                console.log(error);
             })
     }
 
@@ -38,7 +36,7 @@ const Post = (props, post) => {
                 setLikes(response.data.likes.length);
             })
             .catch(error => {
-                error: 'Aca iria un error al apretar like';
+                console.log(error);
             })
     }
 
@@ -49,14 +47,16 @@ const Post = (props, post) => {
     return (
         <div class="card">
             <div class="card-header"> </div>
-            <NavLink to={`/post/${id}`}>
-                <img alt="imagen del post" src = { portrait } > </img>
-            </NavLink>
+            <img alt="imagen del post" src = { portrait } > </img>
             <div class= "card-likes"> </div>
             <div class= "card-comments"> </div>
         </div>
     )
 
 }
-
-export default Post;
+/*
+<NavLink to={`/post/${id}`}>
+<img alt="imagen del post" src = { portrait } > </img>
+</NavLink>
+*/
+export default PostItem;

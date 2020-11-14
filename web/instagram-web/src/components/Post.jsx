@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useParams } from "react-router-dom";
-import {post, like} from './Api.js';
+import {post, like, comment} from './Api.js';
 
 const Post = (props) => {
 
@@ -12,9 +12,9 @@ const Post = (props) => {
         newComment: '',
     });
 
-    const getPostData = () => {
+    let id = useParams();
 
-        let { id } = useParams();
+    const getPostData = () => {
 
         post({ id })
             .then(response => {
@@ -24,13 +24,14 @@ const Post = (props) => {
                 setComments(response.data.comments)
             })
             .catch(error => {
-                error: 'No se pudo acceder a los datos del post'
+                console.log(error)
             })
     }
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
         
+        /*let { id } = useParams();*/
 
         like( id, props.auth.token )
             .then(response => {
@@ -43,21 +44,21 @@ const Post = (props) => {
                 setLikes(response.data.likes.length);
             })
             .catch(error => {
-                error: 'Error al agrega like.';
+                console.log(error)
             })
     }
 
     const handleAddComment = (event) => {
         event.preventDefault();
 
-        let { id } = useParams();
+        /*let { id } = useParams();*/
 
-        comment(newComment, id, props.auth.token)
+        comment(data.newComment, id, props.auth.token)
             .then( response => {
                console.log("Se agrego el comentario correctamente") 
             })
             .catch(error => {
-                error: 'No se pudo agregar el comentario'
+                console.log(error);
             })
 
     }
