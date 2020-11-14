@@ -1,20 +1,23 @@
 import { useState } from "react";
+import {validateControl, required, minLength, maxLength, email, url} from "./Validations.js";
 
 export function Register() {
 
   const [data, setData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    repassword: '',
-    imagen: '',
-    error: '',
+    name: {label:'Name', value: '', error: '', validations: [(x) => required(x), (x) => minLength(x, 4), (x) => maxLength(x, 40)]},
+    email: {label:'Email', value: '', error: '', validations: [(x) => required(x), (x) => email(x)]},
+    password: {label:'Password', value: '', error: '', validations: []},
+    repassword: {label:'Password confirm', value: '', error: '', validations: []},
+    image: {label:'Image', value: '', error: '', validations: [(x) => url(x)]}
   });
 
   const handleInputChange = (event) =>{
     setData({
       ...data,
-      [event.target.name]: event.target.value
+      [event.target.name]: validateControl({
+        ...data[event.target.name], 
+        value: event.target.value
+      })
     })
   };
 
@@ -29,31 +32,35 @@ export function Register() {
     <form onSubmit={handleFormSubmit}>
 
       <div className="form-group">
-        <label htmlFor="name">Name</label>
-        <input name="name" className={`form-control ${data.error && 'is-invalid'}`} value={data.name} onChange={handleInputChange} />
+        <label htmlFor="name">{data.name.label}</label>
+        <input name="name" className={`form-control ${data.name.error && 'is-invalid'}`} value={data.name.value} onChange={handleInputChange} />
+        {data.name.error && <span>{data.name.error}</span>}
       </div>
       
       <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input name="email" className={`form-control ${data.error && 'is-invalid'}`} value={data.email} onChange={handleInputChange} />
+        <label htmlFor="email">{data.email.label}</label>
+        <input name="email" className={`form-control ${data.email.error && 'is-invalid'}`} value={data.email.value} onChange={handleInputChange} />
+        {data.email.error && <span>{data.email.error}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="image">Image</label>
-        <input name="image" className={`form-control ${data.error && 'is-invalid'}`} value={data.image} onChange={handleInputChange} />
+        <label htmlFor="password">{data.password.label}</label>
+        <input name="password" type="password" className={`form-control ${data.password.error && 'is-invalid'}`} value={data.password.value} onChange={handleInputChange} />
+        {data.password.error && <span>{data.password.error}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input name="password" type="password" className={`form-control ${data.error && 'is-invalid'}`} value={data.password} onChange={handleInputChange} />
+        <label htmlFor="repassword">{data.repassword.label}</label>
+        <input name="repassword" type="password" className={`form-control ${data.repassword.error && 'is-invalid'}`} value={data.repassword.value} onChange={handleInputChange} />
+        {data.repassword.error && <span>{data.repassword.error}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="repassword">Password confirm</label>
-        <input name="repassword" type="password" className={`form-control ${data.error && 'is-invalid'}`} value={data.repassword} onChange={handleInputChange} />
+        <label htmlFor="image">{data.image.label}</label>
+        <input name="image" className={`form-control ${data.image.error && 'is-invalid'}`} value={data.image.value} onChange={handleInputChange} />
+        {data.image.error && <span>{data.image.error}</span>}
       </div>
-      
-      {data.error && <small className="form-text text-danger">{data.error}</small>}
+
 
       <button type="submit" className="btn btn-default">Enviar</button>
     </form>  
