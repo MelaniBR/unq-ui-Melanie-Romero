@@ -24,4 +24,8 @@ export const user = (token) => {
   return axios.get(`get/User`, {headers : {Authorization : token}});
 }
 
+export const register = (data) => {
+  return axios.post(`${API_URL}/register`, data);
+}
+
 export default login;

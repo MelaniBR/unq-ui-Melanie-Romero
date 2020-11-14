@@ -7,7 +7,7 @@ export function Register() {
   const forceUpdate = useCallback(() => updateState({}), []);
 
   const[dataOk, setDataOk] = useState(false);
-  
+
   const [data, setData] = useState({
     name: {label:'Name', value: '', error: '', validations: [(x) => required(x), (x) => minLength(x, 4), (x) => maxLength(x, 40)]},
     email: {label:'Email', value: '', error: '', validations: [(x) => required(x), (x) => email(x)]},
@@ -40,8 +40,6 @@ export function Register() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
-
     setDataOk(isValidateGroup(data));
     setData(validateGroup(data));
     forceUpdate()
