@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useParams } from "react-router-dom";
-import {post, like} from './Api.js';
+import {post, like, comment} from './Api.js';
 
 const Post = (props) => {
 
@@ -8,9 +8,14 @@ const Post = (props) => {
     const[likes, setLikes] = useState(0);
     const[liked, setLiked] = useState(false);
     const[comments, setComments] = useState([]);
-    let { id } = useParams();
+    const[data, setData] = useState({
+        newComment: '',
+    });
+
+    let id = useParams();
 
     const getPostData = () => {
+
         post({ id })
             .then(response => {
                 setPortrait(response.data.portrait);
@@ -19,52 +24,64 @@ const Post = (props) => {
                 setComments(response.data.comments)
             })
             .catch(error => {
-                console.log('No se pudo acceder a los datos del post');
+                console.log(error)
             })
-    }
-
-    const handlePostClick = (event) =>{
-      
-      
-
-      post(id, props.auth.token)
-      .then(response => {
-        
-      })
-      .catch(error => {
-        console.log('No se pudo acceder al post');
-      })
     }
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
         
+        /*let { id } = useParams();*/
 
         like( id, props.auth.token )
             .then(response => {
-                if( !liked ) {
-                    console.log("Se agrego un like al post")
+                if( liked ) {
+                  console.log("Se agrego un like al post")
                     
                 } else {
                     console.log("Se quito un like al post")
                 }
+                setLikes(response.data.likes.length);
             })
             .catch(error => {
-              console.log('Aca iria un error al apretar like');
+                console.log(error)
             })
     }
 
     const handleAddComment = (event) => {
-        
+        event.preventDefault();
+
+        /*let { id } = useParams();*/
+
+        comment(data.newComment, id, props.auth.token)
+            .then( response => {
+               console.log("Se agrego el comentario correctamente") 
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setData({...data, [name]: value });
     }
     
     return (
-        <div class="card">
-            <div class="card-header"> </div>
-            <img alt="imagen del post" src = "" onClick={handlePostClick} > </img>
-            <div class= "card-likes"> </div>
-            <div class= "card-comments"> </div>
-        </div>
+        <>
+            <div class="card">
+                <div class="card-header"> </div>
+                <img alt="imagen del post" src = { portrait } > </img>
+                <div class= "card-likes"> </div>
+                <div class= "card-comments"> </div>
+            </div>
+            <div>
+                <form>
+
+                </form> 
+            </div>
+        </>
     )
 
 }
