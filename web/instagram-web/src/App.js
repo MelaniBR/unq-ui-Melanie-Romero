@@ -25,6 +25,8 @@ const App = () => {
     token: localStorage.getItem("token")
   });
 
+  const [search, setSearch] = useState("");
+  
   //const isAuthenticated = !!localStorage.getItem("token");
   const unlogin = () => { 
     localStorage.setItem("token", "");
@@ -48,10 +50,18 @@ const App = () => {
     
   }
 
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+  }
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  }
+
   return (
     <Router>
 
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <ul className="navbar-nav mr-auto">
           {!auth.isAuthenticated ?
             <>
@@ -82,6 +92,10 @@ const App = () => {
           : null }
 
         </ul>
+        <form class="form-inline my-2 my-lg-0" onSubmit={handleSearchSubmit}>
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={handleSearchChange}/>
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </nav>
       {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
       <div className="container pt-5">
