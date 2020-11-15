@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef} from "react";
 import {validateControl, validateGroup, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
+import {register} from "./Api.js"
 
 export function Register() {
   
@@ -43,6 +44,10 @@ export function Register() {
     setDataOk(isValidateGroup(data));
     setData(validateGroup(data));
     forceUpdate()
+
+    register({name: data.name.value, email: data.email.value, password: data.password.value, image: data.image.value })
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
     console.log(data)
   }
 
