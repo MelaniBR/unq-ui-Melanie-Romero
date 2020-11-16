@@ -24,17 +24,16 @@ export const Profile = (props) => {
         <img className="border border-primary rounded-circle d-inline mr-2" style={{width:"30px", height:"30px"}} src={data.image} />
         <span>{props.auth.email}</span>
       </div>
-      <div class="row">
+      <div className="row">
       {data.posts.map(post => (
-        <div class="col-6 col-md-4 col-lg-3 mb-4">
-          <div class="card mx-auto text-center">
-            <NavLink to={`/post/${post.id}`}><img class="card-img-top" src={post.landscape} alt="Sample Title"/></NavLink>
+        <div key={post.id} className="col-6 col-md-4 col-lg-3 mb-4">
+          <div className="card mx-auto text-center">
+            <NavLink to={`/post/${post.id}`}><img className="card-img-top" src={post.landscape} alt="Sample Title"/></NavLink>
           </div>
         </div>
       ))}
       </div>
     </>
-    
   )
 }
 
