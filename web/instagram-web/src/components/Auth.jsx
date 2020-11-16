@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import PublicRoute from './PublicRoute.jsx';
-
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-
 
 //const isAuthenticated = !!localStorage.getItem("token");
 export const signOut = () => { 

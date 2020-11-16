@@ -8,7 +8,6 @@ import {
 import Timeline from './components/Timeline';
 import PrivateRoute from './components/PrivateRoute';
 import Register from './components/Register';
-import Home from "./components/Home";
 import Search from "./components/Search";
 import Profile from "./components/Profile";
 import Post from "./components/Post";
@@ -84,7 +83,7 @@ const App = () => {
       {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
       <div className="container pt-5">
         <Switch>
-          <AuthRoute path="/login" auth={auth} component={Login} auth={auth} onAuth={handleOnAuth}/>
+          <AuthRoute path="/login" component={Login} auth={auth} onAuth={handleOnAuth}/>
           <AuthRoute path="/register" component={Register} auth={auth} onAuth={handleOnAuth}/>
           <PrivateRoute path="/home" component={Timeline} auth={auth}/>
           <PrivateRoute path="/search" component={Search} auth={auth}/>
