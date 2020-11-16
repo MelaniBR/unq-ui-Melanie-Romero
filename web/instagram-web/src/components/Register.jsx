@@ -2,12 +2,16 @@ import { useEffect, useState, useCallback, useRef} from "react";
 import {validateControl, validateGroup, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
 import {register} from "./Api.js"
 
-export function Register() {
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2/dist/sweetalert2'
+
+export const Register = ({ onAuthOk }) => {
   
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
   const[dataOk, setDataOk] = useState(false);
+  const[error, setError] = useState("");
 
   const [data, setData] = useState({
     name: {label:'Name', value: '', error: '', validations: [(x) => required(x), (x) => minLength(x, 4), (x) => maxLength(x, 40)]},
@@ -23,7 +27,7 @@ export function Register() {
       ...data,
       repassword: {
         ...data.repassword,
-        validations: [ (x) => {console.log(data ); return x.value !== data.password.value ? "Invalid password confirmation" : ""} ]
+        validations: [ (x) => {return x.value !== data.password.value ? "Invalid password confirmation" : ""} ]
       }
     };
 
@@ -45,10 +49,27 @@ export function Register() {
     setData(validateGroup(data));
     forceUpdate()
 
-    register({name: data.name.value, email: data.email.value, password: data.password.value, image: data.image.value })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-    console.log(data)
+    if(isValidateGroup(data)){
+      setError("");
+      register({name: data.name.value, email: data.email.value, password: data.password.value, image: data.image.value })
+        .then(response => {
+          Swal.fire({
+            title: 'Success!',
+            text: 'You have successfully registered',
+            icon: 'success',
+            confirmButtonText: 'Go to timeline',
+            willClose: () => {
+              onAuthOk (
+                response.headers.authorization, data.email.value
+                ) 
+            }
+          })
+        })
+        .catch(error => {
+          setError(error.response.data.message);
+        });
+    }
+
   }
 
   return (
@@ -86,6 +107,7 @@ export function Register() {
         {data.image.error && <span>{data.image.error}</span>}
       </div>
 
+      {error && <div className="alert alert-danger">{error}</div>}
 
       <button type="submit" className="btn btn-default" disabled={!dataOk}>Enviar</button>
 

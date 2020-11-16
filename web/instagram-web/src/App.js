@@ -5,57 +5,41 @@ import {
   Switch,
   NavLink
 } from "react-router-dom";
-import LoginRoute from './components/LoginRoute';
 import Timeline from './components/Timeline';
 import PrivateRoute from './components/PrivateRoute';
-import PublicRoute from './components/PublicRoute';
 import Register from './components/Register';
 import Home from "./components/Home";
 import Search from "./components/Search";
 import Profile from "./components/Profile";
 import Post from "./components/Post";
 import User from "./components/User";
+import Login from "./components/Login"
 import './App.css';
+import { AuthRoute, readAuth, signOut } from "./components/Auth";
+  
+
 
 const App = () => {
 
-  const [auth, setAuth] = useState({
-    isAuthenticated: !!localStorage.getItem("token"),
-    email: localStorage.getItem("email"),
-    token: localStorage.getItem("token")
-  });
+  const [auth, setAuth] = useState(readAuth);
 
   const [search, setSearch] = useState("");
   
-  //const isAuthenticated = !!localStorage.getItem("token");
-  const unlogin = () => { 
-    localStorage.setItem("token", "");
-    setAuth({
-      isAuthenticated: false,
-      email: '',
-      token: ''
-    })
-  }
-  
-  const handleLoginOk = (token, email) => {
-    if(!!token){
-      localStorage.setItem("token", token);
-      localStorage.setItem("email", email);
-      setAuth({
-        isAuthenticated: true,
-        email: email,
-        token: token
-      });
-    }
-    
-  }
-
   const handleSearchSubmit = (event) => {
     event.preventDefault();
   }
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
+  }
+
+  const handleOnAuth = () => {
+    setAuth(readAuth());
+  }
+
+  const handleSignOut = () => {
+    signOut();
+    setAuth(readAuth());
   }
 
   return (
@@ -86,7 +70,7 @@ const App = () => {
                 <NavLink className="nav-link" to="/profile">Profile</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#" onClick={unlogin}>SingOut</a>
+                <a className="nav-link" href="#" onClick={handleSignOut}>SingOut</a>
               </li>
             </>
           : null }
@@ -100,8 +84,8 @@ const App = () => {
       {/* A <Switch> looks through its children <Route>s and renders the first one that matches the current URL. */}
       <div className="container pt-5">
         <Switch>
-          <LoginRoute path="/login" auth={auth} onLoginOk={handleLoginOk}/>
-          <PublicRoute path="/register" component={Register} auth={auth}/>
+          <AuthRoute path="/login" auth={auth} component={Login} auth={auth} onAuth={handleOnAuth}/>
+          <AuthRoute path="/register" component={Register} auth={auth} onAuth={handleOnAuth}/>
           <PrivateRoute path="/home" component={Timeline} auth={auth}/>
           <PrivateRoute path="/search" component={Search} auth={auth}/>
           <PrivateRoute path="/profile" component={Profile} auth={auth}/>
