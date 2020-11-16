@@ -55,9 +55,12 @@ export const Register = ({ onAuthOk }) => {
             icon: 'success',
             confirmButtonText: 'Go to timeline',
             willClose: () => {
-              onAuthOk (
-                response.headers.authorization, data.email.value
-              ) 
+              onAuthOk ({
+                token: response.headers.authorization, 
+                email: data.email.value, 
+                name: response.data.name,
+                id: response.data.id
+              }) 
             }
           })
         })
@@ -106,7 +109,7 @@ export const Register = ({ onAuthOk }) => {
 
       <button type="submit" className="btn btn-primary" disabled={!dataOk || loading}>
         Register
-        {loading && <span class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
+        {loading && <span className="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
       </button>
 
       {error && <div className="alert alert-danger mt-3">{error}</div>}

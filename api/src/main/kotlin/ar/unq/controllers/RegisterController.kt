@@ -4,6 +4,7 @@ import ar.unq.token.TokenController
 import ar.unq.utils.requests.RegisterRequest
 import ar.unq.utils.responses.ErrorResponse
 import ar.unq.utils.responses.OkResponse
+import ar.unq.utils.responses.UserResponses.UserResponse
 import io.javalin.http.Context
 import org.unq.ui.model.InstagramSystem
 import org.unq.ui.model.UsedEmail
@@ -19,7 +20,7 @@ class RegisterController(val instagramSystem : InstagramSystem) {
                 newUserData.password,
                 newUserData.image)
             ctx.header("Authorization", TokenController().generateToken(user))
-            ctx.status(201).json(OkResponse())
+            ctx.status(201).json(UserResponse(user))
 
         }catch(e : UsedEmail){
             //409 Conflict Response

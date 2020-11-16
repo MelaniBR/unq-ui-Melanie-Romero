@@ -20,7 +20,11 @@ export const comment = (newComment, id, token) => {
 }
 
 export const user = (token) => {
-  return axios.get(`get/User`, {headers : {Authorization : token}});
+  return axios.get(`${API_URL}/user`, {headers : {Authorization : token}});
+}
+
+export const userById = (id, token) => {
+  return axios.get(`${API_URL}/user/${id}`, {headers : {Authorization : token}});
 }
 
 export const register = (data) => {

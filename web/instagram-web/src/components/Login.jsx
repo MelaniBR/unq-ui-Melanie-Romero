@@ -35,6 +35,7 @@ export const Login = ({ onAuthOk }) => {
       setLoading(true)
       login({email: data.email.value, password: data.password.value})
         .then(response => {
+          console.log(response)
           setLoading(false)
           Swal.fire({
             title: 'Login ok!',
@@ -42,9 +43,12 @@ export const Login = ({ onAuthOk }) => {
             icon: 'success',
             confirmButtonText: 'Go to timeline',
             willClose: () => {
-              onAuthOk (
-                response.headers.authorization, data.email.value
-              ) 
+              onAuthOk ({
+                token: response.headers.authorization, 
+                email: data.email.value, 
+                name: response.data.name,
+                id: response.data.id
+              }) 
             }
           })
         })
@@ -73,7 +77,7 @@ export const Login = ({ onAuthOk }) => {
         </div>
         <button type="submit" className="btn btn-primary" disabled={!dataOk || loading}>
           Enter
-          {loading && <span class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
+          {loading && <span className="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
         </button>
         {error && <div className="alert alert-danger mt-3">{error}</div>}
       </form>
