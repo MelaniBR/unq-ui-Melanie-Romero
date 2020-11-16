@@ -1,24 +1,39 @@
 
 import React, { useState } from 'react';
-import {user} from './Api.js'
+import { user } from './Api.js';
+import PostItem from './PostItem.jsx';
+
 
 const Timeline = (props) => {
 
-  const[user, setUser] = useState({});
+  const[userData, setUserData] = useState({});
 
   const getUserData = () => {
     user( props.auth.token )
       .then(response => {
-        setUser(response.data)
+        setUserData(response.data);
       })
   }
 
-  const renderPosts = () => {
 
+  function renderPostItemList() {
+    return (
+    <ul>
+      {userData.timeline.map((post) => 
+        <li> <PostItem  post={post} auth={props.auth.token}/> </li>
+      )}
+    </ul>
+      )
   }
 
   const renderFollowers = () => {
-
+    return (
+      <ul>
+        {userData.followers.map((follower) =>
+          <li>  </li>
+        )}
+      </ul>
+    )
   }
 
   console.log(props)
@@ -26,6 +41,10 @@ const Timeline = (props) => {
     <>
     <h1>Timeline</h1>
     <span>{props.auth.token}</span>
+    <div>
+      { renderPostItemList() }
+    </div>
+
     </>
   )
 }

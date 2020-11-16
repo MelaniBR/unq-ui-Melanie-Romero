@@ -16,7 +16,7 @@ const Post = (props) => {
 
     const getPostData = () => {
 
-        post({ id })
+        post(id, props.auth.token )
             .then(response => {
                 setPortrait(response.data.portrait);
                 setLikes(response.data.likes.length);
@@ -30,8 +30,6 @@ const Post = (props) => {
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
-        
-        /*let { id } = useParams();*/
 
         like( id, props.auth.token )
             .then(response => {
@@ -50,8 +48,6 @@ const Post = (props) => {
 
     const handleAddComment = (event) => {
         event.preventDefault();
-
-        /*let { id } = useParams();*/
 
         comment(data.newComment, id, props.auth.token)
             .then( response => {
