@@ -1,13 +1,13 @@
-import { useEffect, useState, useCallback, useRef} from "react";
-import {validateControl, validateGroup, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
+import { useState} from "react";
+import {validateControl, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
 import {register} from "./Api.js"
+import Swal from 'sweetalert2/dist/sweetalert2'
 
-export function Register() {
+export const Register = ({ onAuthOk }) => {
   
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-
   const[dataOk, setDataOk] = useState(false);
+  const[loading, setLoading] = useState(false);
+  const[error, setError] = useState("");
 
   const [data, setData] = useState({
     name: {label:'Name', value: '', error: '', validations: [(x) => required(x), (x) => minLength(x, 4), (x) => maxLength(x, 40)]},
@@ -23,7 +23,7 @@ export function Register() {
       ...data,
       repassword: {
         ...data.repassword,
-        validations: [ (x) => {console.log(data ); return x.value !== data.password.value ? "Invalid password confirmation" : ""} ]
+        validations: [ (x) => {return x.value !== data.password.value ? "Invalid password confirmation" : ""} ]
       }
     };
 
@@ -41,14 +41,35 @@ export function Register() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    setDataOk(isValidateGroup(data));
-    setData(validateGroup(data));
-    forceUpdate()
 
-    register({name: data.name.value, email: data.email.value, password: data.password.value, image: data.image.value })
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
-    console.log(data)
+
+    if(dataOk){
+      setError("");
+      setLoading(true)
+      register({name: data.name.value, email: data.email.value, password: data.password.value, image: data.image.value })
+        .then(response => {
+          setLoading(false);
+          Swal.fire({
+            title: 'Success!',
+            text: 'You have successfully registered',
+            icon: 'success',
+            confirmButtonText: 'Go to timeline',
+            willClose: () => {
+              onAuthOk ({
+                token: response.headers.authorization, 
+                email: data.email.value, 
+                name: response.data.name,
+                id: response.data.id
+              }) 
+            }
+          })
+        })
+        .catch(error => {
+          setError(error.response ? error.response.data.message : "Connection error");
+          setLoading(false);
+        });
+    }
+
   }
 
   return (
@@ -86,9 +107,12 @@ export function Register() {
         {data.image.error && <span>{data.image.error}</span>}
       </div>
 
+      <button type="submit" className="btn btn-primary" disabled={!dataOk || loading}>
+        Register
+        {loading && <span className="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
+      </button>
 
-      <button type="submit" className="btn btn-default" disabled={!dataOk}>Enviar</button>
-
+      {error && <div className="alert alert-danger mt-3">{error}</div>}
     </form>  
   </>
   );

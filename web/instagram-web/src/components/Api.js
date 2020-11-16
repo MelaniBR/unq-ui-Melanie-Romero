@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:7000';
 
 
 export const login = (data) => {
-  const authenticate = false;
   return axios.post(`${API_URL}/login`, data);
 }
 
@@ -21,7 +20,11 @@ export const comment = (newComment, id, token) => {
 }
 
 export const user = (token) => {
-  return axios.get(`${API_URL}/get/User`, {headers : {Authorization : token}});
+  return axios.get(`${API_URL}/user`, {headers : {Authorization : token}});
+}
+
+export const userById = (id, token) => {
+  return axios.get(`${API_URL}/user/${id}`, {headers : {Authorization : token}});
 }
 
 export const register = (data) => {
