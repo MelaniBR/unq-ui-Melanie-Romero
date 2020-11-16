@@ -50,7 +50,7 @@ const App = () => {
           {!auth.isAuthenticated ?
             <>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/" >SingIn</NavLink>
+                <NavLink className="nav-link" to="/" >SignIn</NavLink>
               </li> 
               <li className="nav-item">
                 <NavLink className="nav-link" to="/register">Register</NavLink>
@@ -70,7 +70,7 @@ const App = () => {
                 <NavLink className="nav-link" to="/profile">Profile</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#" onClick={handleSignOut}>SingOut</a>
+                <a className="nav-link" href="#" onClick={handleSignOut}>SignOut</a>
               </li>
             </>
           : null }

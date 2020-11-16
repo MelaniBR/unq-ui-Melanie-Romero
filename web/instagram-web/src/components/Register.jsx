@@ -1,16 +1,12 @@
-import { useEffect, useState, useCallback, useRef} from "react";
-import {validateControl, validateGroup, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
+import { useState} from "react";
+import {validateControl, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
 import {register} from "./Api.js"
-
-// ES6 Modules or TypeScript
 import Swal from 'sweetalert2/dist/sweetalert2'
 
 export const Register = ({ onAuthOk }) => {
   
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
-
   const[dataOk, setDataOk] = useState(false);
+  const[loading, setLoading] = useState(false);
   const[error, setError] = useState("");
 
   const [data, setData] = useState({
@@ -45,14 +41,14 @@ export const Register = ({ onAuthOk }) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    setDataOk(isValidateGroup(data));
-    setData(validateGroup(data));
-    forceUpdate()
 
-    if(isValidateGroup(data)){
+
+    if(dataOk){
       setError("");
+      setLoading(true)
       register({name: data.name.value, email: data.email.value, password: data.password.value, image: data.image.value })
         .then(response => {
+          setLoading(false);
           Swal.fire({
             title: 'Success!',
             text: 'You have successfully registered',
@@ -61,12 +57,13 @@ export const Register = ({ onAuthOk }) => {
             willClose: () => {
               onAuthOk (
                 response.headers.authorization, data.email.value
-                ) 
+              ) 
             }
           })
         })
         .catch(error => {
-          setError(error.response.data.message);
+          setError(error.response ? error.response.data.message : "Connection error");
+          setLoading(false);
         });
     }
 
@@ -107,10 +104,12 @@ export const Register = ({ onAuthOk }) => {
         {data.image.error && <span>{data.image.error}</span>}
       </div>
 
-      {error && <div className="alert alert-danger">{error}</div>}
+      <button type="submit" className="btn btn-primary" disabled={!dataOk || loading}>
+        Register
+        {loading && <span class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
+      </button>
 
-      <button type="submit" className="btn btn-default" disabled={!dataOk}>Enviar</button>
-
+      {error && <div className="alert alert-danger mt-3">{error}</div>}
     </form>  
   </>
   );
