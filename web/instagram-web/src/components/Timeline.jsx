@@ -12,7 +12,7 @@ const Timeline = (props) => {
 
   useEffect(() => {
     getUserData();
-})
+}, [])
 
   const getUserData = () => {
     user( props.auth.token )

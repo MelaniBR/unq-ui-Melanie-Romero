@@ -11,7 +11,7 @@ const PostItem = (props) => {
 
     useEffect(() => {
         getPostData();
-    })
+    },[])
 
     const getPostData = () => {
 

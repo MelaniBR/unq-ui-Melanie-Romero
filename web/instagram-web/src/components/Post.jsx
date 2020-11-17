@@ -16,7 +16,7 @@ const Post = (props) => {
 
     useEffect(() => {
         getPostData();
-    })
+    }, [])
 
     const getPostData = () => {
 
@@ -69,19 +69,12 @@ const Post = (props) => {
     }
     
     return (
-        <>
-            <div className="card">
-                <div className="card-header"> </div>
+        <div>
                 <img alt="imagen del post" src = { portrait }></img>
-                <div className= "card-likes"> </div>
-                <div className= "card-comments"> </div>
-            </div>
-            <div>
                 <form>
 
                 </form> 
-            </div>
-        </>
+        </div>
     )
 
 }
