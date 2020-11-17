@@ -18,7 +18,7 @@ class SearchController(val instagramSystem : InstagramSystem) {
         ctx.status(200).json(possibleResult(text, getUserId(ctx)))
 
     }
-    fun possibleResult(text:String, userId: String): SearchResponse {
+    private fun possibleResult(text:String, userId: String): SearchResponse {
 
         if (text.get(0).equals('#')) {
          return SearchResponse(searchByTag(text, userId))
@@ -26,10 +26,10 @@ class SearchController(val instagramSystem : InstagramSystem) {
          return SearchResponse(searchByName(text))
         }
     }
-    fun searchByTag(text:String, userId: String): List<PostResponse> {
+    private fun searchByTag(text:String, userId: String): List<PostResponse> {
         return    instagramSystem.searchByTag(text).map { PostResponse(it, userId) }
     }
-    fun searchByName(text:String): List<UserResponse> {
+    private fun searchByName(text:String): List<UserResponse> {
         return    instagramSystem.searchByName(text).map{UserResponse(it)}
     }
     private fun getUserId(ctx: Context): String {

@@ -61,7 +61,7 @@ fun main(args: Array<String>) {
 
         }
         path("search"){
-            get(searchController::get,setOf(InstagramRoles.ANYONE))
+            get(searchController::get,setOf(InstagramRoles.USER))
         }
     }
 }
