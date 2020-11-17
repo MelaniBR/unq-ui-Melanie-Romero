@@ -12,8 +12,7 @@ export const Profile = (props) => {
       console.log(props, response)
       setData(response.data);
     })
-    .catch(error => {
-      console.log(error)
+      .catch(error => {
     });
   }, []);
 
