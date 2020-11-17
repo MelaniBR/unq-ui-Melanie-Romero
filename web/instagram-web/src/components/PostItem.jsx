@@ -28,10 +28,9 @@ const PostItem = (props) => {
                 <img alt="imagen del post" src = { portrait }></img>
             </Link>
             <div className= "card-likes"> 
-            <button onClick={handleLikeClick} >&hearts;</button>
-    <h >{ likes }</h>
-              </div>
-            <div className= "card-comments"> </div>
+                <button onClick={handleLikeClick} >&hearts;</button>
+                <h >{ likes }</h>
+            </div>
         </card>
     )
 

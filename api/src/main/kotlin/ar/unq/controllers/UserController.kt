@@ -25,7 +25,8 @@ class UserController(val instagramSystem : InstagramSystem) {
         }
 
         val userTimeline = instagramSystem.timeline(userId)
-        val userDTO = GetUserResponse(user!!, userTimeline)
+        val userFollowers = user.followers
+        val userDTO = GetUserResponse(user!!, userTimeline, userFollowers)
         ctx.status(200).json(userDTO!!)
 
     }

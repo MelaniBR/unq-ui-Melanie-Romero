@@ -7,7 +7,8 @@ import PostItem from './PostItem.jsx';
 const Timeline = (props) => {
 
   const[userData, setUserData] = useState({
-    timeline: []
+    timeline: [],
+    followers : []
   });
 
   useEffect(() => {
