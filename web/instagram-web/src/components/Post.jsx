@@ -37,12 +37,6 @@ const Post = (props) => {
 
         like( id, props.auth.token )
             .then(response => {
-                if( liked ) {
-                  console.log("Se agrego un like al post")
-                    
-                } else {
-                    console.log("Se quito un like al post")
-                }
                 setLikes(response.data.likes.length);
             })
             .catch(error => {
@@ -68,13 +62,20 @@ const Post = (props) => {
         setData({...data, [name]: value });
     }
     
-    return (
-        <div>
-                <img alt="imagen del post" src = { portrait }></img>
-                <form>
+<img alt="imagen del post" src = { portrait }></img>
 
-                </form> 
-        </div>
+    return (
+        <card>
+            <div className="card-header"> </div>
+            <img alt="imagen del post" src = { portrait }></img>
+            <div className= "card-likes"> 
+                <button onClick={handleLikeClick} >&hearts;</button>
+                <h >{ likes }</h>
+              </div>
+            <div className= "card-comments">
+
+            </div>
+        </card>
     )
 
 }

@@ -13,13 +13,8 @@ const PostItem = (props) => {
 
         like( props.post.id, props.auth.token )
             .then(response => {
-                if( !liked ) {
-                  console.log("Se agrego un like al post")
-                    
-                } else {
-                    console.log("Se quito un like al post")
-                }
                 setLikes(response.data.likes.length);
+                console.log(response.data.likes.length)
             })
             .catch(error => {
                 console.log(error);
@@ -34,7 +29,7 @@ const PostItem = (props) => {
             </Link>
             <div className= "card-likes"> 
             <button onClick={handleLikeClick} >&hearts;</button>
-    <h >{ props.post.likes.length }</h>
+    <h >{ likes }</h>
               </div>
             <div className= "card-comments"> </div>
         </card>
