@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import {post, like, comment} from './Api.js';
 
@@ -13,6 +13,10 @@ const Post = (props) => {
     });
 
     let id = useParams();
+
+    useEffect(() => {
+        getPostData();
+    })
 
     const getPostData = () => {
 
@@ -66,11 +70,11 @@ const Post = (props) => {
     
     return (
         <>
-            <div class="card">
-                <div class="card-header"> </div>
-                <img alt="imagen del post" src = { portrait } > </img>
-                <div class= "card-likes"> </div>
-                <div class= "card-comments"> </div>
+            <div className="card">
+                <div className="card-header"> </div>
+                <img alt="imagen del post" src = { portrait }></img>
+                <div className= "card-likes"> </div>
+                <div className= "card-comments"> </div>
             </div>
             <div>
                 <form>

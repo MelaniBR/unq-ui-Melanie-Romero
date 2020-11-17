@@ -1,4 +1,4 @@
-import React, {useState, } from 'react';
+import React, {useEffect, useState, } from 'react';
 import {post, like} from './Api.js';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,11 @@ const PostItem = (props) => {
     const portrait = props.post.portrait;
     const[likes, setLikes] = useState(props.post.likes.lenght);
     const[liked, setLiked] = useState(props.post.liked);
-    const id = props.id;
+    const id = props.post.id;
+
+    useEffect(() => {
+        getPostData();
+    })
 
     const getPostData = () => {
 
@@ -44,7 +48,7 @@ const PostItem = (props) => {
         <div class="card">
             <div class="card-header"> </div>
             <Link to={{pathname: `/post/${id}`}}>
-                <img alt="imagen del post" src = { portrait } > </img>
+                <img alt="imagen del post" src = { portrait }></img>
             </Link>
             <div class= "card-likes"> </div>
             <div class= "card-comments"> </div>

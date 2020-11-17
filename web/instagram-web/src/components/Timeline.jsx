@@ -1,12 +1,18 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { user } from './Api.js';
 import PostItem from './PostItem.jsx';
 
 
 const Timeline = (props) => {
 
-  const[userData, setUserData] = useState({});
+  const[userData, setUserData] = useState({
+    timeline: []
+  });
+
+  useEffect(() => {
+    getUserData();
+})
 
   const getUserData = () => {
     user( props.auth.token )
