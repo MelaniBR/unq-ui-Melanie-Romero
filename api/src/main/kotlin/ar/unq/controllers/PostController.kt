@@ -32,7 +32,7 @@ class PostController(val instagramSystem : InstagramSystem) {
         try {
             instagramSystem.updateLike(idPost,userId)
             val post = instagramSystem.getPost(idPost)
-            ctx.status(200).json(PostLikesResponse(post, idPost))
+            ctx.status(200).json(PostLikesResponse(post, userId))
         }catch(e : NotFound) {
             ctx.status(404).json(ErrorResponse("Not found post with id" + idPost))
         }
