@@ -67,13 +67,20 @@ const Post = (props) => {
     return (
         <card>
             <div className="card-header"> </div>
-            <img alt="imagen del post" src = { portrait }></img>
+            <img alt="postImage" src = { portrait }></img>
             <div className= "card-likes"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
-                <h >{ likes }</h>
+                <h >{ likes } <b>Me gusta</b></h>
               </div>
             <div className= "card-comments">
-
+                <ul>
+                    {comments.map((comment)=>
+                     <il>
+                         <img alt="userImage" src = {comment.user.image}></img>
+                         <h>{comment.user.name}</h>
+                        <p>{comment.body}</p>
+                     </il>)}
+                </ul>
             </div>
         </card>
     )
