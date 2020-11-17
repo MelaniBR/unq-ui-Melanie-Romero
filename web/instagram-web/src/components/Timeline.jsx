@@ -47,12 +47,23 @@ const Timeline = (props) => {
     <>
     <h1>Timeline</h1>
     <span>{props.auth.token}</span>
-    <div className="row">
+    <div className="post-column">
       {userData.timeline.map((post) => 
           <PostItem  post={post} auth={props.auth}/>
         )}
     </div>
 
+    <div> 
+        <h2>Followers</h2>
+        <div className="follower-column">
+          {userData.followers.map((follower)=>
+          <il>
+            <img alt="userImage" src = {follower.image}></img>
+            <h>{follower.name}</h>
+            </il>
+          )}
+        </div>
+    </div>
     </>
   )
 }
