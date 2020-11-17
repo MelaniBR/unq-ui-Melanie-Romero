@@ -42,14 +42,14 @@ const PostItem = (props) => {
     }
     
     return (
-        <div class="card">
+        <card>
             <div class="card-header"> </div>
             <Link to={{pathname: `/post/${id}`}}>
                 <img alt="imagen del post" src = { portrait }></img>
             </Link>
             <div class= "card-likes"> </div>
             <div class= "card-comments"> </div>
-        </div>
+        </card>
     )
 
 }

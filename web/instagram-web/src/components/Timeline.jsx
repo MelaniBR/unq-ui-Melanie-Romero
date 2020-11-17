@@ -24,21 +24,21 @@ const Timeline = (props) => {
 
   function renderPostItemList() {
     return (
-    <ul>
+    <div>
       {userData.timeline.map((post) => 
-        <li> <PostItem  post={post} auth={props.auth.token}/> </li>
+        <PostItem  post={post} auth={props.auth.token}/>
       )}
-    </ul>
+    </div>
       )
   }
 
   const renderFollowers = () => {
     return (
-      <ul>
+      <div>
         {userData.followers.map((follower) =>
           <li>  </li>
         )}
-      </ul>
+      </div>
     )
   }
 
@@ -47,8 +47,10 @@ const Timeline = (props) => {
     <>
     <h1>Timeline</h1>
     <span>{props.auth.token}</span>
-    <div>
-      { renderPostItemList() }
+    <div className="row">
+      {userData.timeline.map((post) => 
+          <PostItem  post={post} auth={props.auth}/>
+        )}
     </div>
 
     </>
