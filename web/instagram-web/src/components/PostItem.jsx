@@ -23,8 +23,6 @@ const PostItem = (props) => {
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
-        
-        getPostData();
 
         like( id, props.auth.token )
             .then(response => {
@@ -43,12 +41,12 @@ const PostItem = (props) => {
     
     return (
         <card>
-            <div class="card-header"> </div>
+            <div className="card-header"> </div>
             <Link to={{pathname: `/post/${id}`}}>
                 <img alt="imagen del post" src = { portrait }></img>
             </Link>
-            <div class= "card-likes"> </div>
-            <div class= "card-comments"> </div>
+            <div className= "card-likes"> </div>
+            <div className= "card-comments"> </div>
         </card>
     )
 

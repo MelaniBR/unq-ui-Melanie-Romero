@@ -12,7 +12,7 @@ const Post = (props) => {
         newComment: '',
     });
 
-    let id = useParams();
+    let id = useParams().id;
 
     useEffect(() => {
         getPostData();
