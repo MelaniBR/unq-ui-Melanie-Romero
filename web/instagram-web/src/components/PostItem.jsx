@@ -5,26 +5,13 @@ import { Link } from 'react-router-dom';
 const PostItem = (props) => {
 
     const portrait = props.post.portrait;
-    const[likes, setLikes] = useState(props.post.likes.lenght);
+    const[likes, setLikes] = useState(props.post.likes.length);
     const[liked, setLiked] = useState(props.post.liked);
-    const id = props.post.id;
-
-    const getPostData = () => {
-
-        post( id, props.auth.token )
-            .then(response => {
-                setLikes(response.data.likes.length);
-                setLiked(response.data.like);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
 
-        like( id, props.auth.token )
+        like( props.post.id, props.auth.token )
             .then(response => {
                 if( !liked ) {
                   console.log("Se agrego un like al post")
@@ -42,10 +29,13 @@ const PostItem = (props) => {
     return (
         <card>
             <div className="card-header"> </div>
-            <Link to={{pathname: `/post/${id}`}}>
+            <Link to={{pathname: `/post/${props.post.id}`}}>
                 <img alt="imagen del post" src = { portrait }></img>
             </Link>
-            <div className= "card-likes"> </div>
+            <div className= "card-likes"> 
+            <button onClick={handleLikeClick} >&hearts;</button>
+    <h >{ props.post.likes.length }</h>
+              </div>
             <div className= "card-comments"> </div>
         </card>
     )
