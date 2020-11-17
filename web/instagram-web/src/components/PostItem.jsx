@@ -9,10 +9,6 @@ const PostItem = (props) => {
     const[liked, setLiked] = useState(props.post.liked);
     const id = props.post.id;
 
-    useEffect(() => {
-        getPostData();
-    },[])
-
     const getPostData = () => {
 
         post( id, props.auth.token )
@@ -28,6 +24,7 @@ const PostItem = (props) => {
     const handleLikeClick = (event) =>{
         event.preventDefault();
         
+        getPostData();
 
         like( id, props.auth.token )
             .then(response => {
