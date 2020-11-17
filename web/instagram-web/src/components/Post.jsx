@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import {post, like, comment} from './Api.js';
 
@@ -14,9 +14,13 @@ const Post = (props) => {
 
     let id = useParams();
 
+    useEffect(() => {
+        getPostData();
+    })
+
     const getPostData = () => {
 
-        post({ id })
+        post(id, props.auth.token )
             .then(response => {
                 setPortrait(response.data.portrait);
                 setLikes(response.data.likes.length);
@@ -30,8 +34,6 @@ const Post = (props) => {
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
-        
-        /*let { id } = useParams();*/
 
         like( id, props.auth.token )
             .then(response => {
@@ -51,8 +53,6 @@ const Post = (props) => {
     const handleAddComment = (event) => {
         event.preventDefault();
 
-        /*let { id } = useParams();*/
-
         comment(data.newComment, id, props.auth.token)
             .then( response => {
                console.log("Se agrego el comentario correctamente") 
@@ -70,11 +70,11 @@ const Post = (props) => {
     
     return (
         <>
-            <div class="card">
-                <div class="card-header"> </div>
-                <img alt="imagen del post" src = { portrait } > </img>
-                <div class= "card-likes"> </div>
-                <div class= "card-comments"> </div>
+            <div className="card">
+                <div className="card-header"> </div>
+                <img alt="imagen del post" src = { portrait }></img>
+                <div className= "card-likes"> </div>
+                <div className= "card-comments"> </div>
             </div>
             <div>
                 <form>

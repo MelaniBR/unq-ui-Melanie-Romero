@@ -1,18 +1,22 @@
-import React, {useState, } from 'react';
+import React, {useEffect, useState, } from 'react';
 import {post, like} from './Api.js';
+import { Link } from 'react-router-dom';
 
-const PostItem = (props, postData) => {
+const PostItem = (props) => {
 
-    const[portrait, setPortrait] = useState(postData.portrait);
-    const[likes, setLikes] = useState(postData.likes.lenght);
-    const[liked, setLiked] = useState(postData.liked);
-    const id = postData.id;
+    const portrait = props.post.portrait;
+    const[likes, setLikes] = useState(props.post.likes.lenght);
+    const[liked, setLiked] = useState(props.post.liked);
+    const id = props.post.id;
+
+    useEffect(() => {
+        getPostData();
+    })
 
     const getPostData = () => {
 
-        post({ id })
+        post( id, props.auth.token )
             .then(response => {
-                setPortrait(response.data.portrait);
                 setLikes(response.data.likes.length);
                 setLiked(response.data.like);
             })
@@ -39,24 +43,18 @@ const PostItem = (props, postData) => {
                 console.log(error);
             })
     }
-
-    const handleAddComment = (event) => {
-        
-    }
     
     return (
         <div class="card">
             <div class="card-header"> </div>
-            <img alt="imagen del post" src = { portrait } > </img>
+            <Link to={{pathname: `/post/${id}`}}>
+                <img alt="imagen del post" src = { portrait }></img>
+            </Link>
             <div class= "card-likes"> </div>
             <div class= "card-comments"> </div>
         </div>
     )
 
 }
-/*
-<NavLink to={`/post/${id}`}>
-<img alt="imagen del post" src = { portrait } > </img>
-</NavLink>
-*/
+
 export default PostItem;

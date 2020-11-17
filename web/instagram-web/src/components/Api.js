@@ -7,8 +7,8 @@ export const login = (data) => {
   return axios.post(`${API_URL}/login`, data);
 }
 
-export const post = (id) => {
-  return axios.get(`${API_URL}/post/${id}`);
+export const post = (id, token) => {
+  return axios.get(`${API_URL}/post/${id}`, {headers : {Authorization : token}});
 }
 
 export const like = (id, token) => {
@@ -16,7 +16,7 @@ export const like = (id, token) => {
 }
 
 export const comment = (newComment, id, token) => {
-  return axios.put(`${API_URL}/post/${id}/comment`, {body : newComment});
+  return axios.put(`${API_URL}/post/${id}/comment`, {body : newComment}, {headers :  {Authorization : token}});
 }
 
 export const user = (token) => {
