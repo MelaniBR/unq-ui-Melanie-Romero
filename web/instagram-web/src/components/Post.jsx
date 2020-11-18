@@ -81,6 +81,10 @@ const Post = (props) => {
                         <p>{comment.body}</p>
                      </il>)}
                 </ul>
+                <form onSubmit={handleAddComment}>
+                        <button type="submit" className="btn-comment-submit">Comment</button>
+                        <input name="newComment" value={data.newComment} onChange={handleInputChange}></input>
+                </form>
             </div>
         </card>
     )
