@@ -21,7 +21,7 @@ export const Profile = (props) => {
       <h1>Profile</h1>
       <div className="p-3 text-center">
         <img className="border border-primary rounded-circle d-inline mr-2" style={{width:"30px", height:"30px"}} src={data.image} />
-        <span>{props.auth.email}</span>
+        <span>{props.auth.name}</span>
       </div>
       <div className="row">
       {data.posts.map(post => (
@@ -34,6 +34,7 @@ export const Profile = (props) => {
       </div>
     </>
   )
+
 }
 
 export default Profile;
