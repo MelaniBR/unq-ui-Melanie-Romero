@@ -7,6 +7,8 @@ import PostItem from './PostItem.jsx';
 const Timeline = (props) => {
 
   const[userData, setUserData] = useState({
+    name: "",
+    image: "",
     timeline: [],
     followers : []
   });
@@ -45,27 +47,30 @@ const Timeline = (props) => {
 
   console.log(props)
   return (
-    <>
-    <h1>Timeline</h1>
+  <div class="container">
     <span>{props.auth.token}</span>
-    <div className="post-column">
-      {userData.timeline.map((post) => 
-          <PostItem  post={post} auth={props.auth}/>
-        )}
-    </div>
-
-    <div> 
-        <h2>Followers</h2>
-        <div className="follower-column">
-          {userData.followers.map((follower)=>
-          <il>
-            <img alt="userImage" src = {follower.image}></img>
-            <h>{follower.name}</h>
-            </il>
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6" min-height="50vh">
+        
+        {userData.timeline.map((post) => 
+            <PostItem  userImage={userData.image} userName={userData.name} post={post} auth={props.auth}/>
           )}
-        </div>
+      </div>
+      <div class="col-sm-3"> 
+          <h2>Followers</h2>
+          <div className="follower-column" >
+            {userData.followers.map((follower)=>
+            <il>
+              <img alt="userImage" class="rounded-circle" src = {follower.image}></img>
+              <h>{follower.name}</h>
+              <br></br>
+              </il>
+            )}
+          </div>
+      </div>
     </div>
-    </>
+  </div>
   )
 }
 

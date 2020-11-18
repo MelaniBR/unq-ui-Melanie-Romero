@@ -7,7 +7,9 @@ const PostItem = (props) => {
     const portrait = props.post.portrait;
     const[likes, setLikes] = useState(props.post.likes.length);
     const[liked, setLiked] = useState(props.post.liked);
-    const[description, setDescription] = useState(props.post.description);
+    const description = props.post.description;
+    const userName = props.userName;
+    const userImage = props.userImage;
 
 
     const handleLikeClick = (event) =>{
@@ -24,19 +26,24 @@ const PostItem = (props) => {
     }
     
     return (
-        <card>
-            <div className="card-header"> </div>
+        <div class="card">
+            <div
+                className="card-header"> 
+                <img src={userImage} class="rounded-circle" width="30px" height="30px"></img> {userName}
+             </div>
+            <div className="card-image">
             <Link to={{pathname: `/post/${props.post.id}`}}>
-                <img alt="imagen del post" src = { portrait }></img>
+                <img alt="imagen del post" src = { portrait } class="img-responsive" width="100%" height="100%"></img>
             </Link>
+            </div>
             <div className= "card-likes"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
-                <h >{ likes }</h>
+                <h >{ likes } <b>Me gusta</b></h>
             </div>
             <div className= "card-description">
                 <p>{ description }</p>
             </div>
-        </card>
+        </div>
     )
 
 }
