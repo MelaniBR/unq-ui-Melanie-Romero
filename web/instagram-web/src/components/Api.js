@@ -27,6 +27,10 @@ export const userById = (id, token) => {
   return axios.get(`${API_URL}/user/${id}`, {headers : {Authorization : token}});
 }
 
+export const follow = (id, token) => {
+  return axios.put(`${API_URL}/user/${id}/follow`, {}, {headers : {Authorization : token}})
+}
+
 export const register = (data) => {
   return axios.post(`${API_URL}/register`, data);
 }

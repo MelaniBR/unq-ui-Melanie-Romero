@@ -1,29 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useParams } from 'react-router-dom';
-import { userById } from './Api';
+import { userById, follow } from './Api';
 
 export const User = (props) => {
   
   let id = useParams().id;
 
   const[data, setData] = useState({posts: []});
+  let followButton = "";
   
   useEffect(() => {
     userById(id, props.auth.token)
     .then(response => {
       console.log(props, response)
       setData(response.data);
+      console.log(response.data.followed)
+      if(response.data.followed) {
+        setFollowButton("Unfollow")
+      } else {
+        setFollowButton("Follow")
+      }
+
     })
     .catch(error => {
     });
   }, []);
+
+  const handleFollow = () => {
+    follow(id, props.auth.token)
+    .then(
+      console.log("Siguiendo")
+    )
+  }
 
   return (
     <>
       <h1>User</h1>
       <div className="p-3 text-center">
         <img className="border border-primary rounded-circle d-inline mr-2" style={{width:"30px", height:"30px"}} src={data.image} />
-        <span>{data.name}</span>
+        <span>{data.name} <br/>
+  <button className="rounded circle btn-primary" onClick={handleFollow} >{followButton}</button>
+        </span>
       </div>
       <div className="row">
       {data.posts.map(post => (
