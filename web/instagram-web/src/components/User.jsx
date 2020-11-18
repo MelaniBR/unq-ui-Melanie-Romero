@@ -34,7 +34,7 @@ export const User = (props) => {
       <div className="p-3 text-center">
         <img className="border border-primary rounded-circle d-inline mr-2" style={{width:"30px", height:"30px"}} src={data.image} />
         <span>{data.name} <br/>
-  <button className="rounded circle btn-primary" onClick={handleFollow} >{data.followed ? "Unfollow" : "Follow"}</button>
+  <button className="rounded btn-primary" onClick={handleFollow} >{data.followed ? "Unfollow" : "Follow"}</button>
         </span>
       </div>
       <div className="row">

@@ -12,6 +12,8 @@ const Post = (props) => {
         newComment: '',
     });
 
+    let validComment = false;
+
     let id = useParams().id;
 
     useEffect(() => {
@@ -47,6 +49,10 @@ const Post = (props) => {
     const handleAddComment = (event) => {
         event.preventDefault();
 
+        if(!data.newComment.replace(/\s/g, '')) {
+            console.log("comentario no valido")
+        } else{
+
         comment(data.newComment, id, props.auth.token)
             .then( response => {
                console.log("Se agrego el comentario correctamente") 
@@ -54,6 +60,7 @@ const Post = (props) => {
             .catch(error => {
                 console.log(error);
             })
+        }
 
     }
 
@@ -82,8 +89,8 @@ const Post = (props) => {
                      </il>)}
                 </ul>
                 <form onSubmit={handleAddComment}>
-                        <button type="submit" className="btn-comment-submit">Comment</button>
-                        <input name="newComment" value={data.newComment} onChange={handleInputChange}></input>
+                        <button type="submit" className="btn-comment-submit rounded">Comment</button>
+                        <input name="newComment" value={data.newComment} onChange={handleInputChange} disabled={validComment}></input>
                 </form>
             </div>
         </card>
