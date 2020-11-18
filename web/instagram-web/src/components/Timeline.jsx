@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { user } from './Api.js';
 import PostItem from './PostItem.jsx';
+import { Link } from 'react-router-dom';
 
 
 const Timeline = (props) => {
@@ -54,18 +55,18 @@ const Timeline = (props) => {
       <div class="col-sm-6" min-height="50vh">
         
         {userData.timeline.map((post) => 
-            <PostItem  userImage={userData.image} userName={userData.name} post={post} auth={props.auth}/>
+            <PostItem  userImage={post.user.image} userName={post.user.name} post={post} auth={props.auth}/>
           )}
       </div>
       <div class="col-sm-3"> 
           <h2>Followers</h2>
           <div className="follower-column" >
             {userData.followers.map((follower)=>
-            <il>
+            <il><Link to={{pathname: `/user/${follower.id}`}}>
               <img alt="userImage" class="rounded-circle" src = {follower.image}></img>
               <h>{follower.name}</h>
               <br></br>
-              </il>
+              </Link></il>
             )}
           </div>
       </div>
