@@ -33,19 +33,23 @@ class UserController(val instagramSystem : InstagramSystem) {
 
     fun getById(ctx: Context){
 
+        val currentuserId : String = ctx.attribute<String>("userId").toString()
+        var currentUser : User? = null
+
         val id = ctx.pathParam("userId")
         var user : User? = null
         var userPosts : List<Post> = listOf()
 
         try {
+            currentUser = instagramSystem.getUser(currentuserId)
             user = instagramSystem.getUser(id)
             userPosts = instagramSystem.searchByUserId(id)
         }catch(e : NotFound) {
-            ctx.status(404).json(ErrorResponse("Not found user with id  "+ id))
+            ctx.status(404).json(ErrorResponse("Not found user with id  " + id))
             return
         }
 
-        val userDTO = GetUserByIdResponse(user!!, userPosts)
+        val userDTO = GetUserByIdResponse(user!!, userPosts, currentUser!!.followers.any{it.id === id})
         ctx.status(200).json(userDTO)
 
     }
