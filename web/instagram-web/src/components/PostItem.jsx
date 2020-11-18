@@ -7,6 +7,8 @@ const PostItem = (props) => {
     const portrait = props.post.portrait;
     const[likes, setLikes] = useState(props.post.likes.length);
     const[liked, setLiked] = useState(props.post.liked);
+    const[description, setDescription] = useState(props.post.description);
+
 
     const handleLikeClick = (event) =>{
         event.preventDefault();
@@ -30,6 +32,9 @@ const PostItem = (props) => {
             <div className= "card-likes"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
                 <h >{ likes }</h>
+            </div>
+            <div className= "card-description">
+                <p>{ description }</p>
             </div>
         </card>
     )
