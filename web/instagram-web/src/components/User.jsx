@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { userById } from './Api';
 
 export const User = (props) => {
@@ -29,7 +29,7 @@ export const User = (props) => {
       {data.posts.map(post => (
         <div key={post.id} className="col-6 col-md-4 col-lg-3 mb-4">
           <div className="card mx-auto text-center">
-            <NavLink to={`/post/${post.id}`}><img className="card-img-top" src={post.landscape} alt="Sample Title"/></NavLink>
+            <Link to={`/post/${post.id}`}><img className="card-img-top" src={post.landscape} alt="Sample Title"/></Link>
           </div>
         </div>
       ))}
