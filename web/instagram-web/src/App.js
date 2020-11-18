@@ -23,9 +23,12 @@ const App = () => {
   const [auth, setAuth] = useState(readAuth);
 
   const [search, setSearch] = useState("");
+
+
   
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+
   }
 
   const handleSearchChange = (event) => {

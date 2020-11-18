@@ -30,5 +30,7 @@ export const userById = (id, token) => {
 export const register = (data) => {
   return axios.post(`${API_URL}/register`, data);
 }
-
+export const search = (data,token) => {
+  return axios.get(`${API_URL}/search?q=${data}`,{headers : {Authorization : token}});
+}
 export default login;
