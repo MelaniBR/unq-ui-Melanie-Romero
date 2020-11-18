@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  NavLink
+  NavLink, Redirect
 } from "react-router-dom";
 import Timeline from './components/Timeline';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,6 +15,7 @@ import User from "./components/User";
 import Login from "./components/Login"
 import './App.css';
 import { AuthRoute, readAuth, signOut } from "./components/Auth";
+import ResultOfSearch from "./components/ResultOfSearch";
   
 
 
@@ -27,7 +28,9 @@ const App = () => {
 
   
   const handleSearchSubmit = (event) => {
-    event.preventDefault();
+
+
+
 
   }
 

@@ -12,7 +12,7 @@ const Search = (props) => {
         search(data,props.auth.token).then(res => {
             setResult(res.data);
         })
-        console.log(result)
+
     }
 
     return (<div className="search-page">
