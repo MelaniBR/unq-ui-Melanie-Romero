@@ -49,7 +49,6 @@ const Timeline = (props) => {
   console.log(props)
   return (
   <div class="container">
-    <span>{props.auth.token}</span>
     <div class="row">
       <div class="col-sm-3"></div>
       <div class="col-sm-6" min-height="50vh">
