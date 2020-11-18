@@ -33,15 +33,12 @@ class UserController(val instagramSystem : InstagramSystem) {
 
     fun getById(ctx: Context){
 
-        val currentuserId : String = ctx.attribute<String>("userId").toString()
-        var currentUser : User? = null
-
+        val currentUserId : String = ctx.attribute<String>("userId").toString()
         val id = ctx.pathParam("userId")
         var user : User? = null
         var userPosts : List<Post> = listOf()
 
         try {
-            currentUser = instagramSystem.getUser(currentuserId)
             user = instagramSystem.getUser(id)
             userPosts = instagramSystem.searchByUserId(id)
         }catch(e : NotFound) {
@@ -49,7 +46,7 @@ class UserController(val instagramSystem : InstagramSystem) {
             return
         }
 
-        val userDTO = GetUserByIdResponse(user!!, userPosts, currentUser!!.followers.any{it.id === id})
+        val userDTO = GetUserByIdResponse(user!!, userPosts, user!!.followers.any{it.id === currentUserId})
         ctx.status(200).json(userDTO)
 
     }
