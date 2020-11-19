@@ -19,25 +19,15 @@ const Navar = ({auth,onSignOut}) =>{
     }
 
     return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a className="navbar-brand" href="#">
+          <img src="assets/images/logo_peque.png" alt=""/>
+        </a>
         <ul className="navbar-nav mr-auto">
-            {!auth.isAuthenticated ?
-                <>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/" >SignIn</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/register">Register</NavLink>
-                    </li>
-                </>
-                : null }
-
-            {auth.isAuthenticated ?
+            {auth.isAuthenticated &&
                 <>
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/home">Home</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/search">Search</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/profile">Profile</NavLink>
@@ -46,13 +36,14 @@ const Navar = ({auth,onSignOut}) =>{
                         <a className="nav-link" href="#" onClick={onSignOut}>SignOut</a>
                     </li>
                 </>
-                : null }
+            }
 
         </ul>
         <form className="form-inline my-2 my-lg-0" onSubmit={handleSearchSubmit}>
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={handleSearchChange}/>
             <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
+        </div>
     </nav>
 }
 const PrivateRoute = (props) => {
