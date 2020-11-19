@@ -18,6 +18,7 @@ export const Profile = (props) => {
 
   return (
     <>
+
       <h1>Profile</h1>
       <div className="p-3 text-center">
         <img className="border border-primary rounded-circle d-inline mr-2" style={{width:"30px", height:"30px"}} src={data.image} />
