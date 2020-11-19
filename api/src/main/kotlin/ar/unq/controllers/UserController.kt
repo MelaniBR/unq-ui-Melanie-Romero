@@ -46,7 +46,7 @@ class UserController(val instagramSystem : InstagramSystem) {
             return
         }
 
-        val userDTO = GetUserByIdResponse(user!!, userPosts, user!!.followers.any{it.id === currentUserId})
+        val userDTO = GetUserByIdResponse(user!!, userPosts, user!!.followers.any{it.id == currentUserId})
         ctx.status(200).json(userDTO)
 
     }
@@ -56,7 +56,14 @@ class UserController(val instagramSystem : InstagramSystem) {
         val followedUserId = ctx.pathParam("userId")
         val loggedUserId : String = ctx.attribute<String>("userId").toString()
         try {
-            instagramSystem.updateFollower(loggedUserId, followedUserId)
+            /*
+            * aca tendriamos que hacer esto:
+            * instagramSystem.updateFollower(loggedUserId, followedUserId)
+            * pero el comportamiento no es el esperado, ya que
+            * lo que hace es sacar / poner al usuario followedUserId, de los followers del usuario actual
+            * asi que pasamos estos parametros invertidos
+            * */
+            instagramSystem.updateFollower(followedUserId, loggedUserId)
             ctx.status(200).json(OkResponse())
         }catch (e: NotFound) {
             ctx.status(404).json(ErrorResponse("Not found user with id " + followedUserId))

@@ -10,7 +10,7 @@ open class PostResponse(
     val portrait: String = post.portrait
     val landscape: String = post.landscape
     val likes : List<LikeResponse> = post.likes.map{ LikeResponse(it.name, it.image, it.id) }
-    val like : Boolean = post.likes.any{ it.id === userId }
+    val like : Boolean = post.likes.any{ it.id == userId }
     val date: String = post.date.format( java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm") )
     val user : SimpleUserResponse = SimpleUserResponse(post.user.name, post.user.image)
 }
