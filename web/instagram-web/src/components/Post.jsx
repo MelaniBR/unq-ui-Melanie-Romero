@@ -7,6 +7,7 @@ const Post = (props) => {
 
     const[postData, setPostData] = useState({
         landscape: "",
+        portrait: "",
         likes: 0,
         liked: false,
         comments: [],
@@ -15,8 +16,6 @@ const Post = (props) => {
     const[data, setData] = useState({
         newComment: '',
     });
-
-    let validComment = false;
 
     let id = useParams().id;
 
@@ -30,6 +29,7 @@ const Post = (props) => {
             .then(response => {
                 setPostData({...postData,
                     landscape: response.data.landscape,
+                    portrait: response.data.portrait,
                     likes: response.data.likes.length,
                     liked: response.data.liked,
                     comments: response.data.comments
@@ -52,38 +52,29 @@ const Post = (props) => {
             })
     }
 
-    const handleWriteComment = (event) => {
+    const handleAddComment = (event) => {
         event.preventDefault();
         Swal.fire({
             title: 'New comment',
-            html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
-            <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+            html: `<input type="text" id="commentText" className="swal2-input" placeholder="your comment here">`,
+            confirmButtonText: 'comment',
+            preConfirm: () => {
+                const commentText = Swal.getPopup().querySelector('#commentText').value
+                if(!commentText || !commentText.replace(/\s/g, '')) {
+                    Swal.showValidationMessage("Can't post an empty comment")
+                }
+                return { comment: commentText }
+            }
+        }).then((result) => {
 
-
-        })
-    }
-
-    const handleAddComment = (event) => {
-        event.preventDefault();
-
-        if(!data.newComment.replace(/\s/g, '')) {
-            console.log("comentario no valido")
-        } else{
-
-        comment(data.newComment, id, props.auth.token)
+            comment(result.value.comment, id, props.auth.token)
             .then( response => {
                console.log("Se agrego el comentario correctamente") 
             })
             .catch(error => {
                 console.log(error);
             })
-        }
-
-    }
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setData({...data, [name]: value });
+        }).catch((error) => {})
     }
     
 <img alt="imagen del post" src = { postData.landscape }></img>
@@ -91,28 +82,27 @@ const Post = (props) => {
     return (
         <div>
         <div className="Card">
-            <img alt="postImage" src = { postData.landscape } className="img-responsive" width="100%" height="100%"></img>
-            <div className= "card-likes"> 
+            <img alt="postImage" src = { !!postData.landscape ? postData.landscape : postData.portrait } className="img-responsive" width="100%" height="100%"></img>
+            <div className= "card-likes p-2"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
-                <h >{ postData.likes } <b>likes</b></h>
+                <>{ postData.likes } <b>likes</b></>
             </div>
+            <form className="p-2" onSubmit={handleAddComment}>
+                        <button type="submit" className="btn-comment-submit btn-primary rounded">Comment</button>
+                </form>
             <div className="card-description p-2">
                 <p>{}</p>
             </div>
             <div className= "card-comments">
                 <ul>
                     {postData.comments.map((comment)=>
-                     <il>
+                     <div>
                          <hr></hr>
                          <img alt="userImage" src = {comment.user.image}></img>
-                         <h>{comment.user.name}</h>
+                         <>{comment.user.name}</>
                         <p>{comment.body}</p>
-                     </il>)}
+                     </div>)}
                 </ul>
-                <form onSubmit={handleAddComment}>
-                        <button type="submit" className="btn-comment-submit rounded">Comment</button>
-                        <input name="newComment" value={data.newComment} onChange={handleInputChange} disabled={validComment}></input>
-                </form>
             </div>
         </div>
         </div>
