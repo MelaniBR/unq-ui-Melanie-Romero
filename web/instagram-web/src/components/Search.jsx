@@ -22,7 +22,8 @@ const Search = (props) => {
     if (result) {
         return (
             <div className="search-page">
-                <h2>{busqueda.includes('#')} </h2>
+                <h2>{busqueda} </h2>
+                <ResultOfSearch search={busqueda} results={result} ></ResultOfSearch>
             </div>);
     } else {
         return (

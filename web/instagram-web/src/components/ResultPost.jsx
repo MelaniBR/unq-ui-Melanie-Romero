@@ -6,7 +6,7 @@ export default function ResultPost({results}) {
             <div className="p-3 text-center">
                 {results.map(result => (
                     <div key={result.id}>
-                        <a href={`/user/${result.id}`}>
+                        <a href={`/post/${result.id}`}>
                             <img className="border border-primary rounded-circle d-inline mr-2"
                                  style={{width: "40px", height: "40px"}} src={result.portrait}/>
 

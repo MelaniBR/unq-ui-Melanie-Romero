@@ -2,7 +2,7 @@ import ResultUser from './ResultUser';
 import ResultPost from "./ResultPost";
 
 export default function ResultOfSearch({results, search}) {
-    if (search.include('#')) {
+    if (search.charAt(0)==('#')) {
         return <ResultPost content={results}/>;
     } else {
         return <ResultUser content={results}></ResultUser>;
