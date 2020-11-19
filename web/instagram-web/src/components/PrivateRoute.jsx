@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {NavLink, Redirect, Route, useHistory} from "react-router-dom";
+import {Link, NavLink, Redirect, Route, useHistory} from "react-router-dom";
 import {readAuth, signOut} from "./Auth";
 
 
@@ -20,9 +20,9 @@ const Navar = ({auth,onSignOut}) =>{
 
     return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/home">
           <img src="assets/images/logo_peque.png" alt=""/>
-        </a>
+        </Link>
         <ul className="navbar-nav mr-auto">
             {auth.isAuthenticated &&
                 <>
