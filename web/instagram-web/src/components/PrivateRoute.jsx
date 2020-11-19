@@ -20,7 +20,7 @@ const Navar = ({auth,onSignOut}) =>{
     }
 
     return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
+      <div className="container">
         <Link className="navbar-brand" to="/home">
           <img src="assets/images/logo_peque.png" alt=""/>
         </Link>
