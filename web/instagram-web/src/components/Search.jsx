@@ -7,13 +7,14 @@ function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-function Search (){
+const Search =(props)=>{
 
     const [result, setResult] = useState();
     const query = useQuery();
     const busqueda = query.get("content");
+
     useEffect( () => {
-        search(busqueda).then(res => {
+        search(busqueda,props.auth.token).then(res => {
             setResult(res.data.content);
         })
     }, []);

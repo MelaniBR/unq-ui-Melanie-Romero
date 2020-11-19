@@ -1,6 +1,6 @@
 import axios from 'axios';
-
 const API_URL = 'http://localhost:7000';
+let f = 0
 
 
 export const login = (data) => {
@@ -34,8 +34,10 @@ export const follow = (id, token) => {
 export const register = (data) => {
   return axios.post(`${API_URL}/register`, data);
 }
-export const search = (data) => {
-  const token = window.sessionStorage.accessToken
-  return axios.get(`${API_URL}/search?q=${data}`,{headers : {Authorization : token}});
+export const search = (data,token) => {
+
+  return axios.get(`${API_URL}/search?q=${data}`,{headers:
+                                    {Authorization: token}}
+  );
 }
 export default login;
