@@ -17,10 +17,8 @@ const PostItem = (props) => {
         like( props.post.id, props.auth.token )
             .then(response => {
                 setLikes(response.data.likes.length);
-                console.log(response.data.likes.length)
             })
             .catch(error => {
-                console.log(error);
             })
     }
     

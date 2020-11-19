@@ -36,7 +36,7 @@ const Post = (props) => {
                 })
             })
             .catch(error => {
-                console.log(error)
+                
             })
     }
 
@@ -48,7 +48,7 @@ const Post = (props) => {
                 setPostData({...postData, likes: response.data.likes.length});
             })
             .catch(error => {
-                console.log(error)
+
             })
     }
 
@@ -72,7 +72,7 @@ const Post = (props) => {
                console.log("Se agrego el comentario correctamente") 
             })
             .catch(error => {
-                console.log(error);
+                
             })
         }).catch((error) => {})
     }

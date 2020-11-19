@@ -45,8 +45,6 @@ const Timeline = (props) => {
       </div>
     )
   }
-
-  console.log(props)
   return (
   <div className="container">
     <div className="row">
