@@ -52,18 +52,18 @@ const Timeline = (props) => {
       <div className="col-sm-6" min-height="50vh">
         
         {userData.timeline.map((post) => 
-            <PostItem  userImage={post.user.image} userName={post.user.name} post={post} auth={props.auth}/>
+            <PostItem  key={post.id} userImage={post.user.image} userName={post.user.name} post={post} auth={props.auth}/>
           )}
       </div>
       <div className="col-sm-3"> 
           <h2>Followers</h2>
           <div className="follower-column" >
             {userData.followers.map((follower)=>
-            <><Link to={{pathname: `/user/${follower.id}`}}>
+            <div key={follower.id}><Link to={{pathname: `/user/${follower.id}`}}>
               <img alt="userImage" className="rounded-circle" src = {follower.image}></img>
               <>{follower.name}</>
               <br></br>
-              </Link></>
+              </Link></div>
             )}
           </div>
       </div>

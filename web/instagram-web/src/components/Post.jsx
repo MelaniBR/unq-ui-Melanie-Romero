@@ -95,7 +95,7 @@ const Post = (props) => {
                     <div className= "card-comments">
                         <ul>
                             {postData.comments.map((comment)=>
-                             <div>
+                             <div key={comment.id}>
                                  <hr></hr>
                                  <img alt="userImage" src = {comment.user.image}></img>
                                  <>{comment.user.name}</>
