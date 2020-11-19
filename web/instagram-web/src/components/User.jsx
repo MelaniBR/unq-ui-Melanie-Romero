@@ -12,7 +12,6 @@ export const User = (props) => {
   useEffect(() => {
     userById(id, props.auth.token)
     .then(response => {
-      console.log(props, response)
       setData(response.data);
       console.log(response.data.followed)
 
@@ -25,6 +24,10 @@ export const User = (props) => {
     follow(id, props.auth.token)
     .then(response => {
       setData({...data, followed: (!data.followed)});
+      console.log(data.followed)
+    })
+    .catch(error => {
+      console.log(error);
     })
   }
 

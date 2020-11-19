@@ -48,24 +48,24 @@ const Timeline = (props) => {
 
   console.log(props)
   return (
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-6" min-height="50vh">
+  <div className="container">
+    <div className="row">
+      <div className="col-sm-3"></div>
+      <div className="col-sm-6" min-height="50vh">
         
         {userData.timeline.map((post) => 
             <PostItem  userImage={post.user.image} userName={post.user.name} post={post} auth={props.auth}/>
           )}
       </div>
-      <div class="col-sm-3"> 
+      <div className="col-sm-3"> 
           <h2>Followers</h2>
           <div className="follower-column" >
             {userData.followers.map((follower)=>
-            <il><Link to={{pathname: `/user/${follower.id}`}}>
-              <img alt="userImage" class="rounded-circle" src = {follower.image}></img>
-              <h>{follower.name}</h>
+            <><Link to={{pathname: `/user/${follower.id}`}}>
+              <img alt="userImage" className="rounded-circle" src = {follower.image}></img>
+              <>{follower.name}</>
               <br></br>
-              </Link></il>
+              </Link></>
             )}
           </div>
       </div>
