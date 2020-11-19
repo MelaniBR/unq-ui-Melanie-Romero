@@ -26,19 +26,19 @@ const PostItem = (props) => {
     }
     
     return (
-        <div class="card">
+        <div className="card">
             <div
                 className="card-header"> 
-                <img src={userImage} class="rounded-circle" width="30px" height="30px"></img> {userName}
+                <img src={userImage} className="rounded-circle" width="30px" height="30px"></img> {userName}
              </div>
             <div className="card-image">
             <Link to={{pathname: `/post/${props.post.id}`}}>
-                <img alt="imagen del post" src = { portrait } class="img-responsive" width="100%" height="100%"></img>
+                <img alt="imagen del post" src = { portrait } className="img-responsive" width="100%" height="100%"></img>
             </Link>
             </div>
             <div className= "card-likes"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
-                <h >{ likes } <b>Me gusta</b></h>
+                <>{ likes } <b>Me gusta</b></>
             </div>
             <div className= "card-description">
                 <p>{ description }</p>
