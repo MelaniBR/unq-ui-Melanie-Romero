@@ -1,27 +1,11 @@
-import React from 'react';
 import ResultUser from './ResultUser';
+import ResultPost from "./ResultPost";
 
-export default function ResultOfSearch({results}) {
-    if(results){
-        return(
-            <div className="container-fluid">
-                <div className="row">
-                    {results.map(result => (
-                        <div key={result.id} className="poster" >
-                            <ResultUser content={result}></ResultUser>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
+export default function ResultOfSearch({results, search}) {
+    if (search.include('#')) {
+        return <ResultPost content={results}/>;
     } else {
-        return(
-
-            <h2>
-                Sin Resultados
-            </h2>
-
-        );
+        return <ResultUser content={results}></ResultUser>;
     }
+};
 
-}
