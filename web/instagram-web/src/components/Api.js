@@ -36,8 +36,12 @@ export const register = (data) => {
 }
 export const search = (data,token) => {
 
-  return axios.get(`${API_URL}/search?q=${data}`,{headers:
-                                    {Authorization: token}}
+  return axios.get(`${API_URL}/search`, {
+      headers: {Authorization: token},
+      params: {
+        q: data
+      }
+    }
   );
 }
 export default login;
