@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import {post, like, comment} from './Api.js';
+import Swal from 'sweetalert2/dist/sweetalert2';
 
 const Post = (props) => {
 
-    const[portrait, setPortrait] = useState("");
-    const[likes, setLikes] = useState(0);
-    const[liked, setLiked] = useState(false);
-    const[comments, setComments] = useState([]);
+    const[postData, setPostData] = useState({
+        landscape: "",
+        likes: 0,
+        liked: false,
+        comments: [],
+    });
+    
     const[data, setData] = useState({
         newComment: '',
     });
@@ -24,10 +28,12 @@ const Post = (props) => {
 
         post(id, props.auth.token )
             .then(response => {
-                setPortrait(response.data.portrait);
-                setLikes(response.data.likes.length);
-                setLiked(response.data.like);
-                setComments(response.data.comments)
+                setPostData({...postData,
+                    landscape: response.data.landscape,
+                    likes: response.data.likes.length,
+                    liked: response.data.liked,
+                    comments: response.data.comments
+                })
             })
             .catch(error => {
                 console.log(error)
@@ -39,11 +45,22 @@ const Post = (props) => {
 
         like( id, props.auth.token )
             .then(response => {
-                setLikes(response.data.likes.length);
+                setPostData({...postData, likes: response.data.likes.length});
             })
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    const handleWriteComment = (event) => {
+        event.preventDefault();
+        Swal.fire({
+            title: 'New comment',
+            html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
+            <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+
+
+        })
     }
 
     const handleAddComment = (event) => {
@@ -69,20 +86,24 @@ const Post = (props) => {
         setData({...data, [name]: value });
     }
     
-<img alt="imagen del post" src = { portrait }></img>
+<img alt="imagen del post" src = { postData.landscape }></img>
 
     return (
-        <card>
-            <div className="card-header"> </div>
-            <img alt="postImage" src = { portrait }></img>
+        <div>
+        <div className="Card">
+            <img alt="postImage" src = { postData.landscape } className="img-responsive" width="100%" height="100%"></img>
             <div className= "card-likes"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
-                <h >{ likes } <b>Me gusta</b></h>
-              </div>
+                <h >{ postData.likes } <b>likes</b></h>
+            </div>
+            <div className="card-description p-2">
+                <p>{}</p>
+            </div>
             <div className= "card-comments">
                 <ul>
-                    {comments.map((comment)=>
+                    {postData.comments.map((comment)=>
                      <il>
+                         <hr></hr>
                          <img alt="userImage" src = {comment.user.image}></img>
                          <h>{comment.user.name}</h>
                         <p>{comment.body}</p>
@@ -93,7 +114,8 @@ const Post = (props) => {
                         <input name="newComment" value={data.newComment} onChange={handleInputChange} disabled={validComment}></input>
                 </form>
             </div>
-        </card>
+        </div>
+        </div>
     )
 
 }

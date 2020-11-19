@@ -26,7 +26,7 @@ const PostItem = (props) => {
     }
     
     return (
-        <div className="card">
+        <div className="card mb-5 p-2">
             <div
                 className="card-header"> 
                 <img src={userImage} className="rounded-circle" width="30px" height="30px"></img> {userName}
@@ -38,9 +38,9 @@ const PostItem = (props) => {
             </div>
             <div className= "card-likes"> 
                 <button onClick={handleLikeClick} >&hearts;</button>
-                <>{ likes } <b>Me gusta</b></>
+                <>{ likes } <b>likes</b></>
             </div>
-            <div className= "card-description">
+            <div className= "card-description p-2">
                 <p>{ description }</p>
             </div>
         </div>
