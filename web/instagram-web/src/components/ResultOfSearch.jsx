@@ -6,7 +6,7 @@ export default function ResultOfSearch({results}) {
         return(
             <div className="container-fluid">
                 <div className="row">
-                    {results.content.map(result => (
+                    {results.map(result => (
                         <div key={result.id} className="poster" >
                             <ResultUser content={result}></ResultUser>
                         </div>
