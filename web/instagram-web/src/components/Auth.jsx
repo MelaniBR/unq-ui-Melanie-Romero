@@ -43,7 +43,21 @@ export const AuthRoute = (props) => {
 
   return (
     <Route path={props.path} >
-     <props.component onAuthOk={handleAuthOk} ></props.component>
+      <div className="container pt-5">
+        <div  className="row">
+        <div className="col col-2"></div>
+        <div className="col col-4 d-none d-md-block ">
+          <img src="assets/images/authimage.png" style={{width:"100%"}}></img>
+          </div>
+        <div className="col sm-col-8 md-col-8 lg-col-4">
+          <img src="assets/images/logo.png" style={{width:"100%"}}></img>
+          <props.component onAuthOk={handleAuthOk} ></props.component>
+        </div>
+        <div className="col col-2"></div>
+          
+        </div>
+        
+      </div>
     </Route>
   );
 

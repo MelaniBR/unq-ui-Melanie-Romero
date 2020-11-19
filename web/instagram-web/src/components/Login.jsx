@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import login from './Api.js'
 import validateControl, { email, isValidateGroup, required } from './Validations.js';
 import Swal from 'sweetalert2/dist/sweetalert2'
+import { Link } from 'react-router-dom';
 
 export const Login = ({ onAuthOk }) => {
 
@@ -63,16 +64,13 @@ export const Login = ({ onAuthOk }) => {
 
   return (
     <>
-      <h2>SignIn</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="form-group">
-          <label htmlFor="email">{data.email.label}</label>
-          <input name="email" className={`form-control ${data.email.error && 'is-invalid'}`} value={data.email.value} onChange={handleInputChange} />
+          <input placeholder={data.email.label} name="email" className={`form-control ${data.email.error && 'is-invalid'}`} value={data.email.value} onChange={handleInputChange} />
           {data.email.error && <span>{data.email.error}</span>}
         </div>
         <div className="form-group">
-          <label htmlFor="password">{data.password.label}</label>
-          <input name="password" type="password" className={`form-control ${data.password.error && 'is-invalid'}`} value={data.password.value} onChange={handleInputChange} />
+          <input placeholder={data.password.label} name="password" type="password" className={`form-control ${data.password.error && 'is-invalid'}`} value={data.password.value} onChange={handleInputChange} />
           {data.password.error && <span>{data.password.error}</span>}
         </div>
         <button type="submit" className="btn btn-primary" disabled={!dataOk || loading}>
@@ -80,6 +78,7 @@ export const Login = ({ onAuthOk }) => {
           {loading && <span className="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>}
         </button>
         {error && <div className="alert alert-danger mt-3">{error}</div>}
+        <div className="alert alert-info mt-3">Not Registered? <Link to="/register">Create an account</Link></div>
       </form>
     </>
   );

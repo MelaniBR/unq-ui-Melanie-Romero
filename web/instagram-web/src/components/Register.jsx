@@ -2,6 +2,7 @@ import { useState} from "react";
 import {validateControl, isValidateGroup, required, minLength, maxLength, email, url} from "./Validations.js";
 import {register} from "./Api.js"
 import Swal from 'sweetalert2/dist/sweetalert2'
+import { Link } from "react-router-dom";
 
 export const Register = ({ onAuthOk }) => {
   
@@ -74,36 +75,31 @@ export const Register = ({ onAuthOk }) => {
 
   return (
   <>
-    <h2>Register</h2>
+    <h4 className="text-center">Sign up to see photos and videos of your friends.</h4>
     <form onSubmit={handleFormSubmit}>
 
       <div className="form-group">
-        <label htmlFor="name">{data.name.label}</label>
-        <input name="name" className={`form-control ${data.name.error && 'is-invalid'}`} value={data.name.value} onChange={handleInputChange} />
+        <input placeholder={data.name.label} name="name" className={`form-control ${data.name.error && 'is-invalid'}`} value={data.name.value} onChange={handleInputChange} />
         {data.name.error && <span>{data.name.error}</span>}
       </div>
       
       <div className="form-group">
-        <label htmlFor="email">{data.email.label}</label>
-        <input name="email" className={`form-control ${data.email.error && 'is-invalid'}`} value={data.email.value} onChange={handleInputChange} />
+        <input placeholder={data.email.label} name="email" className={`form-control ${data.email.error && 'is-invalid'}`} value={data.email.value} onChange={handleInputChange} />
         {data.email.error && <span>{data.email.error}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="password">{data.password.label}</label>
-        <input name="password" type="password" className={`form-control ${data.password.error && 'is-invalid'}`} value={data.password.value} onChange={handleInputChange} />
+        <input placeholder={data.password.label} name="password" type="password" className={`form-control ${data.password.error && 'is-invalid'}`} value={data.password.value} onChange={handleInputChange} />
         {data.password.error && <span>{data.password.error}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="repassword">{data.repassword.label}</label>
-        <input name="repassword" type="password" className={`form-control ${data.repassword.error && 'is-invalid'}`} value={data.repassword.value} onChange={handleInputChange} />
+        <input placeholder={data.repassword.label} name="repassword" type="password" className={`form-control ${data.repassword.error && 'is-invalid'}`} value={data.repassword.value} onChange={handleInputChange} />
         {data.repassword.error && <span>{data.repassword.error}</span>}
       </div>
 
       <div className="form-group">
-        <label htmlFor="image">{data.image.label}</label>
-        <input name="image" className={`form-control ${data.image.error && 'is-invalid'}`} value={data.image.value} onChange={handleInputChange} />
+        <input placeholder={data.image.label} name="image" className={`form-control ${data.image.error && 'is-invalid'}`} value={data.image.value} onChange={handleInputChange} />
         {data.image.error && <span>{data.image.error}</span>}
       </div>
 
@@ -113,6 +109,9 @@ export const Register = ({ onAuthOk }) => {
       </button>
 
       {error && <div className="alert alert-danger mt-3">{error}</div>}
+
+      <div className="alert alert-info mt-3">You have an account? <Link to="/login">Sign in</Link></div>
+       
     </form>  
   </>
   );
