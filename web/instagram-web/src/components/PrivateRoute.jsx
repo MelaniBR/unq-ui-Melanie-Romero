@@ -11,7 +11,8 @@ const Navar = ({auth,onSignOut}) =>{
 
     const handleSearchSubmit = (event) => {
         event.preventDefault()
-        history.push(`/search?content=${search}`);
+
+        history.push(`/search?content=${encodeURIComponent(search)}`);
     }
 
     const handleSearchChange = (event) => {

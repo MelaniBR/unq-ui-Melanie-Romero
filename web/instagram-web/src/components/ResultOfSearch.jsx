@@ -3,9 +3,9 @@ import ResultPost from "./ResultPost";
 
 export default function ResultOfSearch({results, search}) {
     if (search.charAt(0)==('#')) {
-        return <ResultPost content={results}/>;
+        return <ResultPost results={results}/>;
     } else {
-        return <ResultUser content={results}></ResultUser>;
+        return <ResultUser results={results}></ResultUser>;
     }
 };
 

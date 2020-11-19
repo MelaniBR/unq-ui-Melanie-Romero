@@ -9,12 +9,13 @@ function useQuery() {
 
 const Search = (props) => {
 
-    const [result, setResult] = useState();
+    const [result, setResult] = useState([]);
     const query = useQuery();
-    const busqueda = query.get("content");
+    const searched = query.get("content");
 
     useEffect(() => {
-        search(busqueda, props.auth.token).then(res => {
+
+        search(encodeURIComponent(searched), props.auth.token).then(res => {
             setResult(res.data.content);
         })
     }, []);
@@ -22,16 +23,14 @@ const Search = (props) => {
     if (result) {
         return (
             <div className="search-page">
-                <h2>{busqueda} </h2>
-                <ResultOfSearch search={busqueda} results={result} ></ResultOfSearch>
+                <h2>{searched} </h2>
+                <ResultOfSearch search={searched} results={result} ></ResultOfSearch>
             </div>);
     } else {
         return (
-
             <h2>
                 Sin Resultados
             </h2>
-
         );
     }
 };
