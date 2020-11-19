@@ -4,15 +4,14 @@ import {readAuth, signOut} from "./Auth";
 
 
 const Navar = ({auth,onSignOut}) =>{
-    const [search, setSearch] = useState("");
+
+    const [search, setSearch] = useState();
 
     const history = useHistory()
 
-
     const handleSearchSubmit = (event) => {
-
         event.preventDefault()
-        history.push("/search/");
+        history.push(`/search?content=${search}`);
     }
 
     const handleSearchChange = (event) => {

@@ -36,8 +36,6 @@ const App = () => {
     setAuth(readAuth());
   }
 
-
-
   return (
     <Router>
 

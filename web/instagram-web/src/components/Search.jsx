@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {search} from "./Api";
 import ResultOfSearch from './ResultOfSearch';
+import {useLocation} from 'react-router-dom';
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
-const Search = (props) => {
+function Search (){
 
-    const [data, setData] = useState();
     const [result, setResult] = useState();
-
-    const useEffect=() => {
-        search(data,props.auth.token).then(res => {
-            setResult(res.data);
+    const query = useQuery();
+    const busqueda = query.get("content");
+    useEffect( () => {
+        search(busqueda).then(res => {
+            setResult(res.data.content);
         })
-
-    }
+    }, []);
 
     return (<div className="search-page">
 
-                <input className="form-control mr-sm-2"  placeholder="Search" aria-label="Search"
-                       value={data}
-                       onChange={event => setData(event.target.value)}  />
-                <button className="btn btn-primary my-2 my-sm-0" type="submit" onClick={useEffect} >Search</button>
+            <h2>{busqueda} </h2>
         <div className="row">
             <ResultOfSearch results={result}></ResultOfSearch>
 
@@ -28,5 +28,4 @@ const Search = (props) => {
         </div>
     );
 }
-
     export default Search;
