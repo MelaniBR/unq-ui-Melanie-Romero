@@ -81,28 +81,29 @@ const Post = (props) => {
 
     return (
         <div>
-        <div className="Card">
+        <div className="card mb-5">
             <img alt="postImage" src = { !!postData.landscape ? postData.landscape : postData.portrait } className="img-responsive" width="100%" height="100%"></img>
-            <div className= "card-likes p-2"> 
-                <button onClick={handleLikeClick} >&hearts;</button>
-                <>{ postData.likes } <b>likes</b></>
-            </div>
-            <form className="p-2" onSubmit={handleAddComment}>
-                        <button type="submit" className="btn-comment-submit btn-primary rounded">Comment</button>
-                </form>
-            <div className="card-description p-2">
-                <p>{}</p>
-            </div>
-            <div className= "card-comments">
-                <ul>
-                    {postData.comments.map((comment)=>
-                     <div>
-                         <hr></hr>
-                         <img alt="userImage" src = {comment.user.image}></img>
-                         <>{comment.user.name}</>
-                        <p>{comment.body}</p>
-                     </div>)}
-                </ul>
+            <div className="card-body">
+                <div className="card-text">
+                    <div className= "card-likes p-2"> 
+                        <button onClick={handleLikeClick} >&hearts;</button>
+                        <>{ postData.likes } <b>likes</b></>
+                    </div>
+                    <form className="p-2" onSubmit={handleAddComment}>
+                                <button type="submit" className="btn-comment-submit btn-primary rounded">Comment</button>
+                        </form>
+                    <div className= "card-comments">
+                        <ul>
+                            {postData.comments.map((comment)=>
+                             <div>
+                                 <hr></hr>
+                                 <img alt="userImage" src = {comment.user.image}></img>
+                                 <>{comment.user.name}</>
+                                <p>{comment.body}</p>
+                            </div>)}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         </div>
