@@ -3,7 +3,7 @@ import {search} from "./Api";
 import ResultOfSearch from './ResultOfSearch';
 import {useLocation} from 'react-router-dom';
 
-function useQuery() {
+export function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
