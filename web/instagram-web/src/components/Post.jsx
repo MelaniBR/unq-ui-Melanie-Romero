@@ -65,7 +65,7 @@ const Post = (props) => {
 
             comment(result.value.comment, id, props.auth.token)
             .then( response => {
-               console.log("Se agrego el comentario correctamente") 
+                setPostData({...postData, comments:response.data}) 
             })
             .catch(error => {
                 
@@ -93,8 +93,8 @@ const Post = (props) => {
                             {postData.comments.map((comment)=>
                              <div key={comment.id}>
                                  <hr></hr>
-                                 <img alt="userImage" src = {comment.user.image}></img>
-                                 <>{comment.user.name}</>
+                                 <img className="rounded-circle" alt="userImage" src = {comment.user.image}></img>
+                                 <b>{comment.user.name}</b>
                                 <p>{comment.body}</p>
                             </div>)}
                         </ul>
