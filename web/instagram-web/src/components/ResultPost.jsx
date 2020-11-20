@@ -2,16 +2,16 @@ import React from 'react';
 export default function ResultPost({results}) {
 
     return (
-        <div className="media-button grid-item">
+        <div >
 
-            <div className="row posters">
+            <div className="card-deck">
                 {results.map(result => (
-                    <div key={result.id}>
-                        <a href={`/post/${result.id}`}>
-                            <img  className="media-poster-img"  src={result.portrait}/>
 
+                    <div key={result.id}  className="card" className="col-6 col-md-4 col-lg-3 mb-4">
+                        <a href={`/post/${result.id}`} >
+                            <img  className="card-img-top"  src={result.portrait}/>
                         </a>
-                    </div>
+                        </div>
                 ))}
             </div>
         </div>

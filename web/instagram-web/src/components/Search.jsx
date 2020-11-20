@@ -18,12 +18,12 @@ const Search = (props) => {
         search(encodeURIComponent(searched), props.auth.token).then(res => {
             setResult(res.data.content);
         })
-    }, []);
+    }, [searched]);
 
     if (result) {
         return (
-            <div className="search-page">
-                <h2>{searched} </h2>
+            <div >
+                <h2>{searched} : </h2>
                 <ResultOfSearch search={searched} results={result} ></ResultOfSearch>
             </div>);
     } else {

@@ -5,12 +5,13 @@ export default function ResultOfSearch({results}) {
     return (
         <div className="media-button grid-item">
 
-            <div className="p-3 text-center">
+            <div  >
                 {results && results.map(result => (
                     <div key={result.id}>
                         <a href={`/user/${result.id}`}>
                             <img className="border border-primary rounded-circle d-inline mr-2"
-                                 style={{width: "40px", height: "40px"}} src={result.image}/>
+                                 style={{width: "50px", height: "50px"}} src={result.image}/>
+                                 <h2> {result.id}</h2>
 
                         </a>
                     </div>
