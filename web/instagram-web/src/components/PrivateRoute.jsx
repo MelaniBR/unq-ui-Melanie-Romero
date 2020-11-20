@@ -5,7 +5,7 @@ import { useQuery } from "./Search";
 
 const Navar = ({auth,onSignOut}) =>{
 
-    const [search, setSearch] = useState(useQuery().get("content"));
+    const [search, setSearch] = useState(useQuery().get("content") || "");
 
     const history = useHistory()
 
