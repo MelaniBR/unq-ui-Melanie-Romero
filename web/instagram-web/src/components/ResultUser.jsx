@@ -3,16 +3,19 @@ export default function ResultOfSearch({results}) {
 
     // tiene que quedar en el mismo reglon
     return (
-        <div className="media-button grid-item">
+        <div >
 
-            <div  >
+            <div className="card-deck align-content-center card-columns pt-5" >
                 {results && results.map(result => (
-                    <div key={result.id}>
-                        <a href={`/user/${result.id}`}>
-                            <img className="border border-primary rounded-circle d-inline mr-2"
-                                 style={{width: "50px", height: "50px"}} src={result.image}/>
-                                 <h2> {result.id}</h2>
+                    <div key={result.id} className="mx-auto" >
+                        <a href={`/user/${result.id}`} >
+                            <p >
+                            <img className="border border-primary rounded-circle mr-2"
+                                 style={{width: "80px", height: "80px"}} src={result.image} align="left"/>
 
+                            {result.name}
+
+                            </p>
                         </a>
                     </div>
                 ))}
