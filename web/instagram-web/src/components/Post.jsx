@@ -12,10 +12,6 @@ const Post = (props) => {
         liked: false,
         comments: [],
     });
-    
-    const[data, setData] = useState({
-        newComment: '',
-    });
 
     let id = useParams().id;
 
@@ -56,7 +52,7 @@ const Post = (props) => {
         event.preventDefault();
         Swal.fire({
             title: 'New comment',
-            html: `<input type="text" id="commentText" className="swal2-input" placeholder="your comment here">`,
+            html: `<input type="text" id="commentText" class="form-control" placeholder="your comment here">`,
             confirmButtonText: 'comment',
             preConfirm: () => {
                 const commentText = Swal.getPopup().querySelector('#commentText').value
