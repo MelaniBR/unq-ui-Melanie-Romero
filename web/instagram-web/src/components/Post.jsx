@@ -27,7 +27,7 @@ const Post = (props) => {
                     landscape: response.data.landscape,
                     portrait: response.data.portrait,
                     likes: response.data.likes.length,
-                    liked: response.data.liked,
+                    liked: response.data.like,
                     comments: response.data.comments
                 })
             })
