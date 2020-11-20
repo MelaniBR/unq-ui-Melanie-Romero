@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {Link, NavLink, Redirect, Route, useHistory} from "react-router-dom";
-import {readAuth, signOut} from "./Auth";
+import { useQuery } from "./Search";
 
 
 const Navar = ({auth,onSignOut}) =>{
 
-    const [search, setSearch] = useState();
+    const [search, setSearch] = useState(useQuery().get("content") || "");
 
     const history = useHistory()
 
