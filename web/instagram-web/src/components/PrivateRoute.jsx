@@ -42,7 +42,7 @@ const Navar = ({auth,onSignOut}) =>{
         </ul>
         <form className="form-inline my-2 my-lg-0" onSubmit={handleSearchSubmit}>
             <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={handleSearchChange}/>
-            <button className="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            <button className="btn btn-primary my-2 my-sm-0" type="submit" disabled={!search || search.length < 3} >Search</button>
         </form>
         </div>
     </nav>
