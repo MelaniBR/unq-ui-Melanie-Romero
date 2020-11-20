@@ -36,7 +36,6 @@ export const Login = ({ onAuthOk }) => {
       setLoading(true)
       login({email: data.email.value, password: data.password.value})
         .then(response => {
-          console.log(response)
           setLoading(false)
           Swal.fire({
             title: 'Login ok!',

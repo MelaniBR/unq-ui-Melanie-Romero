@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
 import {post, like, comment} from './Api.js';
 import Swal from 'sweetalert2/dist/sweetalert2';
+import { ErrorMessage } from './Error.js';
 
 const Post = (props) => {
 
@@ -32,7 +33,7 @@ const Post = (props) => {
                 })
             })
             .catch(error => {
-                
+              ErrorMessage();
             })
     }
 
@@ -44,7 +45,7 @@ const Post = (props) => {
                 setPostData({...postData, likes: response.data.likes.length, liked: response.data.like});
             })
             .catch(error => {
-
+              ErrorMessage();
             })
     }
 
@@ -68,7 +69,7 @@ const Post = (props) => {
                 setPostData({...postData, comments:response.data}) 
             })
             .catch(error => {
-                
+              ErrorMessage();
             })
         }).catch((error) => {})
     }

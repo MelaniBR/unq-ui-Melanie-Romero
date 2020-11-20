@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { userById, follow } from './Api';
+import { ErrorMessage } from './Error';
 
 export const User = (props) => {
   
@@ -13,10 +14,9 @@ export const User = (props) => {
     userById(id, props.auth.token)
     .then(response => {
       setData(response.data);
-      console.log(response.data.followed)
-
     })
     .catch(error => {
+      ErrorMessage();
     });
   }, []);
 
@@ -24,10 +24,9 @@ export const User = (props) => {
     follow(id, props.auth.token)
     .then(response => {
       setData({...data, followed: (!data.followed)});
-      console.log(data.followed)
     })
     .catch(error => {
-      console.log(error);
+      ErrorMessage();
     })
   }
 

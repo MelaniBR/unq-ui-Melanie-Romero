@@ -1,6 +1,7 @@
 import React, {useEffect, useState, } from 'react';
 import { like } from './Api.js';
 import { Link } from 'react-router-dom';
+import { ErrorMessage } from './Error.js';
 
 const PostItem = (props) => {
 
@@ -21,6 +22,7 @@ const PostItem = (props) => {
                 setLiked(response.data.like)
             })
             .catch(error => {
+              ErrorMessage();
             })
     }
     

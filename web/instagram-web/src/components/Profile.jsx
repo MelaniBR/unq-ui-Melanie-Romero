@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { userById } from './Api';
+import { ErrorMessage } from './Error';
 
 export const Profile = (props) => {
 
@@ -9,10 +10,10 @@ export const Profile = (props) => {
   useEffect(() => {
     userById(props.auth.id, props.auth.token)
     .then(response => {
-      console.log(props, response)
       setData(response.data);
     })
       .catch(error => {
+        ErrorMessage();
     });
   }, []);
 
