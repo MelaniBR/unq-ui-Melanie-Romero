@@ -2,6 +2,7 @@ package ar.unq.controllers
 
 import ar.unq.utils.responses.ErrorResponse
 import ar.unq.utils.responses.OkResponse
+import ar.unq.utils.responses.UserResponses.CommentResponse
 import ar.unq.utils.responses.UserResponses.PostLikesResponse
 import ar.unq.utils.responses.UserResponses.PostResponseWithComments
 import io.javalin.http.BadRequestResponse
@@ -44,7 +45,8 @@ class PostController(val instagramSystem : InstagramSystem) {
         val comment =  ctx.body<DraftComment>()
         try {
             instagramSystem.addComment(idPost,userId,comment)
-            ctx.status(200).json(OkResponse())
+
+            ctx.status(200).json(instagramSystem.getPost(idPost).comments.map{ CommentResponse(it) })
         }catch(e : NotFound) {
             ctx.status(404).json(ErrorResponse("Not found post with id" + idPost))
         }
