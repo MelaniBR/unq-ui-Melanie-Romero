@@ -17,7 +17,7 @@ class RegisterController(val instagramSystem: InstagramSystem) {
         if ( isNullOrEmptyData(newUserData) ){
             throw BadRequestResponse("empty field")
         }
-        this.registerUser(ctx ,newUserData);
+        this.registerUser(ctx ,newUserData)
     }
 
     fun isNullOrEmptyData(newUserData: RegisterRequest): Boolean {
